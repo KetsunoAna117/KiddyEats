@@ -11,43 +11,49 @@ struct ExploreView: View {
     @State private var searchText: String = ""
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Welcome!")
-            
-            Text("Let's cook something 🍅")
-                .font(.system(size: 20))
-                .fontWeight(.semibold)
-            
-            HStack {
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(Color(.tertiaryLabel))
-                TextField("Search from ingredients", text: $searchText)
-            }
-            .padding(.horizontal)
-            .padding(.vertical, 8)
-            .background(Color(.tertiarySystemFill))
-            .cornerRadius(10)
-            
-            Text("Try our recommendations for your 6 months old!")
-                .font(.system(size: 12))
-                .fontWeight(.bold)
-                .padding(.top)
-            
-            ScrollView{
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
-                    ForEach(0..<6) { _ in
-                        RecipeCard(emoji: "🍠", name: "Sweet Potato Noodles")
+        NavigationStack {
+            VStack(alignment: .leading, spacing: 10) {
+//                Text("Welcome!")
+//                
+//                Text("Let's cook something 🍅")
+//                    .font(.system(size: 20))
+//                    .fontWeight(.semibold)
+//                
+//                HStack {
+//                    Image(systemName: "magnifyingglass")
+//                        .foregroundColor(Color(.tertiaryLabel))
+//                    TextField("Search from ingredients", text: $searchText)
+//                }
+//                .padding(.horizontal)
+//                .padding(.vertical, 8)
+//                .background(Color(.tertiarySystemFill))
+//                .cornerRadius(10)
+                
+                Text("Try our recommendations for your 6 months old!")
+                    .font(.system(size: 12))
+                    .fontWeight(.bold)
+                    .foregroundStyle(.accent)
+                
+                ScrollView{
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+                        ForEach(0..<6) { _ in
+                            RecipeCard(emoji: "🍠", name: "Sweet Potato Noodles")
+                        }
                     }
+                    Image(systemName: "arrow.clockwise.circle.fill")
+                        .font(.system(size: 48))
+                        .foregroundColor(.accentColor)
+                        .padding(.top)
                 }
-                Image(systemName: "arrow.clockwise.circle.fill")
-                    .font(.system(size: 48))
-                    .foregroundColor(.accentColor)
-                    .padding(.top)
             }
+            .padding(.top)
+            .padding(.horizontal)
+            .background(.appBackground)
+            .navigationTitle("Explore Recipes")
+
         }
-        .padding(.top)
-        .padding(.horizontal)
-        .background(.appBackground)
+        .searchable(text: $searchText, prompt: "Search new recipe by ingredients")
+
     }
 }
 
