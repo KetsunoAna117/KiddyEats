@@ -11,6 +11,10 @@
 		3AB03C422C6DE845001F5473 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB03C412C6DE845001F5473 /* ContentView.swift */; };
 		3AB03C442C6DE848001F5473 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB03C432C6DE848001F5473 /* Assets.xcassets */; };
 		3AB03C472C6DE848001F5473 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB03C462C6DE848001F5473 /* Preview Assets.xcassets */; };
+		E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61272632C6DE92E007698E6 /* ExploreView.swift */; };
+		E61272662C6DE92E007698E6 /* BabyMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612725F2C6DE92E007698E6 /* BabyMeal.swift */; };
+		E61272672C6DE92E007698E6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612725D2C6DE92E007698E6 /* User.swift */; };
+		E61272682C6DE92E007698E6 /* BabyProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612725E2C6DE92E007698E6 /* BabyProfile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,10 @@
 		3AB03C412C6DE845001F5473 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3AB03C432C6DE848001F5473 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AB03C462C6DE848001F5473 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E612725D2C6DE92E007698E6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E612725E2C6DE92E007698E6 /* BabyProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BabyProfile.swift; path = KiddyEatsApp/Model/BabyProfile.swift; sourceTree = SOURCE_ROOT; };
+		E612725F2C6DE92E007698E6 /* BabyMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BabyMeal.swift; path = KiddyEatsApp/Model/BabyMeal.swift; sourceTree = SOURCE_ROOT; };
+		E61272632C6DE92E007698E6 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +59,12 @@
 		3AB03C3E2C6DE845001F5473 /* KiddyEatsApp */ = {
 			isa = PBXGroup;
 			children = (
+				E612725B2C6DE92E007698E6 /* Helper */,
+				E612725C2C6DE92E007698E6 /* Service */,
+				E61272602C6DE92E007698E6 /* Model */,
+				E61272612C6DE92E007698E6 /* ViewModel */,
+				E61272622C6DE92E007698E6 /* View */,
+				E61272642C6DE92E007698E6 /* Screen */,
 				3AB03C3F2C6DE845001F5473 /* KiddyEatsAppApp.swift */,
 				3AB03C412C6DE845001F5473 /* ContentView.swift */,
 				3AB03C432C6DE848001F5473 /* Assets.xcassets */,
@@ -65,6 +79,60 @@
 				3AB03C462C6DE848001F5473 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E612725A2C6DE92E007698E6 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		E612725B2C6DE92E007698E6 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				E612725A2C6DE92E007698E6 /* Extension */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		E612725C2C6DE92E007698E6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		E61272602C6DE92E007698E6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E612725D2C6DE92E007698E6 /* User.swift */,
+				E612725E2C6DE92E007698E6 /* BabyProfile.swift */,
+				E612725F2C6DE92E007698E6 /* BabyMeal.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E61272612C6DE92E007698E6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E61272622C6DE92E007698E6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E61272642C6DE92E007698E6 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				E61272632C6DE92E007698E6 /* ExploreView.swift */,
+			);
+			path = Screen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +206,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AB03C422C6DE845001F5473 /* ContentView.swift in Sources */,
+				E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */,
+				E61272662C6DE92E007698E6 /* BabyMeal.swift in Sources */,
+				E61272672C6DE92E007698E6 /* User.swift in Sources */,
+				E61272682C6DE92E007698E6 /* BabyProfile.swift in Sources */,
 				3AB03C402C6DE845001F5473 /* KiddyEatsAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,6 +352,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -309,6 +382,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
