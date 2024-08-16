@@ -76,7 +76,7 @@ struct BabyMeal: Identifiable, Codable {
             }
         }
         
-        return meals
+        return meals.filter { $0.isValid() }
     }
     
     static func cleanIncompleteJson(_ jsonStr: String) -> String {
@@ -93,7 +93,15 @@ struct BabyMeal: Identifiable, Codable {
             cleanedStr += "]"
         }
         
+        // Replace any null values with empty strings or arrays
+        cleanedStr = cleanedStr.replacingOccurrences(of: ": null", with: ": \"\"")
+        cleanedStr = cleanedStr.replacingOccurrences(of: ": []", with: ": []")
+        
         return cleanedStr
+    }
+    
+    func isValid() -> Bool {
+        return !name.isEmpty && !emoji.isEmpty && !ingredients.isEmpty && !cookingSteps.isEmpty && servingSize > 0 && estimatedCookingTimeMinutes > 0
     }
     
     static func testIncompleteJson() -> String {

@@ -18,10 +18,12 @@ struct ExploreView: View {
     @State private var isLoading: Bool = false
     @State private var selectedMeal: BabyMeal?
     @State private var isShowingRecipeDetail: Bool = false
+    @State private var errorMessage: String?
     
     @State private var currentTask: Task<Void, Never>?
     @State private var searchCancellable: AnyCancellable?
     @State private var hasLoadedInitialRecommendations: Bool = false
+    @State private var retryCount: Int = 0
     
     private var displayedMeals: [BabyMeal] {
         let meals = babyMeals + Array(repeating: BabyMeal(name: "", emoji: "", ingredients: [], allergens: [], cookingSteps: "", servingSize: 0, estimatedCookingTimeMinutes: 0), count: max(0, 6 - babyMeals.count))
@@ -38,10 +40,20 @@ struct ExploreView: View {
                 
                 ScrollView {
                     VStack(spacing: 20) {
+                        if let errorMessage = errorMessage {
+                            Text(errorMessage)
+                                .foregroundColor(.red)
+                                .padding()
+                        }
+                        
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
                             ForEach(displayedMeals) { meal in
                                 if meal.name.isEmpty {
-                                    RecipeCard(babyMeal: meal)
+                                    if isLoading {
+                                        RecipeCardPlaceholder()
+                                    } else {
+                                        RecipeCard(babyMeal: meal)
+                                    }
                                 } else {
                                     NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)) {
                                         RecipeCard(babyMeal: meal)
@@ -124,6 +136,7 @@ struct ExploreView: View {
         await MainActor.run { 
             isLoading = true
             babyMeals = []
+            errorMessage = nil
         }
         currentTask?.cancel()
         currentTask = Task {
@@ -136,11 +149,29 @@ struct ExploreView: View {
                         self.babyMeals = meals
                     }
                 }
+                retryCount = 0
             } catch {
                 print("Error refreshing recommendations: \(error)")
+                await handleRecommendationError(error)
             }
             await MainActor.run {
                 self.isLoading = false
+            }
+        }
+    }
+    
+    private func handleRecommendationError(_ error: Error) async {
+        await MainActor.run {
+            if retryCount < 3 {
+                retryCount += 1
+                errorMessage = "Failed to load recommendations. Retrying... (Attempt \(retryCount)/3)"
+                Task {
+                    try await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds delay
+                    await refreshRecommendations()
+                }
+            } else {
+                errorMessage = "Failed to load recommendations. Please try again later."
+                retryCount = 0
             }
         }
     }
@@ -179,4 +210,16 @@ struct MealDetailViewControllerRepresentable: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: BabyMealDetailViewController, context: Context) {}
+}
+struct RecipeCardPlaceholder: View {
+    var body: some View {
+        ZStack {
+            Color.exploreCardBackground
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: .accent))
+                .scaleEffect(1.5)
+        }
+        .frame(height: 180)
+        .cornerRadius(10)
+    }
 }
