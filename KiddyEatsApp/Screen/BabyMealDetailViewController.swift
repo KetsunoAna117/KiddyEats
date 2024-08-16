@@ -205,7 +205,7 @@ class BabyMealDetailViewController: UIViewController {
         cookingInstructionsLabel.attributedText = cookingInstructions
         
         NSLayoutConstraint.activate([
-            cookingInstructionsLabel.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 8),
+            cookingInstructionsLabel.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 0),
             cookingInstructionsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             cookingInstructionsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
