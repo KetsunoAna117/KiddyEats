@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import UIKit
+import UIKit
 
 
 struct ExploreView: View {
@@ -197,4 +198,14 @@ struct ShimmeringRecipeCard: View {
 
 #Preview {
     ExploreView()
+}
+
+struct MealDetailViewControllerRepresentable: UIViewControllerRepresentable {
+    let babyMeal: BabyMeal
+    
+    func makeUIViewController(context: Context) -> BabyMealDetailViewController {
+        return BabyMealDetailViewController(babyMeal: babyMeal)
+    }
+    
+    func updateUIViewController(_ uiViewController: BabyMealDetailViewController, context: Context) {}
 }
