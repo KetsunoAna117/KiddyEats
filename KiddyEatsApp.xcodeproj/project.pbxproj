@@ -15,7 +15,8 @@
 		E61272672C6DE92E007698E6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612725D2C6DE92E007698E6 /* User.swift */; };
 		E61272682C6DE92E007698E6 /* BabyProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612725E2C6DE92E007698E6 /* BabyProfile.swift */; };
 		E612726A2C6DEDC0007698E6 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61272692C6DEDBC007698E6 /* AIService.swift */; };
-		E612726E2C6E0272007698E6 /* MealDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612726D2C6E0264007698E6 /* MealDetailView.swift */; };
+		E612726E2C6E0272007698E6 /* MealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612726D2C6E0264007698E6 /* MealDetailViewController.swift */; };
+		E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +29,8 @@
 		E612725F2C6DE92E007698E6 /* BabyMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BabyMeal.swift; path = KiddyEatsApp/Model/BabyMeal.swift; sourceTree = SOURCE_ROOT; };
 		E61272632C6DE92E007698E6 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		E61272692C6DEDBC007698E6 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
-		E612726D2C6E0264007698E6 /* MealDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailView.swift; sourceTree = "<group>"; };
+		E612726D2C6E0264007698E6 /* MealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailViewController.swift; sourceTree = "<group>"; };
+		E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealRecommenderUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 		3AB03C3E2C6DE845001F5473 /* KiddyEatsApp */ = {
 			isa = PBXGroup;
 			children = (
+				E68C0F292C6F473100532140 /* UseCase */,
 				E612725B2C6DE92E007698E6 /* Helper */,
 				E612725C2C6DE92E007698E6 /* Service */,
 				E61272602C6DE92E007698E6 /* Model */,
@@ -132,10 +135,18 @@
 		E61272642C6DE92E007698E6 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
-				E612726D2C6E0264007698E6 /* MealDetailView.swift */,
+				E612726D2C6E0264007698E6 /* MealDetailViewController.swift */,
 				E61272632C6DE92E007698E6 /* ExploreView.swift */,
 			);
 			path = Screen;
+			sourceTree = "<group>";
+		};
+		E68C0F292C6F473100532140 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */,
+			);
+			path = UseCase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,7 +223,8 @@
 				E612726A2C6DEDC0007698E6 /* AIService.swift in Sources */,
 				E61272662C6DE92E007698E6 /* BabyMeal.swift in Sources */,
 				E61272672C6DE92E007698E6 /* User.swift in Sources */,
-				E612726E2C6E0272007698E6 /* MealDetailView.swift in Sources */,
+				E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */,
+				E612726E2C6E0272007698E6 /* MealDetailViewController.swift in Sources */,
 				E61272682C6DE92E007698E6 /* BabyProfile.swift in Sources */,
 				3AB03C402C6DE845001F5473 /* KiddyEatsApp.swift in Sources */,
 			);
