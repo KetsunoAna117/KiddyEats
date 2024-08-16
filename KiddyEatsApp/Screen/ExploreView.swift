@@ -120,16 +120,20 @@ struct ExploreView: View {
     private func refreshRecommendations() async {
         await MainActor.run { isLoading = true }
         currentTask?.cancel()
-        do {
-            let newMeals = try await recommender.recommendMeals(profile: recommender.fakeBaby, searchQuery: searchText.isEmpty ? nil : searchText)
-            if !Task.isCancelled {
-                await MainActor.run {
-                    self.babyMeals = newMeals
-                    self.isLoading = false
+        currentTask = Task {
+            do {
+                var jsonResponse = ""
+                try await recommender.recommendMealsStreaming(profile: recommender.fakeBaby, searchQuery: searchText.isEmpty ? nil : searchText) { token in
+                    jsonResponse += token
+                    if let meals = BabyMeal.fromIncompleteJsonList(jsonStr: jsonResponse) {
+                        Task { @MainActor in
+                            self.babyMeals = meals
+                        }
+                    }
                 }
+            } catch {
+                print("Error refreshing recommendations: \(error)")
             }
-        } catch {
-            print("Error refreshing recommendations: \(error)")
             await MainActor.run {
                 self.isLoading = false
             }

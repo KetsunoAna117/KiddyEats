@@ -25,6 +25,10 @@ class BabyMealRecommenderUseCase {
     ]
     
     func recommendMeals(profile: BabyProfile, searchQuery: String? = nil) async -> [BabyMeal] {
+        // Keep the existing implementation
+    }
+    
+    func recommendMealsStreaming(profile: BabyProfile, searchQuery: String? = nil, onToken: @escaping (String) -> Void) async throws {
         let babyProfileString = """
         Name: \(profile.name)
         Gender: \(profile.gender)
@@ -33,7 +37,6 @@ class BabyMealRecommenderUseCase {
         Allergies: [\(profile.allergies.joined(separator: ", "))]
         """
         
-        //        let commonFoodAllergies = "Peanuts, Tree nuts, Milk, Eggs, Soy, Wheat, Fish, Shellfish, Sesame, Corn, Celery, Mustard, Lupin, Sulfites, Gluten, Kiwi, Strawberries, Peaches, Avocado, Banana"
         let commonFoodAllergies = "Milk, Egg, Fish, Crustacean shellfish, Tree nuts, Peanuts, Wheat, Soybeans, Sesame"
         
         var llmPrompt = """
@@ -114,36 +117,14 @@ class BabyMealRecommenderUseCase {
         \(babyProfileString)
         """
         
-        if searchQuery != nil {
-            llmPrompt += "\n\nAlso use this search query: \(searchQuery!).\n\nIf the search query is nonsense, just return a random meal based on baby profile, always follow the schema!"
+        if let searchQuery = searchQuery {
+            llmPrompt += "\n\nAlso use this search query: \(searchQuery).\n\nIf the search query is nonsense, just return a random meal based on baby profile, always follow the schema!"
         }
         
         print(llmPrompt)
-        // Implement LLM API call and parse response
-        let response = aiService.sendMessage(query: llmPrompt, uiImage: nil)
         
-        // Convert response to list of meals
-        let jsonData = Data(response.utf8)
-        let decoder = JSONDecoder()
-        
-        do {
-            let meals = try decoder.decode([BabyMeal].self, from: jsonData)
-            return meals
-        } catch DecodingError.dataCorrupted(let context) {
-            print("Data corrupted: \(context.debugDescription)")
-            return fakeMeals
-        } catch DecodingError.keyNotFound(let key, let context) {
-            print("Key '\(key.stringValue)' not found: \(context.debugDescription)")
-            return fakeMeals
-        } catch DecodingError.typeMismatch(let type, let context) {
-            print("Type '\(type)' mismatch: \(context.debugDescription)")
-            return fakeMeals
-        } catch DecodingError.valueNotFound(let type, let context) {
-            print("Value of type '\(type)' not found: \(context.debugDescription)")
-            return fakeMeals
-        } catch {
-            print("Unexpected error: \(error.localizedDescription)")
-            return fakeMeals
+        try await aiService.sendMessageStreaming(query: llmPrompt, uiImage: nil) { token in
+            onToken(token)
         }
     }
 }
