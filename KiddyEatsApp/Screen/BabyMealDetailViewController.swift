@@ -99,7 +99,7 @@ class BabyMealDetailViewController: UIViewController {
         
         titleLabel.text = babyMeal.name
         titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        titleLabel.textColor = .systemBlue
+        titleLabel.textColor = .black
         
         favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
         favoriteButton.tintColor = .systemBlue
@@ -174,13 +174,11 @@ class BabyMealDetailViewController: UIViewController {
         recipeInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         recipeInfoLabel.numberOfLines = 0
         
-        let recipeInfo = """
-        Recipe Information
-        Serving size: \(babyMeal.servingSize)
-        Estimated cooking time: \(babyMeal.estimatedCookingTimeMinutes) mins
-        """
+        let recipeInfo = NSMutableAttributedString(string: "Recipe Information\n", attributes: [.font: UIFont.boldSystemFont(ofSize: 16)])
+        recipeInfo.append(NSAttributedString(string: "Serving size: \(babyMeal.servingSize)\n"))
+        recipeInfo.append(NSAttributedString(string: "Estimated cooking time: \(babyMeal.estimatedCookingTimeMinutes) mins"))
         
-        recipeInfoLabel.text = recipeInfo
+        recipeInfoLabel.attributedText = recipeInfo
         
         NSLayoutConstraint.activate([
             recipeInfoLabel.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 16),
@@ -194,12 +192,12 @@ class BabyMealDetailViewController: UIViewController {
         ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
         ingredientsLabel.numberOfLines = 0
         
-        var ingredientsText = "Ingredients\n"
+        let ingredientsText = NSMutableAttributedString(string: "Ingredients\n", attributes: [.font: UIFont.boldSystemFont(ofSize: 16)])
         for ingredient in babyMeal.ingredients {
-            ingredientsText += "• \(ingredient)\n"
+            ingredientsText.append(NSAttributedString(string: "• \(ingredient)\n"))
         }
         
-        ingredientsLabel.text = ingredientsText
+        ingredientsLabel.attributedText = ingredientsText
         
         NSLayoutConstraint.activate([
             ingredientsLabel.topAnchor.constraint(equalTo: recipeInfoLabel.bottomAnchor, constant: 16),
@@ -213,15 +211,13 @@ class BabyMealDetailViewController: UIViewController {
         cookingInstructionsLabel.translatesAutoresizingMaskIntoConstraints = false
         cookingInstructionsLabel.numberOfLines = 0
         
-        let cookingInstructions = """
-        Cooking Instructions
-        \(babyMeal.cookingSteps)
-        """
+        let cookingInstructions = NSMutableAttributedString(string: "Cooking Instructions\n", attributes: [.font: UIFont.boldSystemFont(ofSize: 16)])
+        cookingInstructions.append(NSAttributedString(string: babyMeal.cookingSteps))
         
-        cookingInstructionsLabel.text = cookingInstructions
+        cookingInstructionsLabel.attributedText = cookingInstructions
         
         NSLayoutConstraint.activate([
-            cookingInstructionsLabel.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 16),
+            cookingInstructionsLabel.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 8),
             cookingInstructionsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             cookingInstructionsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
