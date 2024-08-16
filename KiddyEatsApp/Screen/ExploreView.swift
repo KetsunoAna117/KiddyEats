@@ -13,17 +13,17 @@ class BabyMealRecommenderUseCase {
     let aiService: AIService = AIService(identifier: FakeAPIKey.GPT4o.rawValue, isConversation: false)
     
     let fakeBaby = BabyProfile(
-        name: "Olivia",
-        gender: "Female",
+        name: "Nathan",
+        gender: "Male",
         allergies: ["Eggs", "Peanuts"],
         dateOfBirth: Calendar.current.date(byAdding: .month, value: -9, to: Date())!,
         location: "Indonesia"
     )
 
     let fakeMeals = [
-        BabyMeal(name: "Mashed Banana", emoji: "🍌", ingredients: ["banana"], potentialAllergies: [], cookingSteps: "Mash the banana until smooth."),
-        BabyMeal(name: "Pureed Carrots", emoji: "🥕", ingredients: ["carrot"], potentialAllergies: [], cookingSteps: "Steam the carrots and puree until smooth."),
-        BabyMeal(name: "Apple Sauce", emoji: "🍏", ingredients: ["apple"], potentialAllergies: [], cookingSteps: "Peel, core, and cook the apples until soft, then puree until smooth.")
+        BabyMeal(name: "Mashed Banana", emoji: "🍌", ingredients: ["banana"], allergens: [], cookingSteps: "Mash the banana until smooth.", servingSize: 1, estimatedCookingTimeMinutes: 5),
+        BabyMeal(name: "Pureed Carrots", emoji: "🥕", ingredients: ["carrot"], allergens: [], cookingSteps: "Steam the carrots and puree until smooth.", servingSize: 1, estimatedCookingTimeMinutes: 15),
+        BabyMeal(name: "Apple Sauce", emoji: "🍏", ingredients: ["apple"], allergens: [], cookingSteps: "Peel, core, and cook the apples until soft, then puree until smooth.", servingSize: 2, estimatedCookingTimeMinutes: 20)
     ]
     
     func recommendMeals(profile: BabyProfile, searchQuery: String? = nil) async -> [BabyMeal] {
@@ -35,23 +35,29 @@ class BabyMealRecommenderUseCase {
         Allergies: [\(profile.allergies.joined(separator: ", "))]
         """
         
-        let commonFoodAllergies = "Peanuts, Tree nuts, Milk, Eggs, Soy, Wheat, Fish, Shellfish, Sesame, Corn, Celery, Mustard, Lupin, Sulfites, Gluten, Kiwi, Strawberries, Peaches, Avocado, Banana"
+//        let commonFoodAllergies = "Peanuts, Tree nuts, Milk, Eggs, Soy, Wheat, Fish, Shellfish, Sesame, Corn, Celery, Mustard, Lupin, Sulfites, Gluten, Kiwi, Strawberries, Peaches, Avocado, Banana"
+        let commonFoodAllergies = "Milk, Egg, Fish, Crustacean shellfish, Tree nuts, Peanuts, Wheat, Soybeans, Sesame"
         
         var llmPrompt = """
         You are an expert in child healthcare.
         
         Your job is to recommend baby meals based on baby profile.
         
-        External Info - Common Food Allergies:
+        External Info - Common Food Allergies based on FDA:
         \(commonFoodAllergies)
         
         Use this JSON schema on your response:
         ```
         {
         "$schema": "http://json-schema.org/draft-07/schema#",
-        "title": "Meal",
+        "title": "BabyMeal",
         "type": "object",
         "properties": {
+        "id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Unique identifier for the meal"
+        },
         "name": {
         "type": "string",
         "description": "Name of the meal"
@@ -67,7 +73,7 @@ class BabyMealRecommenderUseCase {
         },
         "description": "List of ingredients for the meal, include units separated by comma"
         },
-        "potentialAllergies": {
+        "allergens": {
         "type": "array",
         "items": {
         "type": "string"
@@ -76,10 +82,18 @@ class BabyMealRecommenderUseCase {
         },
         "cookingSteps": {
         "type": "string",
-        "description": "Steps to cook the meal in numbered list and newline. Before cooking steps, include serving size and estimated cooking time, then separate it with double newline until step by steps."
+        "description": "Steps to cook the meal in numbered list and newline."
+        },
+        "servingSize": {
+        "type": "integer",
+        "description": "Number of servings the meal provides"
+        },
+        "estimatedCookingTimeMinutes": {
+        "type": "integer",
+        "description": "Estimated cooking time in minutes"
         }
         },
-        "required": ["id", "name", "emoji", "ingredients", "potentialAllergies", "cookingSteps"]
+        "required": ["id", "name", "emoji", "ingredients", "allergens", "cookingSteps", "servingSize", "estimatedCookingTimeMinutes"]
         }
         ```
         
@@ -139,10 +153,12 @@ class BabyMealRecommenderUseCase {
 struct ExploreView: View {
     @State private var searchText: String = ""
     @State private var babyMeals: [BabyMeal] = [
-        BabyMeal(name: "Sweet Potato Noodles", emoji: "🍠", ingredients: ["Sweet Potato", "Olive Oil"], potentialAllergies: [], cookingSteps: "1. Peel and spiralize sweet potato\n2. Sauté in olive oil"),
-        BabyMeal(name: "Banana Puree", emoji: "🍌", ingredients: ["Banana"], potentialAllergies: [], cookingSteps: "1. Peel and mash banana"),
+        BabyMeal(name: "Sweet Potato Noodles", emoji: "🍠", ingredients: ["Sweet Potato", "Olive Oil"], allergens: [], cookingSteps: "1. Peel and spiralize sweet potato\n2. Sauté in olive oil", servingSize: 1, estimatedCookingTimeMinutes: 15),
+        BabyMeal(name: "Banana Puree", emoji: "🍌", ingredients: ["Banana"], allergens: [], cookingSteps: "1. Peel and mash banana", servingSize: 1, estimatedCookingTimeMinutes: 5),
     ]
     @State private var isLoading: Bool = false
+    @State private var selectedMeal: BabyMeal?
+    @State private var isShowingRecipeDetail: Bool = false
     
     private let recommender = BabyMealRecommenderUseCase()
     @State private var currentTask: Task<Void, Never>?
@@ -158,11 +174,15 @@ struct ExploreView: View {
                 
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
-                        ForEach(isLoading ? Array(repeating: BabyMeal(name: "", emoji: "", ingredients: [], potentialAllergies: [], cookingSteps: ""), count: 6) : babyMeals) { meal in
+                        ForEach(isLoading ? Array(repeating: BabyMeal(name: "", emoji: "", ingredients: [], allergens: [], cookingSteps: "", servingSize: 0, estimatedCookingTimeMinutes: 0), count: 6) : babyMeals) { meal in
                             if isLoading {
                                 ShimmeringRecipeCard()
                             } else {
                                 RecipeCard(babyMeal: meal)
+                                    .onTapGesture {
+                                        selectedMeal = meal
+                                        isShowingRecipeDetail = true
+                                    }
                             }
                         }
                     }
@@ -204,6 +224,13 @@ struct ExploreView: View {
             .padding(.horizontal)
             .background(.appBackground)
             .navigationTitle("Explore Recipes")
+            .sheet(isPresented: $isShowingRecipeDetail) {
+                if let meal = selectedMeal {
+                    NavigationView {
+                        RecipeDetailView(babyMeal: meal, isPresented: $isShowingRecipeDetail)
+                    }
+                }
+            }
         }
         .searchable(text: $searchText, prompt: "Search new recipe by ingredients")
         .onChange(of: searchText) { _ in
@@ -243,7 +270,6 @@ struct ExploreView: View {
         }
     }
 }
-
 
 struct RecipeCard: View {
     let babyMeal: BabyMeal
