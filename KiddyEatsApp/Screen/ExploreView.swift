@@ -133,10 +133,9 @@ struct ExploreView: View {
                 var jsonResponse = ""
                 try await recommender.recommendMealsStreaming(profile: recommender.fakeBaby, searchQuery: searchText.isEmpty ? nil : searchText) { token in
                     jsonResponse += token
-                    if let meals = BabyMeal.fromIncompleteJsonList(jsonStr: jsonResponse) {
-                        Task { @MainActor in
-                            self.babyMeals = meals
-                        }
+                    let meals = BabyMeal.fromIncompleteJsonList(jsonStr: jsonResponse)
+                    Task { @MainActor in
+                        self.babyMeals = meals
                     }
                 }
             } catch {
