@@ -1,9 +1,3 @@
-//
-//  BabyMealDetailViewController.swift
-//  KiddyEatsApp
-//
-//  Created by Arya Adyatma on 15/08/24.
-//
 import UIKit
 import SwiftUI
 
@@ -16,6 +10,7 @@ class BabyMealDetailViewController: UIViewController {
     
     private let emojiLabel = UILabel()
     private let titleLabel = UILabel()
+    private let favoriteButton = UIButton(type: .system)
     private let allergensView = UIView()
     private let recipeInfoLabel = UILabel()
     private let ingredientsLabel = UILabel()
@@ -43,7 +38,7 @@ class BabyMealDetailViewController: UIViewController {
         
         setupScrollView()
         setupEmojiLabel()
-        setupTitleLabel()
+        setupTitleAndFavoriteButton()
         setupAllergensView()
         setupRecipeInfo()
         setupIngredients()
@@ -89,19 +84,30 @@ class BabyMealDetailViewController: UIViewController {
         ])
     }
     
-    private func setupTitleLabel() {
+    private func setupTitleAndFavoriteButton() {
         contentView.addSubview(titleLabel)
+        contentView.addSubview(favoriteButton)
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         
         titleLabel.text = babyMeal.name
         titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        titleLabel.textColor = .black
+        titleLabel.textColor = .systemBlue
+        
+        favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        favoriteButton.tintColor = .systemBlue
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: emojiLabel.bottomAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            titleLabel.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
+            
+            favoriteButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
     
@@ -120,19 +126,11 @@ class BabyMealDetailViewController: UIViewController {
         allergensStack.axis = .vertical
         allergensStack.spacing = 4
         
-        if babyMeal.allergens.isEmpty {
-            let noneLabel = UILabel()
-            noneLabel.text = "None"
-            noneLabel.textColor = .white
-            noneLabel.font = UIFont.italicSystemFont(ofSize: noneLabel.font.pointSize)
-            allergensStack.addArrangedSubview(noneLabel)
-        } else {
-            for allergen in babyMeal.allergens {
-                let allergenLabel = UILabel()
-                allergenLabel.text = "• \(allergen)"
-                allergenLabel.textColor = .white
-                allergensStack.addArrangedSubview(allergenLabel)
-            }
+        for allergen in babyMeal.allergens {
+            let allergenLabel = UILabel()
+            allergenLabel.text = "• \(allergen)"
+            allergenLabel.textColor = .white
+            allergensStack.addArrangedSubview(allergenLabel)
         }
         
         allergensView.addSubview(allergensTitle)
@@ -162,11 +160,13 @@ class BabyMealDetailViewController: UIViewController {
         recipeInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         recipeInfoLabel.numberOfLines = 0
         
-        let recipeInfo = NSMutableAttributedString(string: "Recipe Information\n", attributes: [.font: UIFont.boldSystemFont(ofSize: 16)])
-        recipeInfo.append(NSAttributedString(string: "Serving size: \(babyMeal.servingSize)\n"))
-        recipeInfo.append(NSAttributedString(string: "Estimated cooking time: \(babyMeal.estimatedCookingTimeMinutes) mins"))
+        let recipeInfo = """
+        Recipe Information
+        Serving size: \(babyMeal.servingSize)
+        Estimated cooking time: \(babyMeal.estimatedCookingTimeMinutes) mins
+        """
         
-        recipeInfoLabel.attributedText = recipeInfo
+        recipeInfoLabel.text = recipeInfo
         
         NSLayoutConstraint.activate([
             recipeInfoLabel.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 16),
@@ -180,12 +180,12 @@ class BabyMealDetailViewController: UIViewController {
         ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
         ingredientsLabel.numberOfLines = 0
         
-        let ingredientsText = NSMutableAttributedString(string: "Ingredients\n", attributes: [.font: UIFont.boldSystemFont(ofSize: 16)])
+        var ingredientsText = "Ingredients\n"
         for ingredient in babyMeal.ingredients {
-            ingredientsText.append(NSAttributedString(string: "• \(ingredient)\n"))
+            ingredientsText += "• \(ingredient)\n"
         }
         
-        ingredientsLabel.attributedText = ingredientsText
+        ingredientsLabel.text = ingredientsText
         
         NSLayoutConstraint.activate([
             ingredientsLabel.topAnchor.constraint(equalTo: recipeInfoLabel.bottomAnchor, constant: 16),
@@ -199,13 +199,15 @@ class BabyMealDetailViewController: UIViewController {
         cookingInstructionsLabel.translatesAutoresizingMaskIntoConstraints = false
         cookingInstructionsLabel.numberOfLines = 0
         
-        let cookingInstructions = NSMutableAttributedString(string: "Cooking Instructions\n", attributes: [.font: UIFont.boldSystemFont(ofSize: 16)])
-        cookingInstructions.append(NSAttributedString(string: babyMeal.cookingSteps))
+        let cookingInstructions = """
+        Cooking Instructions
+        \(babyMeal.cookingSteps)
+        """
         
-        cookingInstructionsLabel.attributedText = cookingInstructions
+        cookingInstructionsLabel.text = cookingInstructions
         
         NSLayoutConstraint.activate([
-            cookingInstructionsLabel.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 0),
+            cookingInstructionsLabel.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 16),
             cookingInstructionsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             cookingInstructionsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
@@ -215,10 +217,10 @@ class BabyMealDetailViewController: UIViewController {
         contentView.addSubview(addToLogButton)
         addToLogButton.translatesAutoresizingMaskIntoConstraints = false
         
-        addToLogButton.setTitle("Save to collections", for: .normal)
+        addToLogButton.setTitle("Add to Log", for: .normal)
         addToLogButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         addToLogButton.setTitleColor(.white, for: .normal)
-        addToLogButton.backgroundColor = UIColor(named: "AccentColor") ?? .systemBlue
+        addToLogButton.backgroundColor = .systemBlue
         addToLogButton.layer.cornerRadius = 8
         addToLogButton.addTarget(self, action: #selector(addToLogTapped), for: .touchUpInside)
         
@@ -235,6 +237,12 @@ class BabyMealDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @objc private func favoriteButtonTapped() {
+        isFavorite.toggle()
+        let imageName = isFavorite ? "heart.fill" : "heart"
+        favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
+    }
+    
     @objc private func addToLogTapped() {
         // Implement add to log functionality
         print("Add to log tapped")
@@ -242,13 +250,13 @@ class BabyMealDetailViewController: UIViewController {
 }
 
 // MARK: - SwiftUI Preview
-struct MealDetailViewController_Preview: PreviewProvider {
+struct BabyMealDetailViewController_Preview: PreviewProvider {
     static var previews: some View {
-        MealDetailVCRepresentable()
+        BabyMealDetailVCRepresentable()
     }
 }
 
-struct MealDetailVCRepresentable: UIViewControllerRepresentable {
+struct BabyMealDetailVCRepresentable: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> BabyMealDetailViewController {
         let sampleMeal = BabyMeal(
             name: "Sweet Potato Puree",
