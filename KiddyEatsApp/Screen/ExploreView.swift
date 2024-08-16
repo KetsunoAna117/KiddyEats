@@ -161,10 +161,7 @@ struct RecipeCard: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
             if babyMeal.name.isEmpty {
-                LoadingCircleView()
-                    .frame(height: 180)
-                    .background(Color.exploreCardBackground)
-                    .cornerRadius(10)
+                LoadingCard()
             } else {
                 VStack {
                     Text(babyMeal.emoji)
@@ -195,28 +192,16 @@ struct RecipeCard: View {
     }
 }
 
-struct ShimmeringView: View {
-    @State private var isAnimating = false
-    
+struct LoadingCard: View {
     var body: some View {
         ZStack {
-            Color.gray.opacity(0.3)
-            Color.white.opacity(0.2)
-                .mask(
-                    Rectangle()
-                        .fill(
-                            LinearGradient(gradient: Gradient(colors: [.clear, .white.opacity(0.48), .clear]), startPoint: .leading, endPoint: .trailing)
-                        )
-                        .rotationEffect(.degrees(70))
-                        .offset(x: isAnimating ? 400 : -400)
-                )
+            Color.exploreCardBackground
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: .accent))
+                .scaleEffect(1.5)
         }
+        .frame(height: 180)
         .cornerRadius(10)
-        .onAppear {
-            withAnimation(Animation.linear(duration: 1).repeatForever(autoreverses: false)) {
-                isAnimating = true
-            }
-        }
     }
 }
 
