@@ -24,11 +24,8 @@ struct ExploreView: View {
     @State private var hasLoadedInitialRecommendations: Bool = false
     
     private var displayedMeals: [BabyMeal] {
-        if isLoading {
-            return Array(repeating: BabyMeal(name: "", emoji: "", ingredients: [], allergens: [], cookingSteps: "", servingSize: 0, estimatedCookingTimeMinutes: 0), count: 6)
-        } else {
-            return babyMeals
-        }
+        let meals = babyMeals + Array(repeating: BabyMeal(name: "", emoji: "", ingredients: [], allergens: [], cookingSteps: "", servingSize: 0, estimatedCookingTimeMinutes: 0), count: max(0, 6 - babyMeals.count))
+        return Array(meals.prefix(6))
     }
     
     var body: some View {
@@ -126,7 +123,10 @@ struct ExploreView: View {
     }
 
     private func refreshRecommendations() async {
-        await MainActor.run { isLoading = true }
+        await MainActor.run { 
+            isLoading = true
+            babyMeals = []
+        }
         currentTask?.cancel()
         currentTask = Task {
             do {
