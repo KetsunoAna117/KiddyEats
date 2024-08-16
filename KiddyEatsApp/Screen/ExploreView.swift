@@ -30,67 +30,72 @@ struct ExploreView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Try our recommendations for your 6 months old!")
-                    .font(.system(size: 12))
-                    .fontWeight(.bold)
-                    .foregroundStyle(.accent)
-                
-                ScrollView {
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
-                        ForEach(displayedMeals) { meal in
-                            if meal.name.isEmpty {
-                                RecipeCard(babyMeal: meal)
-                            } else {
-                                NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)) {
+            ZStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Try our recommendations for your 6 months old!")
+                        .font(.system(size: 12))
+                        .fontWeight(.bold)
+                        .foregroundStyle(.accent)
+                    
+                    ScrollView {
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+                            ForEach(displayedMeals) { meal in
+                                if meal.name.isEmpty {
                                     RecipeCard(babyMeal: meal)
+                                } else {
+                                    NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)) {
+                                        RecipeCard(babyMeal: meal)
+                                    }
                                 }
                             }
                         }
                     }
-                    HStack {
+                }
+                .padding(.top)
+                .padding(.horizontal)
+                
+                if isLoading {
+                    VStack {
                         Spacer()
-                        if isLoading {
-                            Button(action: cancelRecommendations) {
-                                HStack {
-                                    Image(systemName: "xmark.circle.fill")
-                                    Text("Stop")
-                                }
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.red)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 20)
-                                .background(Color.red.opacity(0.1))
-                                .cornerRadius(20)
+                        Button(action: cancelRecommendations) {
+                            HStack {
+                                Image(systemName: "xmark.circle.fill")
+                                Text("Stop")
                             }
-                        } else {
-                            Button(action: {
-                                Task {
-                                    await refreshRecommendations()
-                                }
-                            }) {
-                                HStack {
-                                    Image(systemName: "arrow.clockwise.circle.fill")
-                                    Text("Refresh")
-                                }
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.accentColor)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 20)
-                                .background(Color.accentColor.opacity(0.1))
-                                .cornerRadius(20)
-                            }
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.red)
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 20)
+                            .background(Color.red.opacity(0.1))
+                            .cornerRadius(20)
                         }
-                        Spacer()
+                        .padding(.bottom, 20)
                     }
-                    .padding(.vertical)
+                } else {
+                    VStack {
+                        Spacer()
+                        Button(action: {
+                            Task {
+                                await refreshRecommendations()
+                            }
+                        }) {
+                            HStack {
+                                Image(systemName: "arrow.clockwise.circle.fill")
+                                Text("Refresh")
+                            }
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.accentColor)
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 20)
+                            .background(Color.accentColor.opacity(0.1))
+                            .cornerRadius(20)
+                        }
+                        .padding(.bottom, 20)
+                    }
                 }
             }
-            .padding(.top)
-            .padding(.horizontal)
             .navigationTitle("Explore Recipes")
             .background(.appBackground)
-            
         }
         .searchable(text: $searchText, prompt: "AI recipe recommender by ingredients")
         .onChange(of: searchText) { _ in
