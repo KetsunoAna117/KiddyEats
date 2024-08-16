@@ -42,12 +42,12 @@ struct ExploreView: View {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
                         ForEach(displayedMeals) { meal in
-                            if isLoading {
-                                ShimmeringRecipeCard()
-                            } else {
+//                            if isLoading {
+//                                ShimmeringRecipeCard()
+//                            } else {
                                 NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)) {
                                     RecipeCard(babyMeal: meal)
-                                }
+//                                }
                             }
                         }
                     }
