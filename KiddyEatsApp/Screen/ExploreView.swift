@@ -89,7 +89,9 @@ struct ExploreView: View {
                 debouncedSearch()
             }
         }
-
+        .onAppear {
+            loadInitialRecommendations()
+        }
     }
     
     private func debouncedSearch() {
@@ -102,11 +104,14 @@ struct ExploreView: View {
     }
     
     private func loadInitialRecommendations() {
-        guard babyMeals.isEmpty else { return }
-        refreshRecommendations()
+        guard !hasLoadedInitialRecommendations else { return }
+        Task {
+            await refreshRecommendations()
+            hasLoadedInitialRecommendations = true
+        }
     }
 
-    private func refreshRecommendations() {
+    private func refreshRecommendations() async {
         isLoading = true
         currentTask?.cancel()
         currentTask = Task {
