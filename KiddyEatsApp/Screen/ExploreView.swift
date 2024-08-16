@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import UIKit
 
 
 class BabyMealRecommenderUseCase {
@@ -226,9 +227,8 @@ struct ExploreView: View {
             .navigationTitle("Explore Recipes")
             .sheet(isPresented: $isShowingRecipeDetail) {
                 if let meal = selectedMeal {
-                    NavigationView {
-                        RecipeDetailView(babyMeal: meal, isPresented: $isShowingRecipeDetail)
-                    }
+                    MealDetailViewControllerRepresentable(babyMeal: meal)
+                        .edgesIgnoringSafeArea(.all)
                 }
             }
         }
@@ -332,4 +332,16 @@ struct ShimmeringRecipeCard: View {
 
 #Preview {
     ExploreView()
+}
+
+struct MealDetailViewControllerRepresentable: UIViewControllerRepresentable {
+    let babyMeal: BabyMeal
+    
+    func makeUIViewController(context: Context) -> UINavigationController {
+        let mealDetailVC = MealDetailViewController(babyMeal: babyMeal)
+        let navigationController = UINavigationController(rootViewController: mealDetailVC)
+        return navigationController
+    }
+    
+    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {}
 }
