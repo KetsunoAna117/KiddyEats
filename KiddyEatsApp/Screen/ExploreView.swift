@@ -39,12 +39,12 @@ struct ExploreView: View {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
                         ForEach(displayedMeals) { meal in
-//                            if isLoading {
-//                                ShimmeringRecipeCard()
-//                            } else {
+                            if meal.name.isEmpty {
+                                RecipeCard(babyMeal: meal)
+                            } else {
                                 NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)) {
                                     RecipeCard(babyMeal: meal)
-//                                }
+                                }
                             }
                         }
                     }
@@ -157,33 +157,64 @@ struct ExploreView: View {
 
 struct RecipeCard: View {
     let babyMeal: BabyMeal
+    @State private var isShimmering = false
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            VStack {
-                Text(babyMeal.emoji)
-                    .font(.system(size: 60))
-                    .frame(height: 100)
+            if babyMeal.name.isEmpty {
+                ShimmeringView()
+                    .frame(height: 180)
+            } else {
+                VStack {
+                    Text(babyMeal.emoji)
+                        .font(.system(size: 60))
+                        .frame(height: 100)
+                    
+                    Text(babyMeal.name)
+                        .font(.system(size: 13))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.accent)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .init(horizontal: .center, vertical: .top))
+                .padding()
+                .background(.exploreCardBackground)
+                .cornerRadius(10)
                 
-                Text(babyMeal.name)
-                    .font(.system(size: 13))
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.accent)
+                Button(action: {
+                    // Add heart action here
+                }) {
+                    Image(systemName: "heart")
+                        .foregroundColor(.accent)
+                }
+                .scaleEffect(1.5)
+                .padding(.top, 15)
+                .padding(.trailing, 15)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .init(horizontal: .center, vertical: .top))
-            .padding()
-            .background(.exploreCardBackground)
-            .cornerRadius(10)
-            
-            Button(action: {
-                // Add heart action here
-            }) {
-                Image(systemName: "heart")
-                    .foregroundColor(.accent)
+        }
+    }
+}
+
+struct ShimmeringView: View {
+    @State private var isAnimating = false
+    
+    var body: some View {
+        ZStack {
+            Color.gray.opacity(0.3)
+            Color.white.opacity(0.2)
+                .mask(
+                    Rectangle()
+                        .fill(
+                            LinearGradient(gradient: Gradient(colors: [.clear, .white.opacity(0.48), .clear]), startPoint: .leading, endPoint: .trailing)
+                        )
+                        .rotationEffect(.degrees(70))
+                        .offset(x: isAnimating ? 400 : -400)
+                )
+        }
+        .cornerRadius(10)
+        .onAppear {
+            withAnimation(Animation.linear(duration: 1).repeatForever(autoreverses: false)) {
+                isAnimating = true
             }
-            .scaleEffect(1.5)
-            .padding(.top, 15)
-            .padding(.trailing, 15)
         }
     }
 }
