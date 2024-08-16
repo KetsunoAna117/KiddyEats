@@ -16,7 +16,6 @@ class BabyMealDetailViewController: UIViewController {
     
     private let emojiLabel = UILabel()
     private let titleLabel = UILabel()
-    private let favoriteButton = UIButton(type: .system)
     private let allergensView = UIView()
     private let recipeInfoLabel = UILabel()
     private let ingredientsLabel = UILabel()
@@ -44,7 +43,7 @@ class BabyMealDetailViewController: UIViewController {
         
         setupScrollView()
         setupEmojiLabel()
-        setupTitleAndFavoriteButton()
+        setupTitleLabel()
         setupAllergensView()
         setupRecipeInfo()
         setupIngredients()
@@ -90,30 +89,19 @@ class BabyMealDetailViewController: UIViewController {
         ])
     }
     
-    private func setupTitleAndFavoriteButton() {
+    private func setupTitleLabel() {
         contentView.addSubview(titleLabel)
-        contentView.addSubview(favoriteButton)
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         
         titleLabel.text = babyMeal.name
         titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         titleLabel.textColor = .black
         
-        favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
-        favoriteButton.tintColor = .systemBlue
-        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
-        
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: emojiLabel.bottomAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
-            
-            favoriteButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            favoriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
-            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
     
@@ -245,12 +233,6 @@ class BabyMealDetailViewController: UIViewController {
     
     @objc private func closeTapped() {
         dismiss(animated: true, completion: nil)
-    }
-    
-    @objc private func favoriteButtonTapped() {
-        isFavorite.toggle()
-        let imageName = isFavorite ? "heart.fill" : "heart"
-        favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
     
     @objc private func addToLogTapped() {
