@@ -83,6 +83,7 @@ struct ExploreView: View {
                         }
                     }
                 }
+                .scrollIndicators(.hidden)
             }
             .padding(.top)
             .padding(.horizontal)
