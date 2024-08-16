@@ -21,6 +21,7 @@ struct ExploreView: View {
     
     @State private var currentTask: Task<Void, Never>?
     @State private var searchCancellable: AnyCancellable?
+    @State private var hasLoadedInitialRecommendations: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -29,6 +30,7 @@ struct ExploreView: View {
                     .font(.system(size: 12))
                     .fontWeight(.bold)
                     .foregroundStyle(.accent)
+                
                 
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
@@ -80,6 +82,7 @@ struct ExploreView: View {
             .padding(.horizontal)
             .background(.appBackground)
             .navigationTitle("Explore Recipes")
+            
         }
         .searchable(text: $searchText, prompt: "AI recipe recommender by ingredients")
         .onChange(of: searchText) { _ in
@@ -87,6 +90,7 @@ struct ExploreView: View {
                 debouncedSearch()
             }
         }
+
     }
     
     private func debouncedSearch() {
@@ -94,19 +98,31 @@ struct ExploreView: View {
         searchCancellable = Just(searchText)
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .sink { _ in
-                refreshRecommendations()
+                self.refreshRecommendations()
             }
     }
     
+    private func loadInitialRecommendations() {
+        guard babyMeals.isEmpty else { return }
+        refreshRecommendations()
+    }
+
     private func refreshRecommendations() {
         isLoading = true
         currentTask?.cancel()
         currentTask = Task {
-            let newMeals = await recommender.recommendMeals(profile: recommender.fakeBaby, searchQuery: searchText.isEmpty ? nil : searchText)
-            if !Task.isCancelled {
+            do {
+                let newMeals = try await recommender.recommendMeals(profile: recommender.fakeBaby, searchQuery: searchText.isEmpty ? nil : searchText)
+                if !Task.isCancelled {
+                    DispatchQueue.main.async {
+                        self.babyMeals = newMeals
+                        self.isLoading = false
+                    }
+                }
+            } catch {
+                print("Error refreshing recommendations: \(error)")
                 DispatchQueue.main.async {
-                    babyMeals = newMeals
-                    isLoading = false
+                    self.isLoading = false
                 }
             }
         }
@@ -181,14 +197,4 @@ struct ShimmeringRecipeCard: View {
 
 #Preview {
     ExploreView()
-}
-
-struct MealDetailViewControllerRepresentable: UIViewControllerRepresentable {
-    let babyMeal: BabyMeal
-    
-    func makeUIViewController(context: Context) -> BabyMealDetailViewController {
-        return BabyMealDetailViewController(babyMeal: babyMeal)
-    }
-    
-    func updateUIViewController(_ uiViewController: BabyMealDetailViewController, context: Context) {}
 }
