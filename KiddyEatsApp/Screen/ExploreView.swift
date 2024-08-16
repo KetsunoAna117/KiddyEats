@@ -23,6 +23,14 @@ struct ExploreView: View {
     @State private var searchCancellable: AnyCancellable?
     @State private var hasLoadedInitialRecommendations: Bool = false
     
+    private var displayedMeals: [BabyMeal] {
+        if isLoading {
+            return Array(repeating: BabyMeal(name: "", emoji: "", ingredients: [], allergens: [], cookingSteps: "", servingSize: 0, estimatedCookingTimeMinutes: 0), count: 6)
+        } else {
+            return babyMeals
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 10) {
@@ -33,7 +41,7 @@ struct ExploreView: View {
                 
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
-                        ForEach(isLoading ? Array(repeating: BabyMeal(name: "", emoji: "", ingredients: [], allergens: [], cookingSteps: "", servingSize: 0, estimatedCookingTimeMinutes: 0), count: 6) : babyMeals) { meal in
+                        ForEach(displayedMeals) { meal in
                             if isLoading {
                                 ShimmeringRecipeCard()
                             } else {
