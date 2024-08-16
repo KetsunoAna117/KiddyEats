@@ -179,11 +179,9 @@ struct ExploreView: View {
                             if isLoading {
                                 ShimmeringRecipeCard()
                             } else {
-                                RecipeCard(babyMeal: meal)
-                                    .onTapGesture {
-                                        selectedMeal = meal
-                                        isShowingRecipeDetail = true
-                                    }
+                                NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)) {
+                                    RecipeCard(babyMeal: meal)
+                                }
                             }
                         }
                     }
@@ -225,12 +223,6 @@ struct ExploreView: View {
             .padding(.horizontal)
             .background(.appBackground)
             .navigationTitle("Explore Recipes")
-            .sheet(isPresented: $isShowingRecipeDetail) {
-                if let meal = selectedMeal {
-                    MealDetailViewControllerRepresentable(babyMeal: meal)
-                        .edgesIgnoringSafeArea(.all)
-                }
-            }
         }
         .searchable(text: $searchText, prompt: "Search new recipe by ingredients")
         .onChange(of: searchText) { _ in
@@ -337,11 +329,9 @@ struct ShimmeringRecipeCard: View {
 struct MealDetailViewControllerRepresentable: UIViewControllerRepresentable {
     let babyMeal: BabyMeal
     
-    func makeUIViewController(context: Context) -> UINavigationController {
-        let mealDetailVC = MealDetailViewController(babyMeal: babyMeal)
-        let navigationController = UINavigationController(rootViewController: mealDetailVC)
-        return navigationController
+    func makeUIViewController(context: Context) -> MealDetailViewController {
+        return MealDetailViewController(babyMeal: babyMeal)
     }
     
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {}
+    func updateUIViewController(_ uiViewController: MealDetailViewController, context: Context) {}
 }
