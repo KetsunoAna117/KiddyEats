@@ -112,20 +112,20 @@ struct ExploreView: View {
     }
 
     private func refreshRecommendations() async {
-        isLoading = true
+        await MainActor.run { isLoading = true }
         currentTask?.cancel()
         currentTask = Task {
             do {
                 let newMeals = try await recommender.recommendMeals(profile: recommender.fakeBaby, searchQuery: searchText.isEmpty ? nil : searchText)
                 if !Task.isCancelled {
-                    DispatchQueue.main.async {
+                    await MainActor.run {
                         self.babyMeals = newMeals
                         self.isLoading = false
                     }
                 }
             } catch {
                 print("Error refreshing recommendations: \(error)")
-                DispatchQueue.main.async {
+                await MainActor.run {
                     self.isLoading = false
                 }
             }
