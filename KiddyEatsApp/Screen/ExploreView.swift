@@ -54,7 +54,7 @@ struct ExploreView: View {
                             Button(action: cancelRecommendations) {
                                 HStack {
                                     Image(systemName: "xmark.circle.fill")
-                                    Text("Cancel")
+                                    Text("Stop")
                                 }
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.red)
@@ -202,22 +202,6 @@ struct LoadingCard: View {
         }
         .frame(height: 180)
         .cornerRadius(10)
-    }
-}
-
-struct LoadingCircleView: View {
-    @State private var isAnimating = false
-    
-    var body: some View {
-        Circle()
-            .trim(from: 0, to: 0.7)
-            .stroke(Color.accent, lineWidth: 5)
-            .frame(width: 50, height: 50)
-            .rotationEffect(Angle(degrees: isAnimating ? 360 : 0))
-            .animation(Animation.linear(duration: 1).repeatForever(autoreverses: false), value: isAnimating)
-            .onAppear {
-                isAnimating = true
-            }
     }
 }
 
