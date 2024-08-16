@@ -132,11 +132,19 @@ class BabyMealDetailViewController: UIViewController {
         allergensStack.axis = .vertical
         allergensStack.spacing = 4
         
-        for allergen in babyMeal.allergens {
-            let allergenLabel = UILabel()
-            allergenLabel.text = "• \(allergen)"
-            allergenLabel.textColor = .white
-            allergensStack.addArrangedSubview(allergenLabel)
+        if babyMeal.allergens.isEmpty {
+            let noneLabel = UILabel()
+            noneLabel.text = "None"
+            noneLabel.textColor = .white
+            noneLabel.font = UIFont.italicSystemFont(ofSize: noneLabel.font.pointSize)
+            allergensStack.addArrangedSubview(noneLabel)
+        } else {
+            for allergen in babyMeal.allergens {
+                let allergenLabel = UILabel()
+                allergenLabel.text = "• \(allergen)"
+                allergenLabel.textColor = .white
+                allergensStack.addArrangedSubview(allergenLabel)
+            }
         }
         
         allergensView.addSubview(allergensTitle)
