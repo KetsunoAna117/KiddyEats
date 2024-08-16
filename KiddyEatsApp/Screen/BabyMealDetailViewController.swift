@@ -218,7 +218,7 @@ class BabyMealDetailViewController: UIViewController {
         addToLogButton.setTitle("Save to collections", for: .normal)
         addToLogButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         addToLogButton.setTitleColor(.white, for: .normal)
-        addToLogButton.backgroundColor = .systemBlue
+        addToLogButton.backgroundColor = UIColor(named: "AccentColor") ?? .systemBlue
         addToLogButton.layer.cornerRadius = 8
         addToLogButton.addTarget(self, action: #selector(addToLogTapped), for: .touchUpInside)
         
