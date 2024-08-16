@@ -59,7 +59,11 @@ struct ExploreView: View {
                                 .cornerRadius(20)
                             }
                         } else {
-                            Button(action: refreshRecommendations) {
+                            Button(action: {
+                                Task {
+                                    await refreshRecommendations()
+                                }
+                            }) {
                                 HStack {
                                     Image(systemName: "arrow.clockwise.circle.fill")
                                     Text("Refresh")
@@ -99,7 +103,9 @@ struct ExploreView: View {
         searchCancellable = Just(searchText)
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .sink { _ in
-                self.refreshRecommendations()
+                Task {
+                    await refreshRecommendations()
+                }
             }
     }
     
@@ -114,20 +120,18 @@ struct ExploreView: View {
     private func refreshRecommendations() async {
         await MainActor.run { isLoading = true }
         currentTask?.cancel()
-        currentTask = Task {
-            do {
-                let newMeals = try await recommender.recommendMeals(profile: recommender.fakeBaby, searchQuery: searchText.isEmpty ? nil : searchText)
-                if !Task.isCancelled {
-                    await MainActor.run {
-                        self.babyMeals = newMeals
-                        self.isLoading = false
-                    }
-                }
-            } catch {
-                print("Error refreshing recommendations: \(error)")
+        do {
+            let newMeals = try await recommender.recommendMeals(profile: recommender.fakeBaby, searchQuery: searchText.isEmpty ? nil : searchText)
+            if !Task.isCancelled {
                 await MainActor.run {
+                    self.babyMeals = newMeals
                     self.isLoading = false
                 }
+            }
+        } catch {
+            print("Error refreshing recommendations: \(error)")
+            await MainActor.run {
+                self.isLoading = false
             }
         }
     }
