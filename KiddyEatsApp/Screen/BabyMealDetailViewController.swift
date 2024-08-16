@@ -203,7 +203,7 @@ class BabyMealDetailViewController: UIViewController {
         addToLogButton.setTitle("Add to Log", for: .normal)
         addToLogButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         addToLogButton.setTitleColor(.white, for: .normal)
-        addToLogButton.backgroundColor = .accentColor
+        addToLogButton.backgroundColor = .accent
         addToLogButton.layer.cornerRadius = 8
         addToLogButton.addTarget(self, action: #selector(addToLogTapped), for: .touchUpInside)
         
