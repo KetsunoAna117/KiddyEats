@@ -227,7 +227,7 @@ class BabyMealDetailViewController: UIViewController {
         contentView.addSubview(addToLogButton)
         addToLogButton.translatesAutoresizingMaskIntoConstraints = false
         
-        addToLogButton.setTitle("Add to Log", for: .normal)
+        addToLogButton.setTitle("Save to collections", for: .normal)
         addToLogButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         addToLogButton.setTitleColor(.white, for: .normal)
         addToLogButton.backgroundColor = .systemBlue
