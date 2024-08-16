@@ -8,7 +8,6 @@
 import SwiftUI
 import Combine
 import UIKit
-import UIKit
 
 
 struct ExploreView: View {
@@ -31,7 +30,6 @@ struct ExploreView: View {
                     .font(.system(size: 12))
                     .fontWeight(.bold)
                     .foregroundStyle(.accent)
-                
                 
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
@@ -81,8 +79,8 @@ struct ExploreView: View {
             }
             .padding(.top)
             .padding(.horizontal)
-            .background(.appBackground)
             .navigationTitle("Explore Recipes")
+            .background(.appBackground)
             
         }
         .searchable(text: $searchText, prompt: "AI recipe recommender by ingredients")

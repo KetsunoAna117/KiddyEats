@@ -115,7 +115,7 @@ class BabyMealRecommenderUseCase {
         """
         
         if searchQuery != nil {
-            llmPrompt += "\n\nAlso use this search query: \(searchQuery!)"
+            llmPrompt += "\n\nAlso use this search query: \(searchQuery!).\n\nIf the search query is nonsense, just return a random meal based on baby profile, always follow the schema!"
         }
         
         print(llmPrompt)
