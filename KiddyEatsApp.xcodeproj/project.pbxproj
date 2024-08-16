@@ -17,6 +17,7 @@
 		E612726A2C6DEDC0007698E6 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61272692C6DEDBC007698E6 /* AIService.swift */; };
 		E612726E2C6E0272007698E6 /* BabyMealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */; };
 		E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */; };
+		E68C0F2D2C6F5B7100532140 /* RecipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		E61272692C6DEDBC007698E6 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
 		E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealDetailViewController.swift; sourceTree = "<group>"; };
 		E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealRecommenderUseCase.swift; sourceTree = "<group>"; };
+		E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 		E61272622C6DE92E007698E6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 			files = (
 				E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */,
 				E612726A2C6DEDC0007698E6 /* AIService.swift in Sources */,
+				E68C0F2D2C6F5B7100532140 /* RecipeCard.swift in Sources */,
 				E61272662C6DE92E007698E6 /* BabyMeal.swift in Sources */,
 				E61272672C6DE92E007698E6 /* User.swift in Sources */,
 				E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */,
