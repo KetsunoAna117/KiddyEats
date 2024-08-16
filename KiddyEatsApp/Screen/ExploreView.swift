@@ -157,13 +157,14 @@ struct ExploreView: View {
 
 struct RecipeCard: View {
     let babyMeal: BabyMeal
-    @State private var isShimmering = false
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
             if babyMeal.name.isEmpty {
-                ShimmeringView()
+                LoadingCircleView()
                     .frame(height: 180)
+                    .background(Color.exploreCardBackground)
+                    .cornerRadius(10)
             } else {
                 VStack {
                     Text(babyMeal.emoji)
@@ -177,7 +178,7 @@ struct RecipeCard: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .init(horizontal: .center, vertical: .top))
                 .padding()
-                .background(.exploreCardBackground)
+                .background(Color.exploreCardBackground)
                 .cornerRadius(10)
                 
                 Button(action: {
@@ -219,29 +220,19 @@ struct ShimmeringView: View {
     }
 }
 
-struct ShimmeringRecipeCard: View {
+struct LoadingCircleView: View {
     @State private var isAnimating = false
     
     var body: some View {
-        ZStack {
-            Color.gray.opacity(0.2)
-            Color.white.opacity(0.2)
-                .mask(
-                    Rectangle()
-                        .fill(
-                            LinearGradient(gradient: Gradient(colors: [.clear, .white.opacity(0.98), .clear]), startPoint: .leading, endPoint: .trailing)
-                        )
-                        .rotationEffect(.degrees(70))
-                        .offset(x: isAnimating ? 400 : -400)
-                )
-        }
-        .frame(height: 180)
-        .cornerRadius(10)
-        .onAppear {
-            withAnimation(Animation.linear(duration: 1).repeatForever(autoreverses: false)) {
+        Circle()
+            .trim(from: 0, to: 0.7)
+            .stroke(Color.accent, lineWidth: 5)
+            .frame(width: 50, height: 50)
+            .rotationEffect(Angle(degrees: isAnimating ? 360 : 0))
+            .animation(Animation.linear(duration: 1).repeatForever(autoreverses: false), value: isAnimating)
+            .onAppear {
                 isAnimating = true
             }
-        }
     }
 }
 
