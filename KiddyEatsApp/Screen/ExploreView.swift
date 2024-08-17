@@ -184,20 +184,6 @@ struct ExploreView: View {
     }
 }
 
-
-struct LoadingCard: View {
-    var body: some View {
-        ZStack {
-            Color.exploreCardBackground
-            ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: .accent))
-                .scaleEffect(1.5)
-        }
-        .frame(height: 180)
-        .cornerRadius(10)
-    }
-}
-
 #Preview {
     ExploreView()
 }
@@ -210,16 +196,4 @@ struct MealDetailViewControllerRepresentable: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: BabyMealDetailViewController, context: Context) {}
-}
-struct RecipeCardPlaceholder: View {
-    var body: some View {
-        ZStack {
-            Color.exploreCardBackground
-            ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: .accent))
-                .scaleEffect(1.5)
-        }
-        .frame(height: 180)
-        .cornerRadius(10)
-    }
 }

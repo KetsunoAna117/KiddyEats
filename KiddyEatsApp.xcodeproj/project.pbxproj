@@ -23,6 +23,8 @@
 		E68C0F3B2C707A5800532140 /* AIServiceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F3A2C707A5000532140 /* AIServiceKeys.swift */; };
 		E68C0F402C707CAA00532140 /* +BabyMealRecommenderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F3F2C707CA400532140 /* +BabyMealRecommenderUseCase.swift */; };
 		E68C0F422C707F8F00532140 /* BabyMealJsonPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F412C707F8700532140 /* BabyMealJsonPreview.swift */; };
+		E68C0F442C7082DF00532140 /* RecipeCardPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F432C7082D600532140 /* RecipeCardPlaceholder.swift */; };
+		E68C0F472C70832D00532140 /* LoadingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F462C70832A00532140 /* LoadingCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,8 @@
 		E68C0F3A2C707A5000532140 /* AIServiceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIServiceKeys.swift; sourceTree = "<group>"; };
 		E68C0F3F2C707CA400532140 /* +BabyMealRecommenderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+BabyMealRecommenderUseCase.swift"; sourceTree = "<group>"; };
 		E68C0F412C707F8700532140 /* BabyMealJsonPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealJsonPreview.swift; sourceTree = "<group>"; };
+		E68C0F432C7082D600532140 /* RecipeCardPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCardPlaceholder.swift; sourceTree = "<group>"; };
+		E68C0F462C70832A00532140 /* LoadingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,7 +148,7 @@
 		E61272622C6DE92E007698E6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */,
+				E68C0F452C70831200532140 /* RecipeCard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -181,6 +185,16 @@
 				E61272692C6DEDBC007698E6 /* AIService.swift */,
 			);
 			path = AI;
+			sourceTree = "<group>";
+		};
+		E68C0F452C70831200532140 /* RecipeCard */ = {
+			isa = PBXGroup;
+			children = (
+				E68C0F462C70832A00532140 /* LoadingCard.swift */,
+				E68C0F432C7082D600532140 /* RecipeCardPlaceholder.swift */,
+				E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */,
+			);
+			path = RecipeCard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,9 +274,11 @@
 				E68C0F2D2C6F5B7100532140 /* RecipeCard.swift in Sources */,
 				E68C0F422C707F8F00532140 /* BabyMealJsonPreview.swift in Sources */,
 				E68C0F3B2C707A5800532140 /* AIServiceKeys.swift in Sources */,
+				E68C0F472C70832D00532140 /* LoadingCard.swift in Sources */,
 				E61272662C6DE92E007698E6 /* BabyMeal.swift in Sources */,
 				E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */,
 				E612726E2C6E0272007698E6 /* BabyMealDetailViewController.swift in Sources */,
+				E68C0F442C7082DF00532140 /* RecipeCardPlaceholder.swift in Sources */,
 				E61272682C6DE92E007698E6 /* BabyProfile.swift in Sources */,
 				E68C0F332C7079C800532140 /* +BabyMeal.swift in Sources */,
 				E68C0F402C707CAA00532140 /* +BabyMealRecommenderUseCase.swift in Sources */,

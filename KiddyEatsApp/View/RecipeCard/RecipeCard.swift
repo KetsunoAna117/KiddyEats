@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct RecipeCard: View {
     let babyMeal: BabyMeal
     
