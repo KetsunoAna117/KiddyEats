@@ -6,7 +6,7 @@
 //
 
 
-struct LLMBlockingResponse: Decodable {
+struct AIBlockingResponse: Decodable {
     let event: String
     let message_id: String?
     let conversation_id: String?

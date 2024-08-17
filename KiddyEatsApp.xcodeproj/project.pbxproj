@@ -39,7 +39,7 @@
 		E68C0F472C70832D00532140 /* LoadingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F462C70832A00532140 /* LoadingCard.swift */; };
 		E68C0F4A2C708CAB00532140 /* AIServiceStatusEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F492C708CA700532140 /* AIServiceStatusEnum.swift */; };
 		E68C0F4C2C708CFA00532140 /* +Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F4B2C708CF500532140 /* +Publisher.swift */; };
-		E68C0F4E2C708D5600532140 /* LLMBlockingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F4D2C708D5100532140 /* LLMBlockingResponse.swift */; };
+		E68C0F4E2C708D5600532140 /* AIBlockingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F4D2C708D5100532140 /* AIBlockingResponse.swift */; };
 		E68C0F502C70914900532140 /* BabyMealDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F4F2C70914300532140 /* BabyMealDetailViewModel.swift */; };
 		E68C0F522C70916D00532140 /* BabyMealDetailUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F512C70916900532140 /* BabyMealDetailUIView.swift */; };
 		E68C0F542C70918B00532140 /* BabyMealDetailPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F532C70918600532140 /* BabyMealDetailPreview.swift */; };
@@ -63,7 +63,6 @@
 		3AB03C682C6F9A2E001F5473 /* OnboardingGenderChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGenderChoice.swift; sourceTree = "<group>"; };
 		3AB03C6A2C6F9A4F001F5473 /* OnboardingTagsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTagsComponent.swift; sourceTree = "<group>"; };
 		3AB03C6F2C6F9A9F001F5473 /* +View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+View.swift"; sourceTree = "<group>"; };
-		E612725D2C6DE92E007698E6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E612725E2C6DE92E007698E6 /* BabyProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BabyProfile.swift; path = KiddyEatsApp/Model/BabyProfile.swift; sourceTree = SOURCE_ROOT; };
 		E612725F2C6DE92E007698E6 /* BabyMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BabyMeal.swift; path = KiddyEatsApp/Model/BabyMeal.swift; sourceTree = SOURCE_ROOT; };
 		E61272632C6DE92E007698E6 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
@@ -81,7 +80,7 @@
 		E68C0F462C70832A00532140 /* LoadingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCard.swift; sourceTree = "<group>"; };
 		E68C0F492C708CA700532140 /* AIServiceStatusEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIServiceStatusEnum.swift; sourceTree = "<group>"; };
 		E68C0F4B2C708CF500532140 /* +Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+Publisher.swift"; sourceTree = "<group>"; };
-		E68C0F4D2C708D5100532140 /* LLMBlockingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMBlockingResponse.swift; sourceTree = "<group>"; };
+		E68C0F4D2C708D5100532140 /* AIBlockingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIBlockingResponse.swift; sourceTree = "<group>"; };
 		E68C0F4F2C70914300532140 /* BabyMealDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealDetailViewModel.swift; sourceTree = "<group>"; };
 		E68C0F512C70916900532140 /* BabyMealDetailUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealDetailUIView.swift; sourceTree = "<group>"; };
 		E68C0F532C70918600532140 /* BabyMealDetailPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealDetailPreview.swift; sourceTree = "<group>"; };
@@ -119,13 +118,11 @@
 			isa = PBXGroup;
 			children = (
 				E68C0F292C6F473100532140 /* UseCase */,
-				E612725B2C6DE92E007698E6 /* Helper */,
 				3AB03C6D2C6F9A8F001F5473 /* Helper */,
 				3AB03C632C6F96C5001F5473 /* ViewModel */,
 				E612725C2C6DE92E007698E6 /* Service */,
 				E61272602C6DE92E007698E6 /* Model */,
 				E61272622C6DE92E007698E6 /* View */,
-				E61272642C6DE92E007698E6 /* Screen */,
 				3AB03C452C6DE848001F5473 /* Preview Content */,
 				3AB03C3F2C6DE845001F5473 /* KiddyEatsApp.swift */,
 				3AB03C432C6DE848001F5473 /* Assets.xcassets */,
@@ -226,18 +223,19 @@
 			isa = PBXGroup;
 			children = (
 				3AB03C4D2C6F3B61001F5473 /* Onboarding */,
-				E68C0F452C70831200532140 /* RecipeCard */,
+				E67BD8E62C709887006393F4 /* Explore */,
+				E68C0F362C707A1200532140 /* BabyMealDetail */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		E61272642C6DE92E007698E6 /* Screen */ = {
+		E67BD8E62C709887006393F4 /* Explore */ = {
 			isa = PBXGroup;
 			children = (
-				E68C0F362C707A1200532140 /* BabyMealDetail */,
 				E61272632C6DE92E007698E6 /* ExploreView.swift */,
+				E68C0F452C70831200532140 /* Components */,
 			);
-			path = Screen;
+			path = Explore;
 			sourceTree = "<group>";
 		};
 		E68C0F292C6F473100532140 /* UseCase */ = {
@@ -262,22 +260,22 @@
 		E68C0F392C707A4700532140 /* AI */ = {
 			isa = PBXGroup;
 			children = (
-				E68C0F4D2C708D5100532140 /* LLMBlockingResponse.swift */,
 				E61272692C6DEDBC007698E6 /* AIService.swift */,
 				E68C0F492C708CA700532140 /* AIServiceStatusEnum.swift */,
 				E68C0F3A2C707A5000532140 /* AIServiceKeys.swift */,
+				E68C0F4D2C708D5100532140 /* AIBlockingResponse.swift */,
 			);
 			path = AI;
 			sourceTree = "<group>";
 		};
-		E68C0F452C70831200532140 /* RecipeCard */ = {
+		E68C0F452C70831200532140 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				E68C0F462C70832A00532140 /* LoadingCard.swift */,
 				E68C0F432C7082D600532140 /* RecipeCardPlaceholder.swift */,
 				E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */,
 			);
-			path = RecipeCard;
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -380,12 +378,11 @@
 				3AB03C5A2C6F890D001F5473 /* FlexibleView.swift in Sources */,
 				3AB03C532C6F3C04001F5473 /* OnboardingBabyGender.swift in Sources */,
 				E61272662C6DE92E007698E6 /* BabyMeal.swift in Sources */,
-				E61272672C6DE92E007698E6 /* User.swift in Sources */,
 				3AB03C692C6F9A2E001F5473 /* OnboardingGenderChoice.swift in Sources */,
 				3AB03C5D2C6F8E4D001F5473 /* OnboardingView.swift in Sources */,
 				E61272682C6DE92E007698E6 /* BabyProfile.swift in Sources */,
 				E68C0F332C7079C800532140 /* +BabyMeal.swift in Sources */,
-				E68C0F4E2C708D5600532140 /* LLMBlockingResponse.swift in Sources */,
+				E68C0F4E2C708D5600532140 /* AIBlockingResponse.swift in Sources */,
 				E68C0F402C707CAA00532140 /* +BabyMealRecommenderUseCase.swift in Sources */,
 				3AB03C402C6DE845001F5473 /* KiddyEatsApp.swift in Sources */,
 			);

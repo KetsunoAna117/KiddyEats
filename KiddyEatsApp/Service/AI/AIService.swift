@@ -234,7 +234,7 @@ class AIService: ObservableObject {
                 }
                 return data
             }
-            .decode(type: LLMBlockingResponse.self, decoder: JSONDecoder())
+            .decode(type: AIBlockingResponse.self, decoder: JSONDecoder())
             .map { [weak self] blockingResponse -> String in
                 self?.aiStatus = .processingResponse
                 self?.handleBlockingResponse(blockingResponse)
@@ -325,7 +325,7 @@ class AIService: ObservableObject {
         return resizedImage
     }
     
-    private func handleBlockingResponse(_ blockingResponse: LLMBlockingResponse) {
+    private func handleBlockingResponse(_ blockingResponse: AIBlockingResponse) {
         if blockingResponse.event == "message" {
             aiResponse += blockingResponse.answer ?? ""
         }
