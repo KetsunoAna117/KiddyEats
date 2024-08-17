@@ -4,22 +4,14 @@
 //
 //  Created by Arya Adyatma on 09/07/24.
 //
+//  ⚠️ CAUTION:
+//  - Treat this class as third party library. It is not designed to be read or modified by humans.
+//
 
 import Foundation
 import Combine
 import UIKit
 
-
-enum AIStatus: String {
-    case idle = "Idle"
-    case compressingImage = "Compressing Image"
-    case uploadingImage = "Uploading Image"
-    case processingImage = "Processing Image"
-    case preparingQuery = "Preparing Query"
-    case gettingResponse = "Getting Response from AI"
-    case processingResponse = "Processing AI Response"
-    case error = "Error Occurred"
-}
 
 class AIService: ObservableObject {
     var llmKey: String
@@ -34,7 +26,7 @@ class AIService: ObservableObject {
     }
     
     @Published var aiResponse: String = ""
-    @Published var aiStatus: AIStatus = .idle
+    @Published var aiStatus: AIServiceStatusEnum = .idle
     
     var cancellables = Set<AnyCancellable>()
     
@@ -109,7 +101,7 @@ class AIService: ObservableObject {
         aiResponse = ""
         aiStatus = .preparingQuery
         
-        var request = try await prepareStreamingRequest(query: query, uiImage: uiImage)
+        let request = try await prepareStreamingRequest(query: query, uiImage: uiImage)
         
         aiStatus = .gettingResponse
         
@@ -143,7 +135,7 @@ class AIService: ObservableObject {
         
         var files: [[String: Any]] = []
         if let image = uiImage {
-            let fileId = try await uploadImage(image: image)
+            let fileId = uploadImage(image: image)
             files.append(["type": "image", "transfer_method": "local_file", "upload_file_id": fileId])
         }
         
@@ -352,38 +344,5 @@ class AIService: ObservableObject {
         currentTask?.cancel()
         currentTask = nil
         aiStatus = .idle
-    }
-}
-
-// Define the blocking response model
-struct LLMBlockingResponse: Decodable {
-    let event: String
-    let message_id: String?
-    let conversation_id: String?
-    let answer: String?
-    let created_at: Int?
-}
-
-// Extension to convert Publisher to async/await
-extension Publisher {
-    func async() async throws -> Output {
-        try await withCheckedThrowingContinuation { continuation in
-            var cancellable: AnyCancellable?
-            cancellable = self.sink(
-                receiveCompletion: { completion in
-                    switch completion {
-                    case .finished:
-                        break
-                    case .failure(let error):
-                        continuation.resume(throwing: error)
-                    }
-                    cancellable?.cancel()
-                },
-                receiveValue: { value in
-                    continuation.resume(returning: value)
-                    cancellable?.cancel()
-                }
-            )
-        }
     }
 }
