@@ -97,15 +97,6 @@ struct ExploreView: View {
     }
 }
 
-struct MealDetailViewControllerRepresentable: UIViewControllerRepresentable {
-    let babyMeal: BabyMeal
-    
-    func makeUIViewController(context: Context) -> BabyMealDetailViewController {
-        return BabyMealDetailViewController(babyMeal: babyMeal)
-    }
-    
-    func updateUIViewController(_ uiViewController: BabyMealDetailViewController, context: Context) {}
-}
 
 #Preview {
     ExploreView()
