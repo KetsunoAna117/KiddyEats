@@ -9,11 +9,6 @@ import Foundation
 import Combine
 import UIKit
 
-let aiUser = "babymealapp-user"
-
-enum FakeAPIKey: String {
-    case GPT4o = "app-nZejRKIvCLCPLae2pxNTUESN"
-}
 
 enum AIStatus: String {
     case idle = "Idle"
@@ -30,6 +25,7 @@ class AIService: ObservableObject {
     var llmKey: String
     var isConversation: Bool
     var apiEndpoint: String
+    let aiUser = "babymealapp-user"
     
     init(identifier: String, isConversation: Bool, apiEndpoint: String = "https://api.dify.ai") {
         self.llmKey = identifier

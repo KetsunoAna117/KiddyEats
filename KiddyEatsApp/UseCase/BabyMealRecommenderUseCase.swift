@@ -148,10 +148,9 @@ class BabyMealRecommenderUseCase {
     
     private func decodeMeals(from response: String) -> [BabyMeal] {
         let jsonData = Data(response.utf8)
-        let decoder = JSONDecoder()
         
         do {
-            return try decoder.decode([BabyMeal].self, from: jsonData)
+            return try JSONDecoder().decode([BabyMeal].self, from: jsonData)
         } catch {
             print("Error decoding meals: \(error.localizedDescription)")
             return []
