@@ -89,7 +89,7 @@ class BabyMealRecommenderUseCase {
     """
     
     init() {
-        self.aiService = AIService(identifier: FakeAPIKey.GPT4o.rawValue, isConversation: false)
+        self.aiService = AIService(identifier: AIServiceKeys.generalLLM.rawValue, isConversation: false)
     }
     
     func recommendMeals(profile: BabyProfile, searchQuery: String? = nil) async -> [BabyMeal] {

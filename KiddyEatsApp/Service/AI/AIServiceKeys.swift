@@ -5,6 +5,6 @@
 //  Created by Arya Adyatma on 17/08/24.
 //
 
-enum FakeAPIKey: String {
-    case GPT4o = "app-nZejRKIvCLCPLae2pxNTUESN"
+enum AIServiceKeys: String {
+    case generalLLM = "app-nZejRKIvCLCPLae2pxNTUESN"
 }

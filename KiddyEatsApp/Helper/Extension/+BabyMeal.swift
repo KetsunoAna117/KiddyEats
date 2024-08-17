@@ -5,7 +5,34 @@
 //  Created by Arya Adyatma on 17/08/24.
 //
 
+import Foundation
+
 extension BabyMeal {
+    
+    enum CodingKeys: String, CodingKey {
+        case id, name, emoji, ingredients, allergens, cookingSteps, servingSize, estimatedCookingTimeMinutes
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        name = try container.decode(String.self, forKey: .name)
+        
+        let emojiString = try container.decode(String.self, forKey: .emoji)
+        emoji = String(emojiString.prefix(1))
+        
+        ingredients = try container.decode([String].self, forKey: .ingredients)
+        allergens = try container.decode([String].self, forKey: .allergens)
+        cookingSteps = try container.decode(String.self, forKey: .cookingSteps)
+        servingSize = try container.decode(Int.self, forKey: .servingSize)
+        estimatedCookingTimeMinutes = try container.decode(Int.self, forKey: .estimatedCookingTimeMinutes)
+    }
+    
+    func isValid() -> Bool {
+        return !name.isEmpty && !emoji.isEmpty && !ingredients.isEmpty && !cookingSteps.isEmpty && servingSize > 0 && estimatedCookingTimeMinutes > 0
+    }
+    
     static func fromIncompleteJsonList(jsonStr: String) -> [BabyMeal] {
         let decoder = JSONDecoder()
         var meals: [BabyMeal] = []
@@ -99,4 +126,6 @@ extension BabyMeal {
         
         return result
     }
+    
+    
 }
