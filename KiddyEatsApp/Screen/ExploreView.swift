@@ -1,34 +1,8 @@
-//
-//  ExploreView.swift
-//  WeaningFoodAppSwiftUI
-//
-//  Created by Arya Adyatma on 15/08/24.
-//
-
 import SwiftUI
 import Combine
-import UIKit
-
 
 struct ExploreView: View {
-    private let recommender = BabyMealRecommenderUseCase()
-
-    @State private var searchText: String = ""
-    @State private var babyMeals: [BabyMeal] = []
-    @State private var isLoading: Bool = false
-    @State private var selectedMeal: BabyMeal?
-    @State private var isShowingRecipeDetail: Bool = false
-    @State private var errorMessage: String?
-    
-    @State private var currentTask: Task<Void, Never>?
-    @State private var searchCancellable: AnyCancellable?
-    @State private var hasLoadedInitialRecommendations: Bool = false
-    @State private var retryCount: Int = 0
-    
-    private var displayedMeals: [BabyMeal] {
-        let meals = babyMeals + Array(repeating: BabyMeal(name: "", emoji: "", ingredients: [], allergens: [], cookingSteps: "", servingSize: 0, estimatedCookingTimeMinutes: 0), count: max(0, 6 - babyMeals.count))
-        return Array(meals.prefix(6))
-    }
+    @StateObject private var viewModel = ExploreViewModel()
     
     var body: some View {
         NavigationStack {
@@ -40,16 +14,16 @@ struct ExploreView: View {
                 
                 ScrollView {
                     VStack(spacing: 20) {
-                        if let errorMessage = errorMessage {
+                        if let errorMessage = viewModel.errorMessage {
                             Text(errorMessage)
                                 .foregroundColor(.red)
                                 .padding()
                         }
                         
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
-                            ForEach(displayedMeals) { meal in
+                            ForEach(viewModel.displayedMeals) { meal in
                                 if meal.name.isEmpty {
-                                    if isLoading {
+                                    if viewModel.isLoading {
                                         RecipeCardPlaceholder()
                                     } else {
                                         RecipeCard(babyMeal: meal)
@@ -62,8 +36,8 @@ struct ExploreView: View {
                             }
                         }
                         
-                        if isLoading {
-                            Button(action: cancelRecommendations) {
+                        if viewModel.isLoading {
+                            Button(action: viewModel.cancelRecommendations) {
                                 HStack {
                                     Image(systemName: "xmark.circle.fill")
                                     Text("Stop")
@@ -78,7 +52,7 @@ struct ExploreView: View {
                         } else {
                             Button(action: {
                                 Task {
-                                    await refreshRecommendations()
+                                    await viewModel.refreshRecommendations()
                                 }
                             }) {
                                 HStack {
@@ -102,84 +76,14 @@ struct ExploreView: View {
             .navigationTitle("Explore Recipes")
             .background(.appBackground)
         }
-        .searchable(text: $searchText, prompt: "AI recipe recommender by ingredients")
-        .onChange(of: searchText) { _ in
-            if !searchText.isEmpty {
-                debouncedSearch()
+        .searchable(text: $viewModel.searchText, prompt: "AI recipe recommender by ingredients")
+        .onChange(of: viewModel.searchText) {
+            if !viewModel.searchText.isEmpty {
+                viewModel.debouncedSearch()
             }
         }
         .onAppear {
-            loadInitialRecommendations()
-        }
-    }
-    
-    private func debouncedSearch() {
-        searchCancellable?.cancel()
-        searchCancellable = Just(searchText)
-            .delay(for: .seconds(1), scheduler: DispatchQueue.main)
-            .sink { _ in
-                Task {
-                    await refreshRecommendations()
-                }
-            }
-    }
-    
-    private func loadInitialRecommendations() {
-        guard !hasLoadedInitialRecommendations else { return }
-        Task {
-            await refreshRecommendations()
-            hasLoadedInitialRecommendations = true
-        }
-    }
-
-    private func refreshRecommendations() async {
-        await MainActor.run { 
-            isLoading = true
-            babyMeals = []
-            errorMessage = nil
-        }
-        currentTask?.cancel()
-        currentTask = Task {
-            do {
-                var jsonResponse = ""
-                try await recommender.recommendMealsStreaming(profile: recommender.fakeBaby, searchQuery: searchText.isEmpty ? nil : searchText) { token in
-                    jsonResponse += token
-                    let meals = BabyMeal.fromIncompleteJsonList(jsonStr: jsonResponse)
-                    Task { @MainActor in
-                        self.babyMeals = meals
-                    }
-                }
-                retryCount = 0
-            } catch {
-                print("Error refreshing recommendations: \(error)")
-                await handleRecommendationError(error)
-            }
-            await MainActor.run {
-                self.isLoading = false
-            }
-        }
-    }
-    
-    private func handleRecommendationError(_ error: Error) async {
-        await MainActor.run {
-            if retryCount < 3 {
-                retryCount += 1
-                errorMessage = "Failed to load recommendations. Retrying... (Attempt \(retryCount)/3)"
-                Task {
-                    try await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds delay
-                    await refreshRecommendations()
-                }
-            } else {
-                errorMessage = "Failed to load recommendations. Please try again later."
-                retryCount = 0
-            }
-        }
-    }
-    
-    private func cancelRecommendations() {
-        currentTask?.cancel()
-        DispatchQueue.main.async {
-            isLoading = false
+            viewModel.loadInitialRecommendations()
         }
     }
 }
