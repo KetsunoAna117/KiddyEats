@@ -62,22 +62,6 @@ class ExploreViewModel {
         }
     }
     
-    private func handleRecommendationError(_ error: Error) async {
-        await MainActor.run {
-            if retryCount < 3 {
-                retryCount += 1
-                errorMessage = "Failed to load recommendations. Retrying... (Attempt \(retryCount)/3)"
-                Task {
-                    try await Task.sleep(for: .seconds(2))
-                    await refreshRecommendations()
-                }
-            } else {
-                errorMessage = "Failed to load recommendations. Please try again later."
-                retryCount = 0
-            }
-        }
-    }
-    
     func cancelRecommendations() {
         currentTask?.cancel()
         isLoading = false
@@ -92,5 +76,21 @@ class ExploreViewModel {
                     await self?.refreshRecommendations()
                 }
             }
+    }
+    
+    private func handleRecommendationError(_ error: Error) async {
+        await MainActor.run {
+            if retryCount < 3 {
+                retryCount += 1
+                errorMessage = "Failed to load recommendations. Retrying... (Attempt \(retryCount)/3)"
+                Task {
+                    try await Task.sleep(for: .seconds(2))
+                    await refreshRecommendations()
+                }
+            } else {
+                errorMessage = "Failed to load recommendations. Please try again later."
+                retryCount = 0
+            }
+        }
     }
 }

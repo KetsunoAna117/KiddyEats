@@ -1,10 +1,19 @@
+//
+//  ExploreView.swift
+//  WeaningFoodAppSwiftUI
+//
+//  Created by Arya Adyatma on 15/08/24.
+//
+
 import SwiftUI
 import Combine
 
 struct ExploreView: View {
-    @StateObject private var viewModel = ExploreViewModel()
+    @Environment(ExploreViewModel.self) var viewModel
     
     var body: some View {
+        @Bindable var viewModel = viewModel
+
         NavigationStack {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Try our recommendations for your 6 months old!")
@@ -88,10 +97,6 @@ struct ExploreView: View {
     }
 }
 
-#Preview {
-    ExploreView()
-}
-
 struct MealDetailViewControllerRepresentable: UIViewControllerRepresentable {
     let babyMeal: BabyMeal
     
@@ -100,4 +105,9 @@ struct MealDetailViewControllerRepresentable: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: BabyMealDetailViewController, context: Context) {}
+}
+
+#Preview {
+    ExploreView()
+        .environment(ExploreViewModel())
 }
