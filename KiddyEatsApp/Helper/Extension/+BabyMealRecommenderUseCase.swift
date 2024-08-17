@@ -21,7 +21,6 @@ extension BabyMealRecommenderUseCase {
         )
     }
     
-    
     func constructLLMPrompt(profile: BabyProfile, searchQuery: String?) -> String {
         var prompt = """
         You are an expert in child healthcare.

@@ -44,13 +44,6 @@ struct MainTabView: View {
                 Text("Hello")
             }
             .tabItem {
-                Label("Log", systemImage: "pencil.circle")
-            }
-            
-            NavigationView {
-                Text("Hello")
-            }
-            .tabItem {
                 Label("Profile", systemImage: "person.circle")
             }
         }
