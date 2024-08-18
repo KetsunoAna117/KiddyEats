@@ -18,7 +18,7 @@ struct CheckboxButton<SelectionType: Hashable & Equatable>: View {
                 if selectionList.contains(tags) {
                     ZStack {
                         Rectangle()
-                            .fill(Color.blue)
+                            .fill(Color.accentColor)
                             .frame(width: 20, height: 20)
                             .overlay {
                                 Image(systemName: "checkmark")
@@ -51,5 +51,5 @@ struct CheckboxButton<SelectionType: Hashable & Equatable>: View {
 }
 
 #Preview {
-    ReactionChooseListView(vm: ReactionLoggerViewModel())
+    ReactionChooseListView(vm: ReactionLoggerViewModel(), previousState: .constant(.unfilled))
 }

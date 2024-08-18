@@ -9,10 +9,9 @@ import SwiftUI
 
 struct ReactionFormView: View {
     let totalPages: Int = 2
-    
-    @State private var currentTab: Int = 0
+    @State private var currentTab: Int = 1
     @State private var buttonPrompt: String = "Save reactions"
-    
+    @State private var vm = ReactionLoggerViewModel()
     
     var body: some View {
         ZStack {
@@ -21,6 +20,33 @@ struct ReactionFormView: View {
             ZStack(alignment: .top) {
                 // Content
                 VStack {
+                    TabView(selection: $currentTab,
+                            content:  {
+                        PromptTab(content: ReactionPromptView(vm: vm))
+                            .tag(1)
+                        PromptTab(content: ReactionEndingView())
+                            .tag(2)
+                    })
+                    .animation(.linear, value: currentTab)
+                    .onAppear {
+                        UIScrollView.appearance().isScrollEnabled = false
+                    }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .indexViewStyle(.page(backgroundDisplayMode: .always))
+                    
+                    
+                    if vm.reactionStatus != .unfilled {
+                        Button(action: {
+                            withAnimation(.linear) {
+                                goToNextPage()
+                            }
+                        }, label: {
+                            Text(buttonPrompt)
+                        })
+                        .buttonStyle(KiddyEatsProminentButtonStyle())
+                        .padding(.horizontal, 30)
+                        .padding(.bottom, 30)
+                    }
                     
                 }
                 
@@ -34,17 +60,18 @@ struct ReactionFormView: View {
                         Image(systemName: "chevron.left")
                             .imageScale(.large)
                             .padding(.trailing, 20)
-                        ProgressView(value: Float(currentTab), total: Float(totalPages - 1))
+                        ProgressView(value: Float(currentTab), total: Float(totalPages))
                     }
                     
                 })
+                .padding(.horizontal, 30)
             }
         }
     }
     
     // MARK: Below are UI Functions to modify the view
     func goToNextPage(){
-        if currentTab < totalPages - 1 {
+        if currentTab < totalPages {
             currentTab += 1
             changeButtonPrompt()
         }
@@ -55,19 +82,23 @@ struct ReactionFormView: View {
     }
     
     func goToPreviousPage(){
-        if currentTab > 0 {
+        if currentTab - 1 > 0 {
             currentTab -= 1
             changeButtonPrompt()
-            print("Button pressed")
+            print("Go back to previous view")
+            
+        }
+        else {
+            #warning("Go back logic from this view hasn't been implemented")
         }
     }
     
     func changeButtonPrompt(){
         switch currentTab {
-        case 0:
-            self.buttonPrompt = "Continue"
-        case 2:
+        case 1:
             self.buttonPrompt = "Save Reaction"
+        case 2:
+            self.buttonPrompt = "Finish"
         default:
             self.buttonPrompt = ""
         }

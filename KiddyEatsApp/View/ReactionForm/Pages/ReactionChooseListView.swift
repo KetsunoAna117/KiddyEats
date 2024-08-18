@@ -11,6 +11,7 @@ struct ReactionChooseListView: View {
     @Environment (\.dismiss) var dismiss
     @Bindable var vm: ReactionLoggerViewModel
     @State var selectionList: [ReactionDetails] = []
+    @Binding var previousState: ReactionStatus
     
     var body: some View {
         ScrollView {
@@ -39,6 +40,12 @@ struct ReactionChooseListView: View {
             
             VStack {
                 Button(action: {
+                    if selectionList .isEmpty {
+                        self.previousState = .noReaction
+                    }
+                    else {
+                        self.previousState = .hadReaction
+                    }
                     vm.reactionDetails = selectionList
                     dismiss()
                 }, label: {
@@ -65,5 +72,5 @@ struct ReactionChooseListView: View {
 }
 
 #Preview {
-    ReactionChooseListView(vm: ReactionLoggerViewModel())
+    ReactionChooseListView(vm: ReactionLoggerViewModel(), previousState: .constant(.unfilled))
 }

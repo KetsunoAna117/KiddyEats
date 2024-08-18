@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ReactionPromptView: View {
-    @State var vm = ReactionLoggerViewModel()
+    @Bindable var vm: ReactionLoggerViewModel
     @State var reactionPromptIsPresented = false
+    @State var previousState = ReactionStatus.unfilled
     
     var body: some View {
         VStack {
@@ -17,6 +18,7 @@ struct ReactionPromptView: View {
                 .fontWeight(.bold)
                 .frame(width: 300)
                 .multilineTextAlignment(.center)
+                .padding(.bottom, 20)
             
             VStack(alignment: .leading) {
                 RadioButton(
@@ -33,16 +35,16 @@ struct ReactionPromptView: View {
                 
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Spacer()
         }
         .sheet(
             isPresented: $reactionPromptIsPresented,
             onDismiss: {
-                if vm.reactionDetails.isEmpty {
-                    vm.reactionStatus = .noReaction
-                }
+                vm.reactionStatus = previousState
             },
             content: {
-                ReactionChooseListView(vm: vm)
+                ReactionChooseListView(vm: vm, previousState: $previousState)
                     .presentationDetents([.height(500)])
             })
         .onChange(of: vm.reactionStatus) { oldValue, newValue in
@@ -52,10 +54,16 @@ struct ReactionPromptView: View {
             else {
                 self.reactionPromptIsPresented = false
             }
+            
+            if newValue == .noReaction {
+                self.previousState = .noReaction
+            }
         }
+        .padding(.horizontal, 30)
+        .padding(.top, 100)
     }
 }
 
 #Preview {
-    ReactionPromptView()
+    ReactionPromptView(vm: ReactionLoggerViewModel())
 }

@@ -18,7 +18,7 @@ struct RadioButton<SelectionType: Hashable & Equatable>: View {
                 if selection == tags {
                     ZStack {
                         Circle()
-                            .fill(Color.blue)
+                            .fill(Color.accentColor)
                             .frame(width: 20, height: 20)
                         Circle()
                             .fill(Color.white)
