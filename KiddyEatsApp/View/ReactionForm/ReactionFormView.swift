@@ -76,7 +76,6 @@ struct ReactionFormView: View {
             changeButtonPrompt()
         }
         else {
-            print("End of tab")
             #warning("End of form logic hasn't been implemented")
         }
     }
@@ -85,7 +84,6 @@ struct ReactionFormView: View {
         if currentTab - 1 > 0 {
             currentTab -= 1
             changeButtonPrompt()
-            print("Go back to previous view")
             
         }
         else {

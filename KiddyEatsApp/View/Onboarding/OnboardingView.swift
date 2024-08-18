@@ -47,15 +47,10 @@ struct OnboardingView: View {
                         
                     }, label: {
                         Text(buttonPrompt)
-                            .font(Font.system(size: 15))
-                            .foregroundStyle(Color.white)
-                            .fontWeight(.bold)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 10)
                     })
                     .padding(.horizontal, 30)
                     .padding(.bottom, 30)
-                    .buttonStyle(BorderedProminentButtonStyle())
+                    .buttonStyle(KiddyEatsProminentButtonStyle())
                 }
                 
                 if currentTab > 0 {
@@ -85,7 +80,6 @@ struct OnboardingView: View {
             changeButtonPrompt()
         }
         else {
-            print("End of tab")
             #warning("End of onboarding logic hasn't been implemented")
         }
     }
@@ -94,7 +88,6 @@ struct OnboardingView: View {
         if currentTab > 0 {
             currentTab -= 1
             changeButtonPrompt()
-            print("Button pressed")
         }
     }
     
