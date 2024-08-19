@@ -11,8 +11,7 @@ struct MainTabView: View {
     var body: some View {
         TabView {
             NavigationStack {
-//                ExploreView()
-				EmptyView()
+                ExploreView()
             }
             .tabItem {
                 Label("Explore", systemImage: "magnifyingglass.circle")
