@@ -16,6 +16,7 @@
 		3A5450AE2C71E9970090EE0F /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450AD2C71E9970090EE0F /* CheckboxButton.swift */; };
 		3A5450B32C71F40B0090EE0F /* KiddyEatsButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450B22C71F40B0090EE0F /* KiddyEatsButtonStyle.swift */; };
 		3A5450B52C71F79F0090EE0F /* ReactionEndingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450B42C71F79F0090EE0F /* ReactionEndingView.swift */; };
+		3A5450B82C72E8740090EE0F /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450B72C72E8740090EE0F /* MainTabView.swift */; };
 		3AB03C402C6DE845001F5473 /* KiddyEatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB03C3F2C6DE845001F5473 /* KiddyEatsApp.swift */; };
 		3AB03C442C6DE848001F5473 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB03C432C6DE848001F5473 /* Assets.xcassets */; };
 		3AB03C472C6DE848001F5473 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB03C462C6DE848001F5473 /* Preview Assets.xcassets */; };
@@ -66,6 +67,7 @@
 		3A5450AD2C71E9970090EE0F /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
 		3A5450B22C71F40B0090EE0F /* KiddyEatsButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KiddyEatsButtonStyle.swift; sourceTree = "<group>"; };
 		3A5450B42C71F79F0090EE0F /* ReactionEndingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionEndingView.swift; sourceTree = "<group>"; };
+		3A5450B72C72E8740090EE0F /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		3AB03C3C2C6DE845001F5473 /* KiddyEatsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KiddyEatsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB03C3F2C6DE845001F5473 /* KiddyEatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KiddyEatsApp.swift; sourceTree = "<group>"; };
 		3AB03C432C6DE848001F5473 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -83,7 +85,6 @@
 		3AB03C6A2C6F9A4F001F5473 /* OnboardingTagsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTagsComponent.swift; sourceTree = "<group>"; };
 		3AB03C6F2C6F9A9F001F5473 /* +View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+View.swift"; sourceTree = "<group>"; };
 		3AB03C722C70E7E8001F5473 /* ReactionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionFormView.swift; sourceTree = "<group>"; };
-		E612725D2C6DE92E007698E6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E612725E2C6DE92E007698E6 /* BabyProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BabyProfile.swift; path = KiddyEatsApp/Model/BabyProfile.swift; sourceTree = SOURCE_ROOT; };
 		E612725F2C6DE92E007698E6 /* BabyMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BabyMeal.swift; path = KiddyEatsApp/Model/BabyMeal.swift; sourceTree = SOURCE_ROOT; };
 		E61272632C6DE92E007698E6 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
@@ -153,6 +154,14 @@
 				3A5450B22C71F40B0090EE0F /* KiddyEatsButtonStyle.swift */,
 			);
 			path = CustomStyle;
+			sourceTree = "<group>";
+		};
+		3A5450B62C72E8570090EE0F /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				3A5450B72C72E8740090EE0F /* MainTabView.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		3AB03C332C6DE845001F5473 = {
@@ -291,6 +300,7 @@
 		E61272622C6DE92E007698E6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3A5450B62C72E8570090EE0F /* Main */,
 				3A5450B12C71F3FB0090EE0F /* CustomStyle */,
 				3AB03C712C70E7D6001F5473 /* ReactionForm */,
 				3AB03C4D2C6F3B61001F5473 /* Onboarding */,
@@ -434,6 +444,7 @@
 				E68C0F472C70832D00532140 /* LoadingCard.swift in Sources */,
 				E61272662C6DE92E007698E6 /* BabyMeal.swift in Sources */,
 				E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */,
+				3A5450B82C72E8740090EE0F /* MainTabView.swift in Sources */,
 				E612726E2C6E0272007698E6 /* BabyMealDetailViewController.swift in Sources */,
 				E68C0F562C7091F100532140 /* BabyMealDetailViewControllerRepresentable.swift in Sources */,
 				E68C0F442C7082DF00532140 /* RecipeCardPlaceholder.swift in Sources */,
