@@ -8,7 +8,7 @@
 import Foundation
 
 struct BabyProfile: Identifiable {
-    var id = UUID()
+    var id: UUID
     var name: String
     var gender: String
     var allergies: [String]
