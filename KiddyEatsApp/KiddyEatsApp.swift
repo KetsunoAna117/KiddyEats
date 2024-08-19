@@ -12,8 +12,6 @@ struct KiddyEatsApp: App {
     var body: some Scene {
         WindowGroup {
             MainTabView()
-                .environment(ExploreViewModel())
         }
     }
 }
-

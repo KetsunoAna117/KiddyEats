@@ -31,8 +31,10 @@ struct MainTabView: View {
                 Label("Profile", systemImage: "person.circle")
             }
         }
+        .environment(ExploreViewModel())
     }
 }
+
 
 #Preview {
     MainTabView()
