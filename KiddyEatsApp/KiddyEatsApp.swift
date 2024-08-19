@@ -17,6 +17,9 @@ struct KiddyEatsApp: App {
         WindowGroup {
             MainTabView()
         }
-        .modelContainer(modelContainer)
+//		.modelContainer(modelContainer)
+		
+		// Testing dummy model for recipes
+		.modelContainer(DummyModelContainer.createCombinedContainer())
     }
 }

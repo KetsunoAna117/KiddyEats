@@ -11,14 +11,15 @@ struct MainTabView: View {
     var body: some View {
         TabView {
             NavigationStack {
-                ExploreView()
+//                ExploreView()
+				EmptyView()
             }
             .tabItem {
                 Label("Explore", systemImage: "magnifyingglass.circle")
             }
             
             NavigationStack {
-                Text("Hello")
+                CollectionView()
             }
             .tabItem {
                 Label("Collections", systemImage: "heart.circle")
