@@ -28,4 +28,15 @@ final class BabyProfileSchema {
         self.location = location
         self.schemaList = schemaList
     }
+    
+    func mapToBabyProfile() -> BabyProfile {
+        return BabyProfile(
+            id: id,
+            name: self.name ?? "",
+            gender: self.gender ?? "",
+            allergies: self.allergies ?? [],
+            dateOfBirth: self.dateOfBirth ?? Date(),
+            location: self.location ?? ""
+        )
+    }
 }

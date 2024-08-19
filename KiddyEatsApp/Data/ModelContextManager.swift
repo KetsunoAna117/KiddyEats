@@ -8,18 +8,7 @@
 import Foundation
 import SwiftData
 
-@MainActor
 class ModelContextManager {
-    static let shared = ModelContextManager()
-    
-    var modelContext: ModelContext
-    
-    private init(){
-        let container = ModelContextManager.createModelContainer()
-        self.modelContext = container.mainContext
-    }
-    
-    
     // MARK: Initialization of model context
     static func createModelContainer() -> ModelContainer {
         let schema = setModelContainerSchema()

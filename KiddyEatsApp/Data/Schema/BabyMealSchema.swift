@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 final class BabyMealSchema {
-    @Attribute(.unique) var id: UUID?
+    @Attribute(.unique) var id: UUID
     var name: String?
     var emoji: String?
     var ingredients: [String]?
@@ -30,5 +30,18 @@ final class BabyMealSchema {
         self.cookingSteps = cookingSteps
         self.servingSize = servingSize
         self.estimatedCookingTimeMinutes = estimatedCookingTimeMinutes
+    }
+    
+    func mapToBabyMeal() -> BabyMeal {
+        return BabyMeal(
+            id: self.id,
+            name: self.name ?? "",
+            emoji: self.emoji ?? "",
+            ingredients: self.ingredients ?? [],
+            allergens: self.allergens ?? [],
+            cookingSteps: self.cookingSteps ?? "",
+            servingSize: self.servingSize ?? -1,
+            estimatedCookingTimeMinutes: self.estimatedCookingTimeMinutes ?? -1
+        )
     }
 }

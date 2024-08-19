@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
+@MainActor
 struct KiddyEatsApp: App {
+    var modelContainer = ModelContextManager.createModelContainer()
+    
     var body: some Scene {
         WindowGroup {
             MainTabView()
         }
+        .modelContainer(modelContainer)
     }
 }
