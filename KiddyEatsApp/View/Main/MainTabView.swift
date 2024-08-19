@@ -10,21 +10,21 @@ import SwiftUI
 struct MainTabView: View {
     var body: some View {
         TabView {
-            NavigationView {
+            NavigationStack {
                 ExploreView()
             }
             .tabItem {
                 Label("Explore", systemImage: "magnifyingglass.circle")
             }
             
-            NavigationView {
+            NavigationStack {
                 Text("Hello")
             }
             .tabItem {
                 Label("Collections", systemImage: "heart.circle")
             }
             
-            NavigationView {
+            NavigationStack {
                 Text("Hello")
             }
             .tabItem {
