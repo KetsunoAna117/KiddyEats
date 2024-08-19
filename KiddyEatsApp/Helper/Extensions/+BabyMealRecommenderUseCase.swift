@@ -21,7 +21,7 @@ extension BabyMealRecommenderUseCase {
         )
     }
     
-    func constructLLMPrompt(profile: BabyProfile, searchQuery: String?) -> String {
+    private func constructLLMPrompt(profile: BabyProfile, searchQuery: String?) -> String {
         var prompt = """
         You are an expert in child healthcare.
         
@@ -50,7 +50,7 @@ extension BabyMealRecommenderUseCase {
         return prompt
     }
     
-    func generateBabyProfileString(_ profile: BabyProfile) -> String {
+    private func generateBabyProfileString(_ profile: BabyProfile) -> String {
         """
         Name: \(profile.name)
         Gender: \(profile.gender)
@@ -60,7 +60,7 @@ extension BabyMealRecommenderUseCase {
         """
     }
     
-    func decodeMeals(from response: String) -> [BabyMeal] {
+    private func decodeMeals(from response: String) -> [BabyMeal] {
         let jsonData = Data(response.utf8)
         
         do {
@@ -71,11 +71,11 @@ extension BabyMealRecommenderUseCase {
         }
     }
     
-    var commonFoodAllergies: String  {
+    private var commonFoodAllergies: String  {
         "Milk, Egg, Fish, Crustacean shellfish, Tree nuts, Peanuts, Wheat, Soybeans, Sesame"
     }
 
-    var jsonSchema: String  {
+    private var jsonSchema: String  {
     """
     {
     "$schema": "http://json-schema.org/draft-07/schema#",
@@ -127,7 +127,7 @@ extension BabyMealRecommenderUseCase {
     """
     }
     
-    var rules: String {
+    private var rules: String {
     """
     Rules:
     - Your returned ingredients must include units such as grams, tablespoons, teaspoon,
