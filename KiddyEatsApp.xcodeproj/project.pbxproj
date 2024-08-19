@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A5450A02C71DA230090EE0F /* ReactionPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54509F2C71DA230090EE0F /* ReactionPromptView.swift */; };
+		3A5450A32C71DDC10090EE0F /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450A22C71DDC10090EE0F /* RadioButton.swift */; };
+		3A5450A52C71E1460090EE0F /* ReactionLoggerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450A42C71E1460090EE0F /* ReactionLoggerViewModel.swift */; };
+		3A5450A82C71E1D00090EE0F /* ReactionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450A72C71E1D00090EE0F /* ReactionStatus.swift */; };
+		3A5450AA2C71E2520090EE0F /* ReactionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450A92C71E2520090EE0F /* ReactionDetails.swift */; };
+		3A5450AC2C71E6420090EE0F /* ReactionChooseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450AB2C71E6420090EE0F /* ReactionChooseListView.swift */; };
+		3A5450AE2C71E9970090EE0F /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450AD2C71E9970090EE0F /* CheckboxButton.swift */; };
+		3A5450B32C71F40B0090EE0F /* KiddyEatsButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450B22C71F40B0090EE0F /* KiddyEatsButtonStyle.swift */; };
+		3A5450B52C71F79F0090EE0F /* ReactionEndingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450B42C71F79F0090EE0F /* ReactionEndingView.swift */; };
 		3AB03C402C6DE845001F5473 /* KiddyEatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB03C3F2C6DE845001F5473 /* KiddyEatsApp.swift */; };
 		3AB03C442C6DE848001F5473 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB03C432C6DE848001F5473 /* Assets.xcassets */; };
 		3AB03C472C6DE848001F5473 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB03C462C6DE848001F5473 /* Preview Assets.xcassets */; };
@@ -22,6 +31,7 @@
 		3AB03C692C6F9A2E001F5473 /* OnboardingGenderChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB03C682C6F9A2E001F5473 /* OnboardingGenderChoice.swift */; };
 		3AB03C6B2C6F9A4F001F5473 /* OnboardingTagsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB03C6A2C6F9A4F001F5473 /* OnboardingTagsComponent.swift */; };
 		3AB03C702C6F9A9F001F5473 /* +View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB03C6F2C6F9A9F001F5473 /* +View.swift */; };
+		3AB03C732C70E7E8001F5473 /* ReactionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB03C722C70E7E8001F5473 /* ReactionFormView.swift */; };
 		E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61272632C6DE92E007698E6 /* ExploreView.swift */; };
 		E61272662C6DE92E007698E6 /* BabyMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612725F2C6DE92E007698E6 /* BabyMeal.swift */; };
 		E61272682C6DE92E007698E6 /* BabyProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612725E2C6DE92E007698E6 /* BabyProfile.swift */; };
@@ -47,6 +57,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A54509F2C71DA230090EE0F /* ReactionPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPromptView.swift; sourceTree = "<group>"; };
+		3A5450A22C71DDC10090EE0F /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		3A5450A42C71E1460090EE0F /* ReactionLoggerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionLoggerViewModel.swift; sourceTree = "<group>"; };
+		3A5450A72C71E1D00090EE0F /* ReactionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionStatus.swift; sourceTree = "<group>"; };
+		3A5450A92C71E2520090EE0F /* ReactionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionDetails.swift; sourceTree = "<group>"; };
+		3A5450AB2C71E6420090EE0F /* ReactionChooseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionChooseListView.swift; sourceTree = "<group>"; };
+		3A5450AD2C71E9970090EE0F /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
+		3A5450B22C71F40B0090EE0F /* KiddyEatsButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KiddyEatsButtonStyle.swift; sourceTree = "<group>"; };
+		3A5450B42C71F79F0090EE0F /* ReactionEndingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionEndingView.swift; sourceTree = "<group>"; };
 		3AB03C3C2C6DE845001F5473 /* KiddyEatsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KiddyEatsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB03C3F2C6DE845001F5473 /* KiddyEatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KiddyEatsApp.swift; sourceTree = "<group>"; };
 		3AB03C432C6DE848001F5473 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -63,6 +82,8 @@
 		3AB03C682C6F9A2E001F5473 /* OnboardingGenderChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGenderChoice.swift; sourceTree = "<group>"; };
 		3AB03C6A2C6F9A4F001F5473 /* OnboardingTagsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTagsComponent.swift; sourceTree = "<group>"; };
 		3AB03C6F2C6F9A9F001F5473 /* +View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+View.swift"; sourceTree = "<group>"; };
+		3AB03C722C70E7E8001F5473 /* ReactionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionFormView.swift; sourceTree = "<group>"; };
+		E612725D2C6DE92E007698E6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E612725E2C6DE92E007698E6 /* BabyProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BabyProfile.swift; path = KiddyEatsApp/Model/BabyProfile.swift; sourceTree = SOURCE_ROOT; };
 		E612725F2C6DE92E007698E6 /* BabyMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BabyMeal.swift; path = KiddyEatsApp/Model/BabyMeal.swift; sourceTree = SOURCE_ROOT; };
 		E61272632C6DE92E007698E6 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
@@ -98,6 +119,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A54509E2C71DA070090EE0F /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				3A54509F2C71DA230090EE0F /* ReactionPromptView.swift */,
+				3A5450AB2C71E6420090EE0F /* ReactionChooseListView.swift */,
+				3A5450B42C71F79F0090EE0F /* ReactionEndingView.swift */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		3A5450A12C71DDB40090EE0F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3A5450A22C71DDC10090EE0F /* RadioButton.swift */,
+				3A5450AD2C71E9970090EE0F /* CheckboxButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		3A5450A62C71E1C20090EE0F /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				3A5450A72C71E1D00090EE0F /* ReactionStatus.swift */,
+				3A5450A92C71E2520090EE0F /* ReactionDetails.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		3A5450B12C71F3FB0090EE0F /* CustomStyle */ = {
+			isa = PBXGroup;
+			children = (
+				3A5450B22C71F40B0090EE0F /* KiddyEatsButtonStyle.swift */,
+			);
+			path = CustomStyle;
+			sourceTree = "<group>";
+		};
 		3AB03C332C6DE845001F5473 = {
 			isa = PBXGroup;
 			children = (
@@ -175,9 +232,11 @@
 		3AB03C632C6F96C5001F5473 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				3A5450A62C71E1C20090EE0F /* Enums */,
 				3AB03C642C6F96D6001F5473 /* BabyInformationViewModel.swift */,
 				E68C0F4F2C70914300532140 /* BabyMealDetailViewModel.swift */,
 				E68C0F372C707A2B00532140 /* ExploreViewModel.swift */,
+				3A5450A42C71E1460090EE0F /* ReactionLoggerViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -201,6 +260,16 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		3AB03C712C70E7D6001F5473 /* ReactionForm */ = {
+			isa = PBXGroup;
+			children = (
+				3AB03C722C70E7E8001F5473 /* ReactionFormView.swift */,
+				3A5450A12C71DDB40090EE0F /* Components */,
+				3A54509E2C71DA070090EE0F /* Pages */,
+			);
+			path = ReactionForm;
+			sourceTree = "<group>";
+		};
 		E612725C2C6DE92E007698E6 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +291,8 @@
 		E61272622C6DE92E007698E6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3A5450B12C71F3FB0090EE0F /* CustomStyle */,
+				3AB03C712C70E7D6001F5473 /* ReactionForm */,
 				3AB03C4D2C6F3B61001F5473 /* Onboarding */,
 				E67BD8E62C709887006393F4 /* Explore */,
 				E68C0F362C707A1200532140 /* BabyMealDetail */,
@@ -366,25 +437,35 @@
 				E612726E2C6E0272007698E6 /* BabyMealDetailViewController.swift in Sources */,
 				E68C0F562C7091F100532140 /* BabyMealDetailViewControllerRepresentable.swift in Sources */,
 				E68C0F442C7082DF00532140 /* RecipeCardPlaceholder.swift in Sources */,
+				3A5450B52C71F79F0090EE0F /* ReactionEndingView.swift in Sources */,
+				3A5450A82C71E1D00090EE0F /* ReactionStatus.swift in Sources */,
 				3AB03C6B2C6F9A4F001F5473 /* OnboardingTagsComponent.swift in Sources */,
 				3AB03C552C6F3C51001F5473 /* OnboardingBabyAllergies.swift in Sources */,
 				E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */,
 				3AB03C4F2C6F3B77001F5473 /* StartingOnboardingView.swift in Sources */,
 				3AB03C652C6F96D6001F5473 /* BabyInformationViewModel.swift in Sources */,
 				3AB03C512C6F3BBB001F5473 /* OnboardingBabyInfo.swift in Sources */,
+				3A5450A52C71E1460090EE0F /* ReactionLoggerViewModel.swift in Sources */,
+				3A5450AA2C71E2520090EE0F /* ReactionDetails.swift in Sources */,
 				3AB03C582C6F3F2E001F5473 /* OnboardingTextField.swift in Sources */,
+				3A5450A32C71DDC10090EE0F /* RadioButton.swift in Sources */,
+				3A5450A02C71DA230090EE0F /* ReactionPromptView.swift in Sources */,
 				3AB03C672C6F9722001F5473 /* Gender.swift in Sources */,
 				3AB03C702C6F9A9F001F5473 /* +View.swift in Sources */,
+				3A5450B32C71F40B0090EE0F /* KiddyEatsButtonStyle.swift in Sources */,
 				3AB03C5A2C6F890D001F5473 /* FlexibleView.swift in Sources */,
 				3AB03C532C6F3C04001F5473 /* OnboardingBabyGender.swift in Sources */,
 				E61272662C6DE92E007698E6 /* BabyMeal.swift in Sources */,
 				3AB03C692C6F9A2E001F5473 /* OnboardingGenderChoice.swift in Sources */,
 				3AB03C5D2C6F8E4D001F5473 /* OnboardingView.swift in Sources */,
+				3A5450AE2C71E9970090EE0F /* CheckboxButton.swift in Sources */,
+				3A5450AC2C71E6420090EE0F /* ReactionChooseListView.swift in Sources */,
 				E61272682C6DE92E007698E6 /* BabyProfile.swift in Sources */,
 				E68C0F332C7079C800532140 /* +BabyMeal.swift in Sources */,
 				E68C0F4E2C708D5600532140 /* AIBlockingResponse.swift in Sources */,
 				E68C0F402C707CAA00532140 /* +BabyMealRecommenderUseCase.swift in Sources */,
 				3AB03C402C6DE845001F5473 /* KiddyEatsApp.swift in Sources */,
+				3AB03C732C70E7E8001F5473 /* ReactionFormView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
