@@ -40,7 +40,6 @@
 		E612726E2C6E0272007698E6 /* BabyMealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */; };
 		E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */; };
 		E68C0F2D2C6F5B7100532140 /* RecipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */; };
-		E68C0F312C706F6000532140 /* .aider-system.md in Resources */ = {isa = PBXBuildFile; fileRef = E68C0F302C706F5800532140 /* .aider-system.md */; };
 		E68C0F332C7079C800532140 /* +BabyMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F322C7079C500532140 /* +BabyMeal.swift */; };
 		E68C0F382C707A2F00532140 /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F372C707A2B00532140 /* ExploreViewModel.swift */; };
 		E68C0F3B2C707A5800532140 /* AIServiceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F3A2C707A5000532140 /* AIServiceKeys.swift */; };
@@ -92,7 +91,6 @@
 		E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealDetailViewController.swift; sourceTree = "<group>"; };
 		E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealRecommenderUseCase.swift; sourceTree = "<group>"; };
 		E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCard.swift; sourceTree = "<group>"; };
-		E68C0F302C706F5800532140 /* .aider-system.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ".aider-system.md"; sourceTree = "<group>"; };
 		E68C0F322C7079C500532140 /* +BabyMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+BabyMeal.swift"; sourceTree = "<group>"; };
 		E68C0F372C707A2B00532140 /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
 		E68C0F3A2C707A5000532140 /* AIServiceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIServiceKeys.swift; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 				3AB03C452C6DE848001F5473 /* Preview Content */,
 				3AB03C3F2C6DE845001F5473 /* KiddyEatsApp.swift */,
 				3AB03C432C6DE848001F5473 /* Assets.xcassets */,
-				E68C0F302C706F5800532140 /* .aider-system.md */,
 			);
 			path = KiddyEatsApp;
 			sourceTree = "<group>";
@@ -418,7 +415,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AB03C472C6DE848001F5473 /* Preview Assets.xcassets in Resources */,
-				E68C0F312C706F6000532140 /* .aider-system.md in Resources */,
 				3AB03C442C6DE848001F5473 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
