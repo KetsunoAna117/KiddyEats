@@ -12,13 +12,27 @@ struct CollectionView: View {
 	@Environment(\.modelContext)
 	var modelContext
 	
-	@Query
+	@Query(sort: \DummyRecipeModel.dummyName, order: .forward)
 	private var dummies: [DummyRecipeModel]
 	
 	@State
 	private var searchRecipes: String = ""
 	@State
 	private var selectedView: CollectionSegment = .favoriteRecipes
+	
+	var filteredRecipes: [DummyRecipeModel] {
+		if searchRecipes.isEmpty {
+			return dummies
+		}
+		
+		let filteredRecipes = dummies.compactMap { dummy in
+			let recipeContainsQuery = dummy.dummyName.range(of: searchRecipes, options: .caseInsensitive) != nil
+			
+			return recipeContainsQuery ? dummy : nil
+		}
+		
+		return filteredRecipes
+	}
 	
     var body: some View {
 		NavigationStack {
@@ -34,7 +48,7 @@ struct CollectionView: View {
 				// Switch between views
 				switch selectedView {
 					case .favoriteRecipes:
-						let dummyFavorite = dummies.filter { $0.dummyIsLiked }
+						let dummyFavorite = filteredRecipes.filter { $0.dummyIsLiked }
 						
 						if dummyFavorite.isEmpty {
 							ContentUnavailableView {
@@ -46,7 +60,7 @@ struct CollectionView: View {
 							CollectionRecipeView(dummyFavorite: dummyFavorite)
 						}
 					case .allergicRecipes:
-						let dummyAllergic = dummies.filter { $0.dummyIsAllergic }
+						let dummyAllergic = filteredRecipes.filter { $0.dummyIsAllergic }
 						
 						if dummyAllergic.isEmpty {
 							ContentUnavailableView {
