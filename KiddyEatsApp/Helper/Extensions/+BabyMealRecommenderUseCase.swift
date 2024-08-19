@@ -13,6 +13,7 @@ extension BabyMealRecommenderUseCase {
     // NOTE: Nanti ini bakal sesuai profile bayi
     var fakeBaby: BabyProfile {
         BabyProfile(
+            id: UUID(),
             name: "Nathan",
             gender: "Male",
             allergies: ["Eggs", "Peanuts"],

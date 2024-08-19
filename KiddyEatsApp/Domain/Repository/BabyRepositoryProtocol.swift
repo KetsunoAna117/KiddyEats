@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
-protocol BabyRepositoryProtocol {
+protocol BabyProfileRepositoryProtocol {
     func getBabyProfile(modelContext: ModelContext) -> BabyProfileSchema?
+    func createBabyProfile(modelContext: ModelContext, babyProfile: BabyProfile)
 }

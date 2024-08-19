@@ -19,8 +19,6 @@ final class BabyMealSchema {
     var servingSize: Int?
     var estimatedCookingTimeMinutes: Int?
     
-    var babyProfileSchema: BabyProfileSchema?
-    
     init(id: UUID, name: String, emoji: String, ingredients: [String], allergens: [String], cookingSteps: String, servingSize: Int, estimatedCookingTimeMinutes: Int) {
         self.id = id
         self.name = name
