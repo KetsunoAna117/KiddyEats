@@ -8,12 +8,12 @@
 import Foundation
 
 struct BabyProfile: Identifiable {
-    let id = UUID()
-    let name: String
-    let gender: String
-    let allergies: [String]
-    let dateOfBirth: Date
-    let location: String
+    var id = UUID()
+    var name: String
+    var gender: String
+    var allergies: [String]
+    var dateOfBirth: Date
+    var location: String
     
     var ageMonths: Int  {
         let calendar = Calendar.current

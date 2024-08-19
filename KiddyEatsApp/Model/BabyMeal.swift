@@ -6,39 +6,27 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct BabyMeal: Identifiable, Codable {
-    let id: UUID
-    let name: String
-    let emoji: String
-    let ingredients: [String]
-    let potentialAllergies: [String]
-    let cookingSteps: String
+    var id: UUID
+    var name: String
+    var emoji: String
+    var ingredients: [String]
+    var allergens: [String]
+    var cookingSteps: String
+    var servingSize: Int
+    var estimatedCookingTimeMinutes: Int
     
-    enum CodingKeys: String, CodingKey {
-        case id, name, emoji, ingredients, potentialAllergies, cookingSteps
-    }
-    
-    init(id: UUID = UUID(), name: String, emoji: String, ingredients: [String], potentialAllergies: [String], cookingSteps: String) {
+    init(id: UUID = UUID(), name: String, emoji: String, ingredients: [String], allergens: [String], cookingSteps: String, servingSize: Int, estimatedCookingTimeMinutes: Int) {
         self.id = id
         self.name = name
         self.emoji = emoji
         self.ingredients = ingredients
-        self.potentialAllergies = potentialAllergies
+        self.allergens = allergens
         self.cookingSteps = cookingSteps
+        self.servingSize = servingSize
+        self.estimatedCookingTimeMinutes = estimatedCookingTimeMinutes
     }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        id = UUID()
-        name = try container.decode(String.self, forKey: .name)
-        
-        let emojiString = try container.decode(String.self, forKey: .emoji)
-        emoji = String(emojiString.prefix(1))
-        
-        ingredients = try container.decode([String].self, forKey: .ingredients)
-        potentialAllergies = try container.decode([String].self, forKey: .potentialAllergies)
-        cookingSteps = try container.decode(String.self, forKey: .cookingSteps)
-    }
+
 }
