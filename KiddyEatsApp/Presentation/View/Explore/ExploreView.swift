@@ -23,14 +23,22 @@ struct ExploreView: View {
                 
                 ScrollView {
                     VStack(spacing: 20) {
-                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
-                            ForEach(viewModel.babyMeals) { meal in
-                                NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)) {
-                                    RecipeCard(babyMeal: meal)
+                        if let errorMessage = viewModel.errorMessage {
+                            ErrorView(message: errorMessage) {
+                                Task {
+                                    await viewModel.refreshRecommendations()
                                 }
                             }
-                            if viewModel.isLoading && viewModel.babyMeals.count < 6 {
-                                RecipeCardPlaceholder()
+                        } else {
+                            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+                                ForEach(viewModel.babyMeals) { meal in
+                                    NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)) {
+                                        RecipeCard(babyMeal: meal)
+                                    }
+                                }
+                                if viewModel.isLoading && viewModel.babyMeals.count < 6 {
+                                    RecipeCardPlaceholder()
+                                }
                             }
                         }
                         
@@ -47,7 +55,7 @@ struct ExploreView: View {
                                 .background(Color.red.opacity(0.1))
                                 .cornerRadius(20)
                             }
-                        } else {
+                        } else if viewModel.errorMessage == nil {
                             Button(action: {
                                 Task {
                                     await viewModel.refreshRecommendations()
@@ -75,16 +83,49 @@ struct ExploreView: View {
             .navigationTitle("Explore Recipes")
             .background(.appBackground)
         }
-        
         .onChange(of: viewModel.searchText) {
             if !viewModel.searchText.isEmpty {
                 viewModel.debouncedSearch()
             }
         }
         .onAppear {
-            // NOTE: Uncomment this to enable AI recommendations on appear.
-            // viewModel.loadInitialRecommendations()
+            if viewModel.babyMeals.isEmpty && viewModel.errorMessage == nil {
+                Task {
+                    await viewModel.refreshRecommendations()
+                }
+            }
         }
+    }
+}
+
+struct ErrorView: View {
+    let message: String
+    let retryAction: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 50))
+                .foregroundColor(.orange)
+            
+            Text(message)
+                .font(.headline)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.secondary)
+            
+            Button(action: retryAction) {
+                Text("Try Again")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.accentColor)
+                    .cornerRadius(10)
+            }
+        }
+        .padding()
+        .background(Color(.systemBackground))
+        .cornerRadius(20)
+        .shadow(radius: 10)
     }
 }
 
