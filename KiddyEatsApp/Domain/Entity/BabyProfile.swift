@@ -20,4 +20,15 @@ struct BabyProfile: Identifiable {
         let components = calendar.dateComponents([.month], from: dateOfBirth, to: Date())
         return components.month ?? 0
     }
+    
+    func mapToBabyProfileSchema() -> BabyProfileSchema {
+        return BabyProfileSchema(
+            id: self.id,
+            name: self.name,
+            gender: self.gender,
+            allergies: self.allergies,
+            dateOfBirth: self.dateOfBirth,
+            location: self.location
+        )
+    }
 }

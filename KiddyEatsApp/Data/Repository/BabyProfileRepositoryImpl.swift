@@ -14,7 +14,13 @@ struct BabyProfileRepositoryImpl {
     static let shared = BabyProfileRepositoryImpl()
 }
 
-extension BabyProfileRepositoryImpl: BabyRepositoryProtocol {
+extension BabyProfileRepositoryImpl: BabyProfileRepositoryProtocol {
+    func createBabyProfile(modelContext: ModelContext, babyProfile: BabyProfile) {
+        modelContext.insert(babyProfile.mapToBabyProfileSchema())
+        try? modelContext.save()
+    }
+    
+    
     func getBabyProfile(modelContext: ModelContext) -> BabyProfileSchema? {
         let descriptor = FetchDescriptor<BabyProfileSchema>()
         

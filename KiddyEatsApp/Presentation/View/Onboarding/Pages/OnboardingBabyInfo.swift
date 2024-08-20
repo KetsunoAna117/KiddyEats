@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct OnboardingBabyInfo: View {
-    @Bindable var vm: BabyInformationViewModel
+    @Bindable var vm: BabyOnboardingInformationViewModel
     @State private var showDatePicker = false
+    
+    let dateRange: ClosedRange<Date> = {
+        let today = Date()
+        let oneYearAgo = Calendar.current.date(byAdding: .year, value: -2, to: today)!
+        return oneYearAgo...today
+    }()
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -31,7 +37,7 @@ struct OnboardingBabyInfo: View {
                 
                 VStack {
                     VStack {
-                        OnboardingTextField(title: "Name", placeholder: "Enter your baby's name here", content: $vm.babyName)
+                        OnboardingTextField(title: "Name", placeholder: "Enter your baby's name here", content: $vm.savedbabyName)
                     }
                     
                     VStack {
@@ -40,17 +46,27 @@ struct OnboardingBabyInfo: View {
                             Spacer()
                         }
                         ZStack {
-                            Text(dateFormatter.string(from: vm.babyDOB))
+                            Text(dateFormatter.string(from: vm.savedbabyDOB))
                                 .frame(maxWidth: .infinity, alignment: .center)
                                 .padding()
                                 .onTapGesture {
                                     showDatePicker = true
                                 }
                                 .sheet(isPresented: $showDatePicker, content: {
-                                    DatePicker("Select Date of Birth", selection: $vm.babyDOB, displayedComponents: .date)
-                                        .datePickerStyle(.wheel)
-                                        .labelsHidden()
-                                        .presentationDetents([.medium])
+                                    VStack {
+                                        Text("Select your baby date of birth")
+                                        DatePicker("Select Date of Birth", selection: $vm.savedbabyDOB, in: dateRange, displayedComponents: .date)
+                                            .datePickerStyle(.graphical)
+                                            .labelsHidden()
+                                            .presentationDetents([.height(500)])
+                                        Button {
+                                            showDatePicker = false
+                                        } label: {
+                                            Text("Done")
+                                        }
+                                        .buttonStyle(KiddyEatsProminentButtonStyle())
+                                        .padding(.horizontal, 30)
+                                    }
                                 })
                             
                             
@@ -74,5 +90,7 @@ struct OnboardingBabyInfo: View {
 }
 
 #Preview {
-   OnboardingView()
+    OnboardingView(onBoardingCompleted: {
+        print("Onboarding Completed")
+    })
 }

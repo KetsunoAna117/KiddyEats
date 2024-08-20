@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingBabyGender: View {
-    @Bindable var vm: BabyInformationViewModel
+    @Bindable var vm: BabyOnboardingInformationViewModel
     
     var body: some View {
         ZStack {
@@ -24,8 +24,8 @@ struct OnboardingBabyGender: View {
                 .padding(.bottom, 30)
                 
                 HStack(spacing: 20) {
-                    OnboardingGenderChoice(imageEmoji: "👦", type: .male, isSelected: $vm.babyGender)
-                    OnboardingGenderChoice(imageEmoji: "👧", type: .female, isSelected: $vm.babyGender)
+                    OnboardingGenderChoice(imageEmoji: "👦", type: .male, isSelected: $vm.savedbabyGender)
+                    OnboardingGenderChoice(imageEmoji: "👧", type: .female, isSelected: $vm.savedbabyGender)
                 }
                 Spacer()
             }
@@ -36,5 +36,7 @@ struct OnboardingBabyGender: View {
  
 
 #Preview {
-    OnboardingView()
+    OnboardingView(onBoardingCompleted: {
+        print("Onboarding Completed")
+    })
 }
