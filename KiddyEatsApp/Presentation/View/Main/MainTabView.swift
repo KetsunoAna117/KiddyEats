@@ -27,14 +27,14 @@ struct MainTabView: View {
                         }
                         
                         NavigationStack {
-                            Text("Hello")
+                            CollectionView()
                         }
                         .tabItem {
                             Label("Collections", systemImage: "heart.circle")
                         }
                         
                         NavigationStack {
-                            Text("Hello")
+                            ProfileView()
                         }
                         .tabItem {
                             Label("Profile", systemImage: "person.circle")

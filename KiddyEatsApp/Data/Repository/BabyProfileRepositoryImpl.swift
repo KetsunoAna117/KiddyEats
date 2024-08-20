@@ -31,4 +31,17 @@ extension BabyProfileRepositoryImpl: BabyProfileRepositoryProtocol {
         
         return fetchedBabyProfile.first
     }
+	
+	//TODO: Add function to update baby profile swiftdata
+	func updateBabyProfile(modelContext: ModelContext, toUpdateBabyProfile: BabyProfile) {
+		if let existingBabyProfile = getBabyProfile(modelContext: modelContext) {
+			existingBabyProfile.name = toUpdateBabyProfile.name
+			existingBabyProfile.gender = toUpdateBabyProfile.gender
+			existingBabyProfile.allergies = toUpdateBabyProfile.allergies
+			existingBabyProfile.dateOfBirth = toUpdateBabyProfile.dateOfBirth
+			existingBabyProfile.location = toUpdateBabyProfile.location
+			try? modelContext.save()
+		}
+	}
+
 }
