@@ -22,11 +22,15 @@ extension BabyMealRecommenderUseCase {
         )
     }
     
-    internal func constructLLMPrompt(profile: BabyProfile, searchQuery: String?) -> String {
-        var prompt = """
-        You are an expert in child healthcare.
+    internal func constructLLMPrompt(profile: BabyProfile, searchQuery: String? = nil) -> String {
+        var searchPrompt: String = ""
         
-        Your job is to recommend baby meals based on baby profile.
+        if let searchQuery = searchQuery {
+            searchPrompt = "\n\nAlso recommend meals based on this search query:\"\(searchQuery)\"\n\nIf the search query is nonsense, just return the closest meal based on baby profile, always follow the schema!"
+        }
+        
+        var prompt = """
+        You are an expert in child healthcare. Your job is to recommend baby meals based on baby profile.
         
         External Info - Common Food Allergies based on FDA:
         \(commonFoodAllergies)
@@ -40,14 +44,14 @@ extension BabyMealRecommenderUseCase {
         
         ---
         
-        Please recommend 6 baby meals based on this baby profile:
+        Please recommend 6 baby meals based on this baby profile (avoid recommending foods that contain allergens in the baby profile):
         \(generateBabyProfileString(profile))
+        
+        \(searchPrompt)
+        
+        IMPORTANT: The last food you recommend, it MUST contain any allergen for testing purposes. That allergen must not the allergen that in Baby Profile!
         """
-        
-        if let searchQuery = searchQuery {
-            prompt += "\n\nAlso use this search query: \(searchQuery).\n\nIf the search query is nonsense, just return a random meal based on baby profile, always follow the schema!"
-        }
-        
+                
         return prompt
     }
     
@@ -107,7 +111,7 @@ extension BabyMealRecommenderUseCase {
     },
     "cookingSteps": {
     "type": "string",
-    "description": "Steps to cook the meal in numbered list and newline."
+    "description": "Steps to cook the meal in numbered list and newline. Make it as simple as possible."
     },
     "servingSize": {
     "type": "integer",
@@ -126,13 +130,12 @@ extension BabyMealRecommenderUseCase {
     internal var rules: String {
     """
     Rules:
-    - Your returned ingredients must include units such as grams, tablespoons, teaspoon,
-    - Don't forget to include potentialAllergies in your recommended foods if exists based on common food allergies or any other allergies.
-    - Before the cooking guidelines, include "Serving Size: X" the number of serving size.
+    - Your returned ingredients must include units such as grams, tablespoons, teaspoon.
+    - Don't forget to include meal allergens in your recommended foods if there.
     - The cooking guidelines must step by step in numbered list using newline.
     - The emoji is only one character.
     - You must always response with JSON based on the schema, regardless anything the user query.
-    - Wrap your response with JSON array.
+    - Wrap your response with JSON array "[]".
     
     NEVER wrap your response data with triple backticks, just answer straight to the plain text json!
     """

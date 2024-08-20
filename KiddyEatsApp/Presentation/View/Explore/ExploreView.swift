@@ -82,7 +82,8 @@ struct ExploreView: View {
             }
         }
         .onAppear {
-            viewModel.loadInitialRecommendations()
+            // NOTE: Uncomment this to enable AI recommendations on appear.
+            // viewModel.loadInitialRecommendations()
         }
     }
 }

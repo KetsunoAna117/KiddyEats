@@ -22,6 +22,9 @@ class ExploreViewModel {
     private var currentTask: Task<Void, Never>?
     private var searchCancellable: AnyCancellable?
     
+    private var lastProcessingTime: Date = .distantPast
+    private let processingInterval: TimeInterval = 0.2 // 200 milliseconds
+    
     func loadInitialRecommendations() {
         guard !hasLoadedInitialRecommendations else { return }
         Task {
@@ -29,9 +32,6 @@ class ExploreViewModel {
             hasLoadedInitialRecommendations = true
         }
     }
-    
-    private var lastProcessingTime: Date = .distantPast
-    private let processingInterval: TimeInterval = 0.2 // 200 milliseconds
     
     func refreshRecommendations() async {
         isLoading = true
@@ -53,6 +53,9 @@ class ExploreViewModel {
                         self.lastProcessingTime = currentTime
                     }
                 }
+                
+                try await Task.sleep(for: .seconds(0.2))
+                
                 // Parse the complete JSON after streaming ends
                 if let data = jsonResponse.data(using: .utf8) {
                     do {
