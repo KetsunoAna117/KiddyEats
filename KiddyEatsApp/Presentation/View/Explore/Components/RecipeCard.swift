@@ -41,12 +41,10 @@ struct RecipeCard: View {
                 Button(action: {
                     // Save to swiftData if isn't favorited
                     if vm.isFavorited == false {
-                        print("save meal for \(babyMeal.name)")
                         vm.saveMeal(modelContext: modelContext, babyMeal: babyMeal)
                     }
                     // Delete from swiftData if already favorited
                     else {
-                        print("delete meal for \(babyMeal.name)")
                         vm.deleteMeal(modelContext: modelContext, babyMeal: babyMeal)
                     }
                     vm.checkIfAlreadyFavorite(modelContext: modelContext, babyMealID: babyMeal.id)

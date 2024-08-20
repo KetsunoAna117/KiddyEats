@@ -17,10 +17,5 @@ struct DeleteBabyMealUseCase: DeleteBabyMealProtocol {
 	
 	func execute(modelContext: ModelContext, toDeleteBabyMealID: UUID) {
 		repo.deleteBabyMeal(modelContext: modelContext, toDeleteBabyMealID: toDeleteBabyMealID)
-        
-        let debug = repo.getBabyMealList(modelContext: modelContext)
-        for data in debug {
-            print(data.name ?? "")
-        }
 	}
 }

@@ -18,12 +18,6 @@ struct SaveBabyMealUseCase: SaveBabyMealUseCaseProtocol {
     func execute(modelContext: ModelContext, toSaveBabyMeal: BabyMeal) {
         let toSaveBabyMealSchema = toSaveBabyMeal.mapToBabyMealSchema()
         repo.saveBabyMeal(modelContext: modelContext, toSaveBabyMealSchema: toSaveBabyMealSchema)
-        
-        print("Try to save babyMeal: \(toSaveBabyMeal.name)")
-        let debug = repo.getBabyMealList(modelContext: modelContext)
-        for data in debug {
-            print(data.name ?? "")
-        }
     }
     
     

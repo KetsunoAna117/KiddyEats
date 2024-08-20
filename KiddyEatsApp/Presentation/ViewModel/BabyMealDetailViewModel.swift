@@ -27,12 +27,10 @@ import SwiftData
     }
     
     func saveMeal(modelContext: ModelContext, babyMeal: BabyMeal) {
-        print("Try to save meal")
         saveBabyMealUseCase.execute(modelContext: modelContext, toSaveBabyMeal: babyMeal)
     }
     
     func deleteMeal(modelContext: ModelContext, babyMeal: BabyMeal) {
-        print("Try to delete meal")
         deleteBabyMealUseCase.execute(modelContext: modelContext, toDeleteBabyMealID: babyMeal.id)
     }
     
