@@ -14,6 +14,7 @@ class ExploreViewModel {
     
     var searchText: String = ""
     var babyMeals: [BabyMeal] = []
+    var previousRecommendedMeals: [BabyMeal] = [] // TODO: This list must max 12 items.
     var isLoading: Bool = false
     var errorMessage: String?
     var retryCount: Int = 0

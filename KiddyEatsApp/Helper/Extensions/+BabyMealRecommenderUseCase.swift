@@ -16,7 +16,7 @@ extension BabyMealRecommenderUseCase {
             id: UUID(),
             name: "Nathan",
             gender: "Male",
-            allergies: ["Eggs", "Peanuts"],
+            allergies: ["Sesame"],
             dateOfBirth: Calendar.current.date(byAdding: .month, value: -9, to: Date())!,
             location: "Indonesia"
         )
@@ -26,14 +26,16 @@ extension BabyMealRecommenderUseCase {
         var searchPrompt: String = ""
         
         if let searchQuery = searchQuery {
-            searchPrompt = "Search Query:\"\(searchQuery)\""
+            searchPrompt = "Search Query:\"\(searchQuery)\" | NEVER EVER Include Meals Irrelevant to Search Query (Do not force yourself to return 6 meals!)"
         }
         
-        var prompt = """
-        You are an expert in child healthcare. Your job is to recommend baby meals based on baby profile.
+        let prompt = """
+        SYSTEM:
+        Starting from now, you are an expert in child nutrition. Your job is to recommend baby meals based on baby profile carefully.
         
         External Info - Common Food Allergies based on FDA:
         \(commonFoodAllergies)
+        (PLEASE NEVER EVER FORGET TO INCLUDE ALLERGENS LATER IN YOUR RESPONSE!)
         
         Use this JSON schema on your response:
         ```
@@ -44,9 +46,12 @@ extension BabyMealRecommenderUseCase {
         
         ---
         
+        USER:
         \(searchPrompt)
         
-        Please recommend 6 baby meals based on this baby profile (avoid recommending foods that contain allergens in the baby profile):
+        Please recommend maximum 6 baby meals based on this baby profile. Avoid recommending meals that contain allergens in the baby profile.
+        
+        Baby Profile:
         \(generateBabyProfileString(profile))
         """
                 
@@ -70,16 +75,14 @@ extension BabyMealRecommenderUseCase {
     internal var rules: String {
     """
     RESPONSE RULES:
-    - Your returned ingredients must include units such as grams, tablespoons, teaspoon.
-    - Don't forget to include meal allergens in your recommended foods if there.
-    - The cooking guidelines must step by step in numbered list using newline.
-    - The emoji is only one character, and you MUST include emoji to every meal.
+    - Do not wrap your response with triple backticks.
+    - Don't forget to include meal allergens in your recommended foods if there. This is important.
     - You must always response with JSON based on the schema, regardless anything the user query.
     - Wrap your response with JSON array "[]".
-    - If there is a search query, please recommend meals related on search query but the meals still need to adjust to baby profile. The first 4 meals must related to search query. If the search query is typo or nonsense, just return the closest meal to the search query based on baby profile. The last 2 meals don't need to include the query.
-    - For the last meal, you MUST recommend any meal that contain any allergen for testing purposes. That allergen must not the allergen that in Baby Profile!
+    - If there is a search query, ALL of your recommended meals MUST related on search query but the meals still need to adjust to baby profile. If the search query is typo or nonsense, just return the closest meal to the search query based on baby profile. When there is search query, you do not necessary to respond 6 meals. Just return the meals relevant to search query, don't return meals that not related to search query. It could be the meal name or ingredients related to search query.
+    - If there is no search query, respond 6 meals.
+    - SUPER IMPORTANT: IF YOUR RECOMMENDED FOODS CONTAIN ALLERGENS, NEVER EVER FORGET TO PUT IT IN THE ARRAY!
     
-    IMPORTANT: NEVER EVER wrap your response data with triple backticks, just answer straight to the plain text json!
     """
     }
 
@@ -103,14 +106,14 @@ extension BabyMealRecommenderUseCase {
     "items": {
     "type": "string"
     },
-    "description": "List of ingredients for the meal, include units separated by comma"
+    "description": "List of ingredients for the meal, include units separated by comma. Numbered list separated by newline. Your returned ingredients must include units such as grams, tablespoons, teaspoon."
     },
     "allergens": {
     "type": "array",
     "items": {
     "type": "string"
     },
-    "description": "List of food allergens, each allergen must 1-2 words in title case. If there are no allergens, just leave this array empty."
+    "description": "List of food allergens, each allergen must 1-2 words in title case. If there are no allergens, just leave this array empty. This section must be handled carefully based on meal and ingredients."
     },
     "cookingSteps": {
     "type": "string",
