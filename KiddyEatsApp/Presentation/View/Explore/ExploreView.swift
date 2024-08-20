@@ -23,21 +23,21 @@ struct ExploreView: View {
                 
                 ScrollView {
                     VStack(spacing: 20) {
-                        if let errorMessage = viewModel.errorMessage {
-                            ErrorView(message: errorMessage) {
-                                Task {
-                                    await viewModel.refreshRecommendations()
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+                            ForEach(viewModel.babyMeals) { meal in
+                                NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)) {
+                                    RecipeCard(babyMeal: meal)
                                 }
                             }
-                        } else {
-                            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
-                                ForEach(viewModel.babyMeals) { meal in
-                                    NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)) {
-                                        RecipeCard(babyMeal: meal)
-                                    }
-                                }
-                                if viewModel.isLoading && viewModel.babyMeals.count < 6 {
-                                    RecipeCardPlaceholder()
+                            if viewModel.isLoading && viewModel.babyMeals.count < 6 {
+                                RecipeCardPlaceholder()
+                            }
+                        }
+                        
+                        if let errorMessage = viewModel.errorMessage {
+                            ErrorContainer(message: errorMessage) {
+                                Task {
+                                    await viewModel.refreshRecommendations()
                                 }
                             }
                         }
@@ -98,34 +98,30 @@ struct ExploreView: View {
     }
 }
 
-struct ErrorView: View {
+struct ErrorContainer: View {
     let message: String
     let retryAction: () -> Void
     
     var body: some View {
-        VStack(spacing: 20) {
-            Image(systemName: "exclamationmark.triangle")
-                .font(.system(size: 50))
-                .foregroundColor(.orange)
-            
+        VStack(spacing: 10) {
             Text(message)
                 .font(.headline)
                 .multilineTextAlignment(.center)
-                .foregroundColor(.secondary)
+                .foregroundColor(.white)
             
             Button(action: retryAction) {
                 Text("Try Again")
-                    .font(.headline)
+                    .font(.subheadline)
                     .foregroundColor(.white)
-                    .padding()
-                    .background(Color.accentColor)
-                    .cornerRadius(10)
+                    .padding(.vertical, 5)
+                    .padding(.horizontal, 10)
+                    .background(Color.white.opacity(0.3))
+                    .cornerRadius(5)
             }
         }
         .padding()
-        .background(Color(.systemBackground))
-        .cornerRadius(20)
-        .shadow(radius: 10)
+        .background(Color.red.opacity(0.8))
+        .cornerRadius(10)
     }
 }
 
