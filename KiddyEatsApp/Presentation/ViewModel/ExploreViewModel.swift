@@ -35,6 +35,7 @@ class ExploreViewModel {
             do {
                 var jsonResponse = ""
                 
+                #warning("Replace fake baby with real data from swift data")
                 try await recommender.recommendMealsStreaming(profile: recommender.fakeBaby, searchQuery: searchText.isEmpty ? nil : searchText) { token in
                     
                     jsonResponse += token
