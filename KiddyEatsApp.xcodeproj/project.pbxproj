@@ -49,6 +49,10 @@
 		E612726E2C6E0272007698E6 /* BabyMealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */; };
 		E67BD8F62C743A09006393F4 /* AIServiceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD8F52C743A04006393F4 /* AIServiceKeys.swift */; };
 		E67BD8F82C744E0D006393F4 /* ErrorContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD8F72C744E09006393F4 /* ErrorContainer.swift */; };
+		E67BD9082C746212006393F4 /* FakeBabyProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD9072C74620A006393F4 /* FakeBabyProfileRepository.swift */; };
+		E67BD90A2C746224006393F4 /* BabyProfileRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD9092C74621D006393F4 /* BabyProfileRepositoryTests.swift */; };
+		E67BD90C2C7464F2006393F4 /* ExploreViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD90B2C7464DA006393F4 /* ExploreViewModelTests.swift */; };
+		E67BD90F2C746811006393F4 /* BabyMealJsonParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD90E2C7467F8006393F4 /* BabyMealJsonParserTests.swift */; };
 		E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */; };
 		E68C0F2D2C6F5B7100532140 /* RecipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */; };
 		E68C0F332C7079C800532140 /* +BabyMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F322C7079C500532140 /* +BabyMeal.swift */; };
@@ -65,6 +69,16 @@
 		E68C0F542C70918B00532140 /* BabyMealDetailPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F532C70918600532140 /* BabyMealDetailPreview.swift */; };
 		E68C0F562C7091F100532140 /* BabyMealDetailViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F552C7091DE00532140 /* BabyMealDetailViewControllerRepresentable.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E67BD9012C746174006393F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3AB03C342C6DE845001F5473 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3AB03C3B2C6DE845001F5473;
+			remoteInfo = KiddyEatsApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3A54509F2C71DA230090EE0F /* ReactionPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPromptView.swift; sourceTree = "<group>"; };
@@ -110,6 +124,11 @@
 		E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealDetailViewController.swift; sourceTree = "<group>"; };
 		E67BD8F52C743A04006393F4 /* AIServiceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIServiceKeys.swift; sourceTree = "<group>"; };
 		E67BD8F72C744E09006393F4 /* ErrorContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorContainer.swift; sourceTree = "<group>"; };
+		E67BD8FD2C746174006393F4 /* KiddyEatsAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KiddyEatsAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E67BD9072C74620A006393F4 /* FakeBabyProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBabyProfileRepository.swift; sourceTree = "<group>"; };
+		E67BD9092C74621D006393F4 /* BabyProfileRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyProfileRepositoryTests.swift; sourceTree = "<group>"; };
+		E67BD90B2C7464DA006393F4 /* ExploreViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModelTests.swift; sourceTree = "<group>"; };
+		E67BD90E2C7467F8006393F4 /* BabyMealJsonParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealJsonParserTests.swift; sourceTree = "<group>"; };
 		E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealRecommenderUseCase.swift; sourceTree = "<group>"; };
 		E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCard.swift; sourceTree = "<group>"; };
 		E68C0F322C7079C500532140 /* +BabyMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+BabyMeal.swift"; sourceTree = "<group>"; };
@@ -129,6 +148,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		3AB03C392C6DE845001F5473 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E67BD8FA2C746174006393F4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -251,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				3AB03C3E2C6DE845001F5473 /* KiddyEatsApp */,
+				E67BD8FE2C746174006393F4 /* KiddyEatsAppTests */,
 				3AB03C3D2C6DE845001F5473 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -259,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				3AB03C3C2C6DE845001F5473 /* KiddyEatsApp.app */,
+				E67BD8FD2C746174006393F4 /* KiddyEatsAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -400,6 +428,25 @@
 			path = Explore;
 			sourceTree = "<group>";
 		};
+		E67BD8FE2C746174006393F4 /* KiddyEatsAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				E67BD9062C7461F8006393F4 /* Data */,
+				E67BD9092C74621D006393F4 /* BabyProfileRepositoryTests.swift */,
+				E67BD90B2C7464DA006393F4 /* ExploreViewModelTests.swift */,
+				E67BD90E2C7467F8006393F4 /* BabyMealJsonParserTests.swift */,
+			);
+			path = KiddyEatsAppTests;
+			sourceTree = "<group>";
+		};
+		E67BD9062C7461F8006393F4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E67BD9072C74620A006393F4 /* FakeBabyProfileRepository.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		E68C0F292C6F473100532140 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
@@ -462,6 +509,24 @@
 			productReference = 3AB03C3C2C6DE845001F5473 /* KiddyEatsApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E67BD8FC2C746174006393F4 /* KiddyEatsAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E67BD9032C746174006393F4 /* Build configuration list for PBXNativeTarget "KiddyEatsAppTests" */;
+			buildPhases = (
+				E67BD8F92C746174006393F4 /* Sources */,
+				E67BD8FA2C746174006393F4 /* Frameworks */,
+				E67BD8FB2C746174006393F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E67BD9022C746174006393F4 /* PBXTargetDependency */,
+			);
+			name = KiddyEatsAppTests;
+			productName = KiddyEatsAppTests;
+			productReference = E67BD8FD2C746174006393F4 /* KiddyEatsAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -469,11 +534,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
+				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					3AB03C3B2C6DE845001F5473 = {
 						CreatedOnToolsVersion = 15.4;
+					};
+					E67BD8FC2C746174006393F4 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 3AB03C3B2C6DE845001F5473;
 					};
 				};
 			};
@@ -491,6 +560,7 @@
 			projectRoot = "";
 			targets = (
 				3AB03C3B2C6DE845001F5473 /* KiddyEatsApp */,
+				E67BD8FC2C746174006393F4 /* KiddyEatsAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -502,6 +572,13 @@
 			files = (
 				3AB03C472C6DE848001F5473 /* Preview Assets.xcassets in Resources */,
 				3AB03C442C6DE848001F5473 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E67BD8FB2C746174006393F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,7 +648,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E67BD8F92C746174006393F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E67BD90C2C7464F2006393F4 /* ExploreViewModelTests.swift in Sources */,
+				E67BD90F2C746811006393F4 /* BabyMealJsonParserTests.swift in Sources */,
+				E67BD90A2C746224006393F4 /* BabyProfileRepositoryTests.swift in Sources */,
+				E67BD9082C746212006393F4 /* FakeBabyProfileRepository.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E67BD9022C746174006393F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3AB03C3B2C6DE845001F5473 /* KiddyEatsApp */;
+			targetProxy = E67BD9012C746174006393F4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3AB03C482C6DE848001F5473 /* Debug */ = {
@@ -753,6 +849,44 @@
 			};
 			name = Release;
 		};
+		E67BD9042C746174006393F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J4KR4C3C23;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bytebooster.KiddyEatsAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KiddyEatsApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/KiddyEatsApp";
+			};
+			name = Debug;
+		};
+		E67BD9052C746174006393F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J4KR4C3C23;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bytebooster.KiddyEatsAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KiddyEatsApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/KiddyEatsApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -770,6 +904,15 @@
 			buildConfigurations = (
 				3AB03C4B2C6DE848001F5473 /* Debug */,
 				3AB03C4C2C6DE848001F5473 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E67BD9032C746174006393F4 /* Build configuration list for PBXNativeTarget "KiddyEatsAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E67BD9042C746174006393F4 /* Debug */,
+				E67BD9052C746174006393F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
