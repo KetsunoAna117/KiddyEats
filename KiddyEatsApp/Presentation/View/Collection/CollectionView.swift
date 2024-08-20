@@ -12,23 +12,23 @@ struct CollectionView: View {
 	@Environment(\.modelContext)
 	var modelContext
 	
-	@Query(sort: \DummyRecipeModel.dummyName, order: .forward)
-	private var dummies: [DummyRecipeModel]
+	@Query(sort: \BabyMealSchema.name, order: .forward)
+	private var babyMeal: [BabyMealSchema]
 	
 	@State
 	private var searchRecipes: String = ""
 	@State
 	private var selectedView: CollectionSegment = .favoriteRecipes
 	
-	var filteredRecipes: [DummyRecipeModel] {
+	var filteredRecipes: [BabyMealSchema] {
 		if searchRecipes.isEmpty {
-			return dummies
+			return babyMeal
 		}
 		
-		let filteredRecipes = dummies.compactMap { dummy in
-			let recipeContainsQuery = dummy.dummyName.range(of: searchRecipes, options: .caseInsensitive) != nil
+		let filteredRecipes = babyMeal.compactMap { meal in
+			let recipeContainsQuery = meal.name?.range(of: searchRecipes, options: .caseInsensitive) != nil
 			
-			return recipeContainsQuery ? dummy : nil
+			return recipeContainsQuery ? meal : nil
 		}
 		
 		return filteredRecipes
@@ -48,28 +48,26 @@ struct CollectionView: View {
 				// Switch between views
 				switch selectedView {
 					case .favoriteRecipes:
-						let dummyFavorite = filteredRecipes.filter { $0.dummyIsLiked }
-						
-						if dummyFavorite.isEmpty {
+						if babyMeal.isEmpty {
 							ContentUnavailableView {
 								Label("No Favorite Recipe", systemImage: "heart.slash.fill")
 							} description: {
 								Text("Your favorite recipes will appear here.")
 							}
 						} else {
-							CollectionRecipeView(dummyFavorite: dummyFavorite)
+							CollectionRecipeView(babyMeal: babyMeal)
 						}
 					case .allergicRecipes:
-						let dummyAllergic = filteredRecipes.filter { $0.dummyIsAllergic }
+						let mealAllergic = filteredRecipes.filter { $0.isAllergic }
 						
-						if dummyAllergic.isEmpty {
+						if mealAllergic.isEmpty {
 							ContentUnavailableView {
 								Label("No Allergy-Inducing Recipe", systemImage: "exclamationmark.triangle.fill")
 							} description: {
 								Text("Recipes that can cause allergic reaction will appear here.")
 							}
 						} else {
-							CollectionRecipeView(dummyFavorite: dummyAllergic)
+							CollectionRecipeView(dummyFavorite: mealAllergic)
 						}
 				}
 			}

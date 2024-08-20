@@ -12,19 +12,19 @@ struct RecipeListView: View {
 	@Environment(\.modelContext)
 	var modelContext
 	
-	let dummyRecipe: DummyRecipeModel
+	let mealRecipe: BabyMealSchema
 	
     var body: some View {
 		HStack {
-			Text(dummyRecipe.dummyEmoji)
+			Text(mealRecipe.emoji!)
 				.font(.system(size: 40))
 				.padding(.trailing)
 			
 			VStack(alignment: .leading) {
-				Text(dummyRecipe.dummyName)
+				Text(mealRecipe.name!)
 					.font(.title2)
 					.padding(.bottom, 2)
-				Text("Cooking time: ")
+				Text("Cooking time: \(mealRecipe.estimatedCookingTimeMinutes)")
 					.font(.caption)
 				Text("Difficulty: ")
 					.font(.caption)
@@ -32,7 +32,7 @@ struct RecipeListView: View {
 			
 			Spacer()
 			
-			if dummyRecipe.dummyIsAllergic {
+			if mealRecipe.isAllergic! {
 				Image(systemName: "exclamationmark.triangle")
 					.symbolVariant(.fill)
 					.font(.largeTitle)
@@ -42,7 +42,7 @@ struct RecipeListView: View {
 		.swipeActions {
 			Button(role: .destructive) {
 				withAnimation {
-					modelContext.delete(dummyRecipe)
+					modelContext.delete(mealRecipe)
 				}
 				
 			} label: {

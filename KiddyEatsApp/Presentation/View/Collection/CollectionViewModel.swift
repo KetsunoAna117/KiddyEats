@@ -9,37 +9,25 @@ import SwiftUI
 import SwiftData
 
 class CollectionViewModel: ObservableObject {
-	@Environment(\.modelContext)
-	var modelContext
+	@Environment(\.modelContext) var modelContext
 	
-	@Query(sort: \DummyRecipeModel.dummyName, order: .forward)
-	private var dummies: [DummyRecipeModel]
+	@Published var searchRecipes: String = ""
+	@Published var selectedView: CollectionSegment = .favoriteRecipes
 	
-	@Published
-	var searchRecipes: String = ""
+	@Query(sort: \BabyMealSchema.name, order: .forward)
+	private var meal: [BabyMealSchema]
 	
-	@Published
-	var selectedView: CollectionSegment = .favoriteRecipes
+	private let recipeFilteringUseCase: FilterRecipeProtocol
 	
-	var filteredRecipes: [DummyRecipeModel] {
-		if searchRecipes.isEmpty {
-			return dummies
-		}
-		
-		let filteredRecipes = dummies.compactMap { dummy in
-			let recipeContainsQuery = dummy.dummyName.range(of: searchRecipes, options: .caseInsensitive) != nil
-			
-			return recipeContainsQuery ? dummy : nil
-		}
-		
-		return filteredRecipes
+	init(recipeFilteringUseCase: FilterRecipeProtocol = FilterRecipeUseCase()) {
+		self.recipeFilteringUseCase = recipeFilteringUseCase
 	}
 	
-	var favoriteRecipes: [DummyRecipeModel] {
-		filteredRecipes.filter { $0.dummyIsLiked }
+	var filteredRecipes: [BabyMealSchema] {
+		return recipeFilteringUseCase.execute(babyMeal: [BabyMealSchema], searchQuery: searchRecipes)
 	}
 	
-	var allergicRecipes: [DummyRecipeModel] {
-		filteredRecipes.filter { $0.dummyIsAllergic }
+	var allergicRecipes: [BabyMealSchema] {
+		filteredRecipes.filter { $0.isAllergic ?? false }
 	}
 }

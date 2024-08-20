@@ -27,6 +27,7 @@ extension BabyMeal {
         cookingSteps = try container.decode(String.self, forKey: .cookingSteps)
         servingSize = try container.decode(Int.self, forKey: .servingSize)
         estimatedCookingTimeMinutes = try container.decode(Int.self, forKey: .estimatedCookingTimeMinutes)
+		isAllergic = false
     }
     
     func isValid() -> Bool {

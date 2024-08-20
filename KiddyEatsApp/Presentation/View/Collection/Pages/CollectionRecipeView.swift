@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct CollectionRecipeView: View {
-	var dummyFavorite: [DummyRecipeModel]
+	var babyMeal: [BabyMealSchema]
 	
     var body: some View {
 		List {
-			ForEach(dummyFavorite) { dummy in
+			ForEach(babyMeal) { meals in
 				NavigationLink {
 					// TODO: Change the destination to recipe detail page
 					EmptyView()
 				} label: {
-					RecipeListView(dummyRecipe: dummy)
+					RecipeListView(mealRecipe: meals)
 				}
 			}
 			.listRowSeparator(.hidden)
