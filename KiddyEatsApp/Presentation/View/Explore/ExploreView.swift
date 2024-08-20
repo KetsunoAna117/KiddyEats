@@ -11,7 +11,7 @@ import Combine
 
 struct ExploreView: View {
     @Environment(\.modelContext) var modelContext
-    @State private var viewModel = ExploreViewModel(
+    @State private var exploreVM = ExploreViewModel(
         recommender: BabyMealRecommenderUseCase(),
         getBabyProfileUseCase:
             GetBabyProfileData(repo: BabyProfileRepositoryImpl.shared)
@@ -28,21 +28,21 @@ struct ExploreView: View {
                 ScrollView {
                     VStack(spacing: 20) {
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
-                            ForEach(viewModel.babyMeals) { meal in
+                            ForEach(exploreVM.babyMeals) { meal in
                                 NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)) {
                                     RecipeCard(babyMeal: meal)
                                 }
                             }
-                            if viewModel.isLoading && viewModel.babyMeals.count < 6 {
+                            if exploreVM.isLoading && exploreVM.babyMeals.count < 6 {
                                 RecipeCardPlaceholder()
                             }
                         }
                         
-                        if let errorMessage = viewModel.errorMessage {
+                        if let errorMessage = exploreVM.errorMessage {
                             ErrorContainer(message: errorMessage) {
                                 Task {
                                     do {
-                                        try await viewModel.refreshRecommendations()
+                                        try await exploreVM.refreshRecommendations()
                                     } catch {
                                         print(error)
                                     }
@@ -51,8 +51,8 @@ struct ExploreView: View {
                             }
                         }
                         
-                        if viewModel.isLoading {
-                            Button(action: viewModel.cancelRecommendations) {
+                        if exploreVM.isLoading {
+                            Button(action: exploreVM.cancelRecommendations) {
                                 HStack {
                                     Image(systemName: "xmark.circle.fill")
                                     Text("Stop")
@@ -64,11 +64,11 @@ struct ExploreView: View {
                                 .background(Color.red.opacity(0.1))
                                 .cornerRadius(20)
                             }
-                        } else if viewModel.errorMessage == nil {
+                        } else if exploreVM.errorMessage == nil {
                             Button(action: {
                                 Task {
                                     do {
-                                        try await viewModel.refreshRecommendations()
+                                        try await exploreVM.refreshRecommendations()
                                     } catch {
                                         print(error)
                                     }
@@ -92,25 +92,26 @@ struct ExploreView: View {
             }
             .padding(.top)
             .padding(.horizontal)
-            .searchable(text: $viewModel.searchText, prompt: "AI recipe recommender by ingredients")
+            .searchable(text: $exploreVM.searchText, prompt: "AI recipe recommender by ingredients")
             .navigationTitle("Explore Recipes")
             .background(.appBackground)
         }
-        .onChange(of: viewModel.searchText) {
-            if !viewModel.searchText.isEmpty {
-                viewModel.debouncedSearch()
+        .onChange(of: exploreVM.searchText) {
+            if !exploreVM.searchText.isEmpty {
+                exploreVM.debouncedSearch()
             }
         }
         .onAppear {
-            if viewModel.babyMeals.isEmpty && viewModel.errorMessage == nil {
+            if exploreVM.babyMeals.isEmpty && exploreVM.errorMessage == nil {
                 Task {
                     // NOTE: Uncomment this to make it refresh on appear
-                    try? await viewModel.refreshRecommendations()
+                    try? await exploreVM.refreshRecommendations()
                 }
             }
         }
         .onAppear {
-            self.viewModel.setModelContext(modelContext: modelContext)
+            self.exploreVM.setModelContext(modelContext: modelContext)
+            
         }
     }
 }

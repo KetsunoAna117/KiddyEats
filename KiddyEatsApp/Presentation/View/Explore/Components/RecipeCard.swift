@@ -6,9 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RecipeCard: View {
+    @Environment(\.modelContext) var modelContext
+    
     let babyMeal: BabyMeal
+    @State private var vm = BabyMealDetailViewModel(
+        saveBabyMealUseCase: SaveBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
+        deleteBabyMealUseCase: DeleteBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
+        getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
+    )
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -31,9 +39,19 @@ struct RecipeCard: View {
                 .cornerRadius(10)
                 
                 Button(action: {
-                    // Add heart action here
+                    // Save to swiftData if isn't favorited
+                    if vm.isFavorited == false {
+                        print("save meal for \(babyMeal.name)")
+                        vm.saveMeal(modelContext: modelContext, babyMeal: babyMeal)
+                    }
+                    // Delete from swiftData if already favorited
+                    else {
+                        print("delete meal for \(babyMeal.name)")
+                        vm.deleteMeal(modelContext: modelContext, babyMeal: babyMeal)
+                    }
+                    vm.checkIfAlreadyFavorite(modelContext: modelContext, babyMealID: babyMeal.id)
                 }) {
-                    Image(systemName: "heart")
+                    Image(systemName: vm.isFavorited ? "heart.fill" : "heart")
                         .foregroundColor(.accent)
                 }
                 .scaleEffect(1.5)
