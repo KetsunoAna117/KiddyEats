@@ -26,7 +26,7 @@ extension BabyMealRecommenderUseCase {
         var searchPrompt: String = ""
         
         if let searchQuery = searchQuery {
-            searchPrompt = "\n\nAlso recommend meals based on this search query:\"\(searchQuery)\"\n\nIf the search query is nonsense, just return the closest meal based on baby profile, always follow the schema!"
+            searchPrompt = "Search Query:\"\(searchQuery)\""
         }
         
         var prompt = """
@@ -44,12 +44,10 @@ extension BabyMealRecommenderUseCase {
         
         ---
         
-        Please recommend 6 baby meals based on this baby profile (avoid recommending foods that contain allergens in the baby profile):
-        \(generateBabyProfileString(profile))
-        
         \(searchPrompt)
         
-        IMPORTANT: The last food you recommend, it MUST contain any allergen for testing purposes. That allergen must not the allergen that in Baby Profile!
+        Please recommend 6 baby meals based on this baby profile (avoid recommending foods that contain allergens in the baby profile):
+        \(generateBabyProfileString(profile))
         """
                 
         return prompt
@@ -65,19 +63,24 @@ extension BabyMealRecommenderUseCase {
         """
     }
     
-    internal func decodeMeals(from response: String) -> [BabyMeal] {
-        let jsonData = Data(response.utf8)
-        
-        do {
-            return try JSONDecoder().decode([BabyMeal].self, from: jsonData)
-        } catch {
-            print("Error decoding meals: \(error.localizedDescription)")
-            return []
-        }
-    }
-    
     internal var commonFoodAllergies: String  {
         "Milk, Egg, Fish, Crustacean shellfish, Tree nuts, Peanuts, Wheat, Soybeans, Sesame"
+    }
+    
+    internal var rules: String {
+    """
+    RESPONSE RULES:
+    - Your returned ingredients must include units such as grams, tablespoons, teaspoon.
+    - Don't forget to include meal allergens in your recommended foods if there.
+    - The cooking guidelines must step by step in numbered list using newline.
+    - The emoji is only one character, and you MUST include emoji to every meal.
+    - You must always response with JSON based on the schema, regardless anything the user query.
+    - Wrap your response with JSON array "[]".
+    - If there is a search query, please recommend meals related on search query but the meals still need to adjust to baby profile. The first 4 meals must related to search query. If the search query is typo or nonsense, just return the closest meal to the search query based on baby profile. The last 2 meals don't need to include the query.
+    - For the last meal, you MUST recommend any meal that contain any allergen for testing purposes. That allergen must not the allergen that in Baby Profile!
+    
+    IMPORTANT: NEVER EVER wrap your response data with triple backticks, just answer straight to the plain text json!
+    """
     }
 
     internal var jsonSchema: String  {
@@ -107,7 +110,7 @@ extension BabyMealRecommenderUseCase {
     "items": {
     "type": "string"
     },
-    "description": "List of potential allergies, each allergy must 1-2 words in title case."
+    "description": "List of food allergens, each allergen must 1-2 words in title case. If there are no allergens, just leave this array empty."
     },
     "cookingSteps": {
     "type": "string",
@@ -127,17 +130,15 @@ extension BabyMealRecommenderUseCase {
     """
     }
     
-    internal var rules: String {
-    """
-    Rules:
-    - Your returned ingredients must include units such as grams, tablespoons, teaspoon.
-    - Don't forget to include meal allergens in your recommended foods if there.
-    - The cooking guidelines must step by step in numbered list using newline.
-    - The emoji is only one character.
-    - You must always response with JSON based on the schema, regardless anything the user query.
-    - Wrap your response with JSON array "[]".
-    
-    NEVER wrap your response data with triple backticks, just answer straight to the plain text json!
-    """
+    internal func decodeMeals(from response: String) -> [BabyMeal] {
+        let jsonData = Data(response.utf8)
+        
+        do {
+            return try JSONDecoder().decode([BabyMeal].self, from: jsonData)
+        } catch {
+            print("Error decoding meals: \(error.localizedDescription)")
+            return []
+        }
     }
+
 }

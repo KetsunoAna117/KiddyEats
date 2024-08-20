@@ -16,7 +16,6 @@ class ExploreViewModel {
     var babyMeals: [BabyMeal] = []
     var isLoading: Bool = false
     var errorMessage: String?
-    var hasLoadedInitialRecommendations: Bool = false
     var retryCount: Int = 0
     
     private var currentTask: Task<Void, Never>?
@@ -24,14 +23,6 @@ class ExploreViewModel {
     
     private var lastProcessingTime: Date = .distantPast
     private let processingInterval: TimeInterval = 0.2 // 200 milliseconds
-    
-    func loadInitialRecommendations() {
-        guard !hasLoadedInitialRecommendations else { return }
-        Task {
-            await refreshRecommendations()
-            hasLoadedInitialRecommendations = true
-        }
-    }
     
     func refreshRecommendations() async {
         isLoading = true
@@ -42,9 +33,14 @@ class ExploreViewModel {
         currentTask = Task {
             do {
                 var jsonResponse = ""
+                
                 try await recommender.recommendMealsStreaming(profile: recommender.fakeBaby, searchQuery: searchText.isEmpty ? nil : searchText) { token in
+                    
                     jsonResponse += token
+                    jsonResponse = jsonResponse.replacing("```json", with: "")
+                    
                     let currentTime = Date()
+                    
                     if currentTime.timeIntervalSince(self.lastProcessingTime) >= self.processingInterval {
                         let meals = BabyMeal.fromIncompleteJsonList(jsonStr: jsonResponse)
                         Task { @MainActor in
@@ -55,6 +51,8 @@ class ExploreViewModel {
                 }
                 
                 try await Task.sleep(for: .seconds(0.2))
+                
+                jsonResponse = jsonResponse.replacing("```", with: "")
                 
                 // Parse the complete JSON after streaming ends
                 if let data = jsonResponse.data(using: .utf8) {
@@ -72,11 +70,14 @@ class ExploreViewModel {
                         }
                     }
                 }
-                // print(jsonResponse)
                 retryCount = 0
             } catch {
-                print("Error refreshing recommendations: \(error)")
-                await handleRecommendationError(error)
+                if !error.localizedDescription.contains("cancel") {
+                    await MainActor.run {
+                        print("Error refreshing recommendations: \(error)")
+                        self.errorMessage = "Oops! We failed to communicate with AI system. No worries, you can try again later."
+                    }
+                }
             }
             await MainActor.run {
                 self.isLoading = false
@@ -98,21 +99,5 @@ class ExploreViewModel {
                     await self?.refreshRecommendations()
                 }
             }
-    }
-    
-    private func handleRecommendationError(_ error: Error) async {
-        await MainActor.run {
-            if retryCount < 3 {
-                retryCount += 1
-                print("Failed to load recommendations. Retrying... (Attempt \(retryCount)/3)")
-                Task {
-                    try await Task.sleep(for: .seconds(5))
-                    await refreshRecommendations()
-                }
-            } else {
-                print("Failed to load recommendations. Please try again later.")
-                retryCount = 0
-            }
-        }
     }
 }

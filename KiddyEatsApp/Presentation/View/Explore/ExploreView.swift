@@ -91,37 +91,11 @@ struct ExploreView: View {
         .onAppear {
             if viewModel.babyMeals.isEmpty && viewModel.errorMessage == nil {
                 Task {
-                    await viewModel.refreshRecommendations()
+                    // NOTE: Uncomment this to make it refresh on appear
+                    // await viewModel.refreshRecommendations()
                 }
             }
         }
-    }
-}
-
-struct ErrorContainer: View {
-    let message: String
-    let retryAction: () -> Void
-    
-    var body: some View {
-        VStack(spacing: 10) {
-            Text(message)
-                .font(.headline)
-                .multilineTextAlignment(.center)
-                .foregroundColor(.white)
-            
-            Button(action: retryAction) {
-                Text("Try Again")
-                    .font(.subheadline)
-                    .foregroundColor(.white)
-                    .padding(.vertical, 5)
-                    .padding(.horizontal, 10)
-                    .background(Color.white.opacity(0.3))
-                    .cornerRadius(5)
-            }
-        }
-        .padding()
-        .background(Color.red.opacity(0.8))
-        .cornerRadius(10)
     }
 }
 
