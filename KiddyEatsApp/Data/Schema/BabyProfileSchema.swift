@@ -17,8 +17,6 @@ final class BabyProfileSchema {
     var dateOfBirth: Date?
     var location: String?
     
-    @Relationship(deleteRule: .cascade, inverse: \BabyMealSchema.babyProfileSchema) var schemaList: [BabyMealSchema]?
-    
     init(id: UUID, name: String? = nil, gender: String? = nil, allergies: [String]? = nil, dateOfBirth: Date? = nil, location: String? = nil, schemaList: [BabyMealSchema]? = nil) {
         self.id = id
         self.name = name
@@ -26,7 +24,6 @@ final class BabyProfileSchema {
         self.allergies = allergies
         self.dateOfBirth = dateOfBirth
         self.location = location
-        self.schemaList = schemaList
     }
     
     func mapToBabyProfile() -> BabyProfile {

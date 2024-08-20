@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingBabyAllergies: View {
-    @Bindable var vm: BabyInformationViewModel
+    @Bindable var vm: BabyOnboardingInformationViewModel
     @State private var userInput = ""
     
     var body: some View {
@@ -69,7 +69,7 @@ struct OnboardingBabyAllergies: View {
     func renderTags() -> [AnyView] {
         var views: [AnyView] = []
         
-        for tag in vm.allergiesList {
+        for tag in vm.savedallergiesList {
             views.append(
                 AnyView(
                     OnboardingTagsComponent(name: tag, onTap: removeTags)
@@ -81,20 +81,22 @@ struct OnboardingBabyAllergies: View {
     }
     
     func addTag(){
-        if vm.allergiesList.contains(userInput) == false {
-            vm.allergiesList.append(userInput)
+        if vm.savedallergiesList.contains(userInput) == false {
+            vm.savedallergiesList.append(userInput)
             userInput.removeAll()
         }
         
     }
     
     func removeTags(name: String){
-        vm.allergiesList.removeAll(where: { tag in
+        vm.savedallergiesList.removeAll(where: { tag in
             tag == name
         })
     }
 } 
 
 #Preview {
-    OnboardingView()
+    OnboardingView(onBoardingCompleted: {
+        print("Onboarding Completed")
+    })
 }

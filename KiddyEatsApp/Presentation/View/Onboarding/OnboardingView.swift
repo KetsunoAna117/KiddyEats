@@ -6,12 +6,22 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct OnboardingView: View {
     let totalPages = 4
-    @State var vm = BabyInformationViewModel()
+    
+    @Environment(\.modelContext) var modelContext
+    
+    @State var vm = BabyOnboardingInformationViewModel(
+        useCase: CreateBabyProfileData(repo: BabyProfileRepositoryImpl.shared)
+    )
+    
     @State private var currentTab: Int = 0
     @State private var buttonPrompt: String = "Personalize for your baby"
+    @State private var isButtonDisabled: Bool = false
+    
+    var onBoardingCompleted: () -> Void
     
     var body: some View {
         ZStack {
@@ -28,6 +38,19 @@ struct OnboardingView: View {
                             .tag(0)
                         OnboardingTab(content: OnboardingBabyInfo(vm: vm))
                             .tag(1)
+                            .onAppear() {
+                                if vm.savedbabyName.isEmpty {
+                                    isButtonDisabled = true
+                                }
+                            }
+                            .onChange(of: vm.savedbabyName) { oldValue, newValue in
+                                if vm.savedbabyName.isEmpty {
+                                    isButtonDisabled = true
+                                }
+                                else {
+                                    isButtonDisabled = false
+                                }
+                            }
                         OnboardingTab(content: OnboardingBabyGender(vm: vm))
                             .tag(2)
                         OnboardingTab(content: OnboardingBabyAllergies(vm: vm))
@@ -40,17 +63,21 @@ struct OnboardingView: View {
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     .indexViewStyle(.page(backgroundDisplayMode: .always))
                     
-                    Button(action: {
-                        withAnimation(.easeInOut) {
-                            goToNextPage()
-                        }
-                        
-                    }, label: {
-                        Text(buttonPrompt)
-                    })
-                    .padding(.horizontal, 30)
-                    .padding(.bottom, 30)
-                    .buttonStyle(KiddyEatsProminentButtonStyle())
+                    // Only continue if the value is not nil
+                    if isButtonDisabled == false {
+                        Button(action: {
+                            withAnimation(.easeInOut) {
+                                goToNextPage()
+                            }
+                            
+                        }, label: {
+                            Text(buttonPrompt)
+                        })
+                        .padding(.horizontal, 30)
+                        .padding(.bottom, 30)
+                        .buttonStyle(KiddyEatsProminentButtonStyle())
+                    }
+                    
                 }
                 
                 if currentTab > 0 {
@@ -80,7 +107,8 @@ struct OnboardingView: View {
             changeButtonPrompt()
         }
         else {
-            #warning("End of onboarding logic hasn't been implemented")
+            vm.saveBabyProfileToSwiftData(modelContext: modelContext)
+            onBoardingCompleted()
         }
     }
     
@@ -118,5 +146,7 @@ private struct OnboardingTab<Content: View>: View {
 }
 
 #Preview {
-    OnboardingView()
+    OnboardingView(onBoardingCompleted: {
+        print("Onboarding Completed")
+    })
 }
