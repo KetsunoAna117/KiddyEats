@@ -55,6 +55,9 @@ struct MainTabView: View {
         }
         .onAppear(){
             vm.getBabyProfileData(modelContext: modelContext)
+            if vm.babyProfile == nil {
+                self.isOnboardingCompleted = false
+            }
         }
     }
 }
