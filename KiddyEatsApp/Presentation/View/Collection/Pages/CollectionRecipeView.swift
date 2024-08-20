@@ -13,7 +13,12 @@ struct CollectionRecipeView: View {
     var body: some View {
 		List {
 			ForEach(dummyFavorite) { dummy in
-				RecipeListView(dummyRecipe: dummy)
+				NavigationLink {
+					// TODO: Change the destination to recipe detail page
+					EmptyView()
+				} label: {
+					RecipeListView(dummyRecipe: dummy)
+				}
 			}
 			.listRowSeparator(.hidden)
 			.listRowBackground(
