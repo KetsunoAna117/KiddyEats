@@ -114,11 +114,19 @@ class BabyMealDetailUIView: UIView {
         allergensStack.axis = .vertical
         allergensStack.spacing = 4
         
-        for allergen in viewModel.babyMeal.allergens {
-            let allergenLabel = UILabel()
-            allergenLabel.text = "• \(allergen)"
-            allergenLabel.textColor = .white
-            allergensStack.addArrangedSubview(allergenLabel)
+        if viewModel.babyMeal.allergens.isEmpty {
+            let noAllergensLabel = UILabel()
+            noAllergensLabel.text = "No Allergens"
+            noAllergensLabel.font = UIFont.italicSystemFont(ofSize: 14)
+            noAllergensLabel.textColor = .white
+            allergensStack.addArrangedSubview(noAllergensLabel)
+        } else {
+            for allergen in viewModel.babyMeal.allergens {
+                let allergenLabel = UILabel()
+                allergenLabel.text = "• \(allergen)"
+                allergenLabel.textColor = .white
+                allergensStack.addArrangedSubview(allergenLabel)
+            }
         }
         
         allergensView.addSubview(allergensTitle)

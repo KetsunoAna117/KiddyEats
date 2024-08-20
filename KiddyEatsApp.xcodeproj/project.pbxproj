@@ -20,7 +20,6 @@
 		3A5450BB2C72FE4C0090EE0F /* ModelContextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450BA2C72FE4B0090EE0F /* ModelContextManager.swift */; };
 		3A5450BE2C72FE910090EE0F /* BabyProfileSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450BD2C72FE910090EE0F /* BabyProfileSchema.swift */; };
 		3A5450C02C72FEDF0090EE0F /* BabyMealSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450BF2C72FEDF0090EE0F /* BabyMealSchema.swift */; };
-		3A5450C32C7303E00090EE0F /* AIServiceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450C22C7303E00090EE0F /* AIServiceKeys.swift */; };
 		3A5450C52C73048D0090EE0F /* BabyProfileRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450C42C73048D0090EE0F /* BabyProfileRepositoryImpl.swift */; };
 		3A5450C72C73072C0090EE0F /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450C62C73072C0090EE0F /* ResponseError.swift */; };
 		3A5450CA2C730A4D0090EE0F /* GetBabyProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450C92C730A4D0090EE0F /* GetBabyProfileData.swift */; };
@@ -48,6 +47,8 @@
 		E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61272632C6DE92E007698E6 /* ExploreView.swift */; };
 		E612726A2C6DEDC0007698E6 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61272692C6DEDBC007698E6 /* AIService.swift */; };
 		E612726E2C6E0272007698E6 /* BabyMealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */; };
+		E67BD8F62C743A09006393F4 /* AIServiceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD8F52C743A04006393F4 /* AIServiceKeys.swift */; };
+		E67BD8F82C744E0D006393F4 /* ErrorContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD8F72C744E09006393F4 /* ErrorContainer.swift */; };
 		E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */; };
 		E68C0F2D2C6F5B7100532140 /* RecipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */; };
 		E68C0F332C7079C800532140 /* +BabyMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F322C7079C500532140 /* +BabyMeal.swift */; };
@@ -79,7 +80,6 @@
 		3A5450BA2C72FE4B0090EE0F /* ModelContextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelContextManager.swift; sourceTree = "<group>"; };
 		3A5450BD2C72FE910090EE0F /* BabyProfileSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyProfileSchema.swift; sourceTree = "<group>"; };
 		3A5450BF2C72FEDF0090EE0F /* BabyMealSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealSchema.swift; sourceTree = "<group>"; };
-		3A5450C22C7303E00090EE0F /* AIServiceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIServiceKeys.swift; sourceTree = "<group>"; };
 		3A5450C42C73048D0090EE0F /* BabyProfileRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyProfileRepositoryImpl.swift; sourceTree = "<group>"; };
 		3A5450C62C73072C0090EE0F /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		3A5450C92C730A4D0090EE0F /* GetBabyProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBabyProfileData.swift; sourceTree = "<group>"; };
@@ -108,6 +108,8 @@
 		E61272632C6DE92E007698E6 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		E61272692C6DEDBC007698E6 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
 		E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealDetailViewController.swift; sourceTree = "<group>"; };
+		E67BD8F52C743A04006393F4 /* AIServiceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIServiceKeys.swift; sourceTree = "<group>"; };
+		E67BD8F72C744E09006393F4 /* ErrorContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorContainer.swift; sourceTree = "<group>"; };
 		E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealRecommenderUseCase.swift; sourceTree = "<group>"; };
 		E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCard.swift; sourceTree = "<group>"; };
 		E68C0F322C7079C500532140 /* +BabyMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+BabyMeal.swift"; sourceTree = "<group>"; };
@@ -421,10 +423,10 @@
 		E68C0F392C707A4700532140 /* AI */ = {
 			isa = PBXGroup;
 			children = (
+				E67BD8F52C743A04006393F4 /* AIServiceKeys.swift */,
 				E61272692C6DEDBC007698E6 /* AIService.swift */,
 				E68C0F492C708CA700532140 /* AIServiceStatusEnum.swift */,
 				E68C0F4D2C708D5100532140 /* AIBlockingResponse.swift */,
-				3A5450C22C7303E00090EE0F /* AIServiceKeys.swift */,
 			);
 			path = AI;
 			sourceTree = "<group>";
@@ -432,6 +434,7 @@
 		E68C0F452C70831200532140 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E67BD8F72C744E09006393F4 /* ErrorContainer.swift */,
 				E68C0F462C70832A00532140 /* LoadingCard.swift */,
 				E68C0F432C7082D600532140 /* RecipeCardPlaceholder.swift */,
 				E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */,
@@ -521,7 +524,6 @@
 				E68C0F422C707F8F00532140 /* BabyMealJsonPreview.swift in Sources */,
 				E68C0F502C70914900532140 /* BabyMealDetailViewModel.swift in Sources */,
 				E68C0F4C2C708CFA00532140 /* +Publisher.swift in Sources */,
-				3A5450C32C7303E00090EE0F /* AIServiceKeys.swift in Sources */,
 				E68C0F472C70832D00532140 /* LoadingCard.swift in Sources */,
 				E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */,
 				3A5450B82C72E8740090EE0F /* MainTabView.swift in Sources */,
@@ -558,9 +560,11 @@
 				3AB03C5D2C6F8E4D001F5473 /* OnboardingView.swift in Sources */,
 				3A5450CF2C730A990090EE0F /* BabyMeal.swift in Sources */,
 				3A5450AE2C71E9970090EE0F /* CheckboxButton.swift in Sources */,
+				E67BD8F62C743A09006393F4 /* AIServiceKeys.swift in Sources */,
 				3A5450AC2C71E6420090EE0F /* ReactionChooseListView.swift in Sources */,
 				E68C0F332C7079C800532140 /* +BabyMeal.swift in Sources */,
 				E68C0F4E2C708D5600532140 /* AIBlockingResponse.swift in Sources */,
+				E67BD8F82C744E0D006393F4 /* ErrorContainer.swift in Sources */,
 				E68C0F402C707CAA00532140 /* +BabyMealRecommenderUseCase.swift in Sources */,
 				3AB03C402C6DE845001F5473 /* KiddyEatsApp.swift in Sources */,
 				3AB03C732C70E7E8001F5473 /* ReactionFormView.swift in Sources */,

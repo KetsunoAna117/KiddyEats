@@ -13,7 +13,7 @@ struct ExploreView: View {
     
     var body: some View {
         @Bindable var viewModel = viewModel
-
+        
         NavigationStack {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Try our recommendations for your 6 months old!")
@@ -23,24 +23,21 @@ struct ExploreView: View {
                 
                 ScrollView {
                     VStack(spacing: 20) {
-                        if let errorMessage = viewModel.errorMessage {
-                            Text(errorMessage)
-                                .foregroundColor(.red)
-                                .padding()
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+                            ForEach(viewModel.babyMeals) { meal in
+                                NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)) {
+                                    RecipeCard(babyMeal: meal)
+                                }
+                            }
+                            if viewModel.isLoading && viewModel.babyMeals.count < 6 {
+                                RecipeCardPlaceholder()
+                            }
                         }
                         
-                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
-                            ForEach(viewModel.displayedMeals) { meal in
-                                if meal.name.isEmpty {
-                                    if viewModel.isLoading {
-                                        RecipeCardPlaceholder()
-                                    } else {
-                                        RecipeCard(babyMeal: meal)
-                                    }
-                                } else {
-                                    NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)) {
-                                        RecipeCard(babyMeal: meal)
-                                    }
+                        if let errorMessage = viewModel.errorMessage {
+                            ErrorContainer(message: errorMessage) {
+                                Task {
+                                    await viewModel.refreshRecommendations()
                                 }
                             }
                         }
@@ -58,7 +55,7 @@ struct ExploreView: View {
                                 .background(Color.red.opacity(0.1))
                                 .cornerRadius(20)
                             }
-                        } else {
+                        } else if viewModel.errorMessage == nil {
                             Button(action: {
                                 Task {
                                     await viewModel.refreshRecommendations()
@@ -82,17 +79,22 @@ struct ExploreView: View {
             }
             .padding(.top)
             .padding(.horizontal)
+            .searchable(text: $viewModel.searchText, prompt: "AI recipe recommender by ingredients")
             .navigationTitle("Explore Recipes")
             .background(.appBackground)
         }
-        .searchable(text: $viewModel.searchText, prompt: "AI recipe recommender by ingredients")
         .onChange(of: viewModel.searchText) {
             if !viewModel.searchText.isEmpty {
                 viewModel.debouncedSearch()
             }
         }
         .onAppear {
-            viewModel.loadInitialRecommendations()
+            if viewModel.babyMeals.isEmpty && viewModel.errorMessage == nil {
+                Task {
+                    // NOTE: Uncomment this to make it refresh on appear
+                    // await viewModel.refreshRecommendations()
+                }
+            }
         }
     }
 }

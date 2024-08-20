@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @Environment (\.modelContext) var modelContext
+    @Environment(\.modelContext) var modelContext
     @AppStorage("isOnboardingCompleted") var isOnboardingCompleted: Bool = false
     @State var vm = BabyGlobalConfigurationViewModel(
         babyDataFetcherUseCase: GetBabyProfileData(repo: BabyProfileRepositoryImpl.shared)
