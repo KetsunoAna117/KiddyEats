@@ -6,14 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 import Combine
 
 struct ExploreView: View {
-    @Environment(ExploreViewModel.self) var viewModel
+    @Environment(\.modelContext) var modelContext
+    @State private var viewModel = ExploreViewModel(
+        recommender: BabyMealRecommenderUseCase(),
+        getBabyProfileUseCase:
+            GetBabyProfileData(repo: BabyProfileRepositoryImpl.shared)
+    )
     
     var body: some View {
-        @Bindable var viewModel = viewModel
-        
         NavigationStack {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Try our recommendations for your 6 months old!")
@@ -37,7 +41,12 @@ struct ExploreView: View {
                         if let errorMessage = viewModel.errorMessage {
                             ErrorContainer(message: errorMessage) {
                                 Task {
-                                    await viewModel.refreshRecommendations()
+                                    do {
+                                        try await viewModel.refreshRecommendations()
+                                    } catch {
+                                        print(error)
+                                    }
+                                    
                                 }
                             }
                         }
@@ -58,7 +67,11 @@ struct ExploreView: View {
                         } else if viewModel.errorMessage == nil {
                             Button(action: {
                                 Task {
-                                    await viewModel.refreshRecommendations()
+                                    do {
+                                        try await viewModel.refreshRecommendations()
+                                    } catch {
+                                        print(error)
+                                    }
                                 }
                             }) {
                                 HStack {
@@ -92,9 +105,12 @@ struct ExploreView: View {
             if viewModel.babyMeals.isEmpty && viewModel.errorMessage == nil {
                 Task {
                     // NOTE: Uncomment this to make it refresh on appear
-                    // await viewModel.refreshRecommendations()
+                    try? await viewModel.refreshRecommendations()
                 }
             }
+        }
+        .onAppear {
+            self.viewModel.setModelContext(modelContext: modelContext)
         }
     }
 }
@@ -102,5 +118,4 @@ struct ExploreView: View {
 
 #Preview {
     ExploreView()
-        .environment(ExploreViewModel())
 }

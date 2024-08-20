@@ -6,11 +6,15 @@
 //
 
 import SwiftUI
+import SwiftData
 import Combine
 
 @Observable
 class ExploreViewModel {
-    private let recommender = BabyMealRecommenderUseCase()
+    private var recommender: BabyMealRecommenderUseCase
+    private var getBabyProfileUseCase: GetBabyProfileData
+    
+    private var modelContext: ModelContext?
     
     var searchText: String = ""
     var babyMeals: [BabyMeal] = []
@@ -25,18 +29,34 @@ class ExploreViewModel {
     private var lastProcessingTime: Date = .distantPast
     private let processingInterval: TimeInterval = 0.2 // 200 milliseconds
     
-    func refreshRecommendations() async {
+    init(
+        recommender: BabyMealRecommenderUseCase,
+        getBabyProfileUseCase: GetBabyProfileData
+    ) {
+        self.recommender = recommender
+        self.getBabyProfileUseCase = getBabyProfileUseCase
+    }
+    
+    func setModelContext(modelContext: ModelContext) {
+        self.modelContext = modelContext
+    }
+    
+    func refreshRecommendations() async throws {
         isLoading = true
         babyMeals = []
         errorMessage = nil
         
+        guard let modelContext = modelContext else {
+            throw ResponseError.notFound(message: "Model Context is not initialized in refresh recommendation explore view model")
+        }
+        guard let babyProfile = getBabyProfileUseCase.execute(modelContext: modelContext) else {
+            throw ResponseError.notFound(message: "Baby Profile is not detected")
+        }
         currentTask?.cancel()
         currentTask = Task {
             do {
                 var jsonResponse = ""
-                
-                #warning("Replace fake baby with real data from swift data")
-                try await recommender.recommendMealsStreaming(profile: recommender.fakeBaby, searchQuery: searchText.isEmpty ? nil : searchText) { token in
+                try await recommender.recommendMealsStreaming(profile: babyProfile, searchQuery: searchText.isEmpty ? nil : searchText) { token in
                     
                     jsonResponse += token
                     jsonResponse = jsonResponse.replacing("```json", with: "")
@@ -98,7 +118,7 @@ class ExploreViewModel {
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .sink { [weak self] _ in
                 Task { [weak self] in
-                    await self?.refreshRecommendations()
+                    try await self?.refreshRecommendations()
                 }
             }
     }

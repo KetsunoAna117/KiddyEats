@@ -8,5 +8,6 @@
 import Foundation
 
 enum ResponseError: Error {
-    case failed
+    case failed(message: String)
+    case notFound(message: String)
 }
