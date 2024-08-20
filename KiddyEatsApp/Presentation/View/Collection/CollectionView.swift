@@ -12,33 +12,19 @@ struct CollectionView: View {
 	@Environment(\.modelContext)
 	var modelContext
 	
-	@Query(sort: \BabyMealSchema.name, order: .forward)
-	private var babyMeal: [BabyMealSchema]
-	
 	@State
-	private var searchRecipes: String = ""
-	@State
-	private var selectedView: CollectionSegment = .favoriteRecipes
-	
-	var filteredRecipes: [BabyMealSchema] {
-		if searchRecipes.isEmpty {
-			return babyMeal
-		}
-		
-		let filteredRecipes = babyMeal.compactMap { meal in
-			let recipeContainsQuery = meal.name?.range(of: searchRecipes, options: .caseInsensitive) != nil
-			
-			return recipeContainsQuery ? meal : nil
-		}
-		
-		return filteredRecipes
-	}
+	var viewModel = BabyMealListViewModel(
+		getBabyMealListUseCase: GetBabyMealListUseCase(repo: BabyMealRepositoryImpl.shared),
+		getFilterBabyMeal: FilterBabyMealUseCase(),
+		getBabyMealAllergicList: GetBabyMealAllergicList(),
+		deleteBabyMealUseCase: DeleteBabyMealUseCase(repo: BabyMealRepositoryImpl.shared)
+	)
 	
     var body: some View {
 		NavigationStack {
 			VStack(alignment: .leading) {
 				// Segmented Control
-				Picker("Select a view", selection: $selectedView) {
+				Picker("Select a view", selection: $viewModel.selectedView) {
 					Text("Favorite Recipes").tag(CollectionSegment.favoriteRecipes)
 					Text("Causing Allergy").tag(CollectionSegment.allergicRecipes)
 				}
@@ -46,19 +32,19 @@ struct CollectionView: View {
 				.padding()
 				
 				// Switch between views
-				switch selectedView {
+				switch viewModel.selectedView {
 					case .favoriteRecipes:
-						if babyMeal.isEmpty {
+						if viewModel.showedMealList.isEmpty {
 							ContentUnavailableView {
 								Label("No Favorite Recipe", systemImage: "heart.slash.fill")
 							} description: {
 								Text("Your favorite recipes will appear here.")
 							}
 						} else {
-							CollectionRecipeView(babyMeal: babyMeal)
+							CollectionRecipeView(babyMeal: $viewModel.showedMealList, viewModel: viewModel)
 						}
 					case .allergicRecipes:
-						let mealAllergic = filteredRecipes.filter { $0.isAllergic }
+						let mealAllergic = viewModel.showedMealList
 						
 						if mealAllergic.isEmpty {
 							ContentUnavailableView {
@@ -67,12 +53,23 @@ struct CollectionView: View {
 								Text("Recipes that can cause allergic reaction will appear here.")
 							}
 						} else {
-							CollectionRecipeView(dummyFavorite: mealAllergic)
+							CollectionRecipeView(babyMeal: $viewModel.showedMealList, viewModel: viewModel)
 						}
 				}
 			}
 			.navigationTitle("Your Saved Recipes")
-			.searchable(text: $searchRecipes, prompt: "Search your saved recipes")
+			.searchable(text: $viewModel.searchRecipe, prompt: "Search your saved recipes")
+			.onAppear {
+				viewModel.initAllMealList(modelContext: modelContext)
+			}
+			.onChange(of: viewModel.selectedView) { oldValue, newValue in
+				switch newValue {
+					case .favoriteRecipes:
+						viewModel.setFavoriteList()
+					case .allergicRecipes:
+						viewModel.getMealAllergic(modelContext: modelContext)
+				}
+			}
 		}
     }
 }

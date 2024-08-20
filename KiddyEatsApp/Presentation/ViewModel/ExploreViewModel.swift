@@ -23,7 +23,7 @@ class ExploreViewModel {
     private var searchCancellable: AnyCancellable?
     
     var displayedMeals: [BabyMeal] {
-        let meals = babyMeals + Array(repeating: BabyMeal(name: "", emoji: "", ingredients: [], allergens: [], cookingSteps: "", servingSize: 0, estimatedCookingTimeMinutes: 0), count: max(0, 6 - babyMeals.count))
+		let meals = babyMeals + Array(repeating: BabyMeal(name: "", emoji: "", ingredients: [], allergens: [], cookingSteps: "", servingSize: 0, estimatedCookingTimeMinutes: 0, isAllergic: false), count: max(0, 6 - babyMeals.count))
         return Array(meals.prefix(6))
     }
     

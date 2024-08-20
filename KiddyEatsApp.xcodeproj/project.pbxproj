@@ -25,7 +25,7 @@
 		3A5450CA2C730A4D0090EE0F /* GetBabyProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450C92C730A4D0090EE0F /* GetBabyProfileData.swift */; };
 		3A5450CD2C730A930090EE0F /* BabyProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450CC2C730A930090EE0F /* BabyProfile.swift */; };
 		3A5450CF2C730A990090EE0F /* BabyMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450CE2C730A990090EE0F /* BabyMeal.swift */; };
-		3A5450D32C730AD30090EE0F /* BabyRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450D22C730AD30090EE0F /* BabyRepositoryProtocol.swift */; };
+		3A5450D32C730AD30090EE0F /* BabyProfileRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450D22C730AD30090EE0F /* BabyProfileRepositoryProtocol.swift */; };
 		3A5450D62C73815B0090EE0F /* BabyGlobalConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450D52C73815B0090EE0F /* BabyGlobalConfigurationViewModel.swift */; };
 		3A5450D82C7387830090EE0F /* CreateBabyProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450D72C7387830090EE0F /* CreateBabyProfileData.swift */; };
 		3AB03C402C6DE845001F5473 /* KiddyEatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB03C3F2C6DE845001F5473 /* KiddyEatsApp.swift */; };
@@ -47,12 +47,15 @@
 		E40EEFB42C732CDE00BCD991 /* CollectionRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFAC2C732CDE00BCD991 /* CollectionRecipeView.swift */; };
 		E40EEFB52C732CDE00BCD991 /* CollectionSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFAD2C732CDE00BCD991 /* CollectionSegment.swift */; };
 		E40EEFB62C732CDE00BCD991 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFAE2C732CDE00BCD991 /* CollectionView.swift */; };
-		E40EEFB72C732CDE00BCD991 /* DummyModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFAF2C732CDE00BCD991 /* DummyModelContainer.swift */; };
-		E40EEFB82C732CDE00BCD991 /* DummyRecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFB02C732CDE00BCD991 /* DummyRecipeModel.swift */; };
-		E40EEFB92C732CDE00BCD991 /* RecipeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFB12C732CDE00BCD991 /* RecipeListView.swift */; };
+		E40EEFB92C732CDE00BCD991 /* RecipeRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFB12C732CDE00BCD991 /* RecipeRowView.swift */; };
 		E40EEFBD2C732E0000BCD991 /* AIServiceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFBC2C732E0000BCD991 /* AIServiceKeys.swift */; };
-		E40EEFC22C73632D00BCD991 /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFC12C73632C00BCD991 /* CollectionViewModel.swift */; };
-		E40EEFC42C7433B800BCD991 /* FilterRecipeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFC32C7433B800BCD991 /* FilterRecipeProtocol.swift */; };
+		E40EEFC42C7433B800BCD991 /* GetBabyMealUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFC32C7433B800BCD991 /* GetBabyMealUseCase.swift */; };
+		E40EEFC82C743E7600BCD991 /* BabyMealRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFC72C743E7600BCD991 /* BabyMealRepositoryProtocol.swift */; };
+		E40EEFCA2C743EF500BCD991 /* BabyMealRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFC92C743EF500BCD991 /* BabyMealRepositoryImpl.swift */; };
+		E40EEFCD2C74405E00BCD991 /* GetBabyMealList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFCC2C74405E00BCD991 /* GetBabyMealList.swift */; };
+		E40EEFCF2C7441EA00BCD991 /* BabyMealListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFCE2C7441EA00BCD991 /* BabyMealListViewModel.swift */; };
+		E40EEFD12C74465100BCD991 /* GetBabyMealAllergicList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFD02C74465100BCD991 /* GetBabyMealAllergicList.swift */; };
+		E40EEFD32C74530400BCD991 /* DeleteBabyMealUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFD22C74530300BCD991 /* DeleteBabyMealUseCase.swift */; };
 		E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61272632C6DE92E007698E6 /* ExploreView.swift */; };
 		E612726A2C6DEDC0007698E6 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61272692C6DEDBC007698E6 /* AIService.swift */; };
 		E612726E2C6E0272007698E6 /* BabyMealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */; };
@@ -92,7 +95,7 @@
 		3A5450C92C730A4D0090EE0F /* GetBabyProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBabyProfileData.swift; sourceTree = "<group>"; };
 		3A5450CC2C730A930090EE0F /* BabyProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BabyProfile.swift; sourceTree = "<group>"; };
 		3A5450CE2C730A990090EE0F /* BabyMeal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BabyMeal.swift; sourceTree = "<group>"; };
-		3A5450D22C730AD30090EE0F /* BabyRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyRepositoryProtocol.swift; sourceTree = "<group>"; };
+		3A5450D22C730AD30090EE0F /* BabyProfileRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyProfileRepositoryProtocol.swift; sourceTree = "<group>"; };
 		3A5450D52C73815B0090EE0F /* BabyGlobalConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyGlobalConfigurationViewModel.swift; sourceTree = "<group>"; };
 		3A5450D72C7387830090EE0F /* CreateBabyProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBabyProfileData.swift; sourceTree = "<group>"; };
 		3AB03C3C2C6DE845001F5473 /* KiddyEatsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KiddyEatsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,12 +118,15 @@
 		E40EEFAC2C732CDE00BCD991 /* CollectionRecipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionRecipeView.swift; sourceTree = "<group>"; };
 		E40EEFAD2C732CDE00BCD991 /* CollectionSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionSegment.swift; sourceTree = "<group>"; };
 		E40EEFAE2C732CDE00BCD991 /* CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
-		E40EEFAF2C732CDE00BCD991 /* DummyModelContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyModelContainer.swift; sourceTree = "<group>"; };
-		E40EEFB02C732CDE00BCD991 /* DummyRecipeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyRecipeModel.swift; sourceTree = "<group>"; };
-		E40EEFB12C732CDE00BCD991 /* RecipeListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListView.swift; sourceTree = "<group>"; };
+		E40EEFB12C732CDE00BCD991 /* RecipeRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeRowView.swift; sourceTree = "<group>"; };
 		E40EEFBC2C732E0000BCD991 /* AIServiceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIServiceKeys.swift; sourceTree = "<group>"; };
-		E40EEFC12C73632C00BCD991 /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
-		E40EEFC32C7433B800BCD991 /* FilterRecipeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRecipeProtocol.swift; sourceTree = "<group>"; };
+		E40EEFC32C7433B800BCD991 /* GetBabyMealUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBabyMealUseCase.swift; sourceTree = "<group>"; };
+		E40EEFC72C743E7600BCD991 /* BabyMealRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealRepositoryProtocol.swift; sourceTree = "<group>"; };
+		E40EEFC92C743EF500BCD991 /* BabyMealRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealRepositoryImpl.swift; sourceTree = "<group>"; };
+		E40EEFCC2C74405E00BCD991 /* GetBabyMealList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBabyMealList.swift; sourceTree = "<group>"; };
+		E40EEFCE2C7441EA00BCD991 /* BabyMealListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealListViewModel.swift; sourceTree = "<group>"; };
+		E40EEFD02C74465100BCD991 /* GetBabyMealAllergicList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBabyMealAllergicList.swift; sourceTree = "<group>"; };
+		E40EEFD22C74530300BCD991 /* DeleteBabyMealUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteBabyMealUseCase.swift; sourceTree = "<group>"; };
 		E61272632C6DE92E007698E6 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		E61272692C6DEDBC007698E6 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
 		E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealDetailViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +183,7 @@
 				3A5450A72C71E1D00090EE0F /* ReactionStatus.swift */,
 				3A5450A92C71E2520090EE0F /* ReactionDetails.swift */,
 				3A5450C62C73072C0090EE0F /* ResponseError.swift */,
+				E40EEFAD2C732CDE00BCD991 /* CollectionSegment.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -221,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				3A5450C42C73048D0090EE0F /* BabyProfileRepositoryImpl.swift */,
+				E40EEFC92C743EF500BCD991 /* BabyMealRepositoryImpl.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -247,7 +255,8 @@
 		3A5450D02C730AAC0090EE0F /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				3A5450D22C730AD30090EE0F /* BabyRepositoryProtocol.swift */,
+				3A5450D22C730AD30090EE0F /* BabyProfileRepositoryProtocol.swift */,
+				E40EEFC72C743E7600BCD991 /* BabyMealRepositoryProtocol.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -341,6 +350,7 @@
 				E68C0F372C707A2B00532140 /* ExploreViewModel.swift */,
 				3A5450A42C71E1460090EE0F /* ReactionLoggerViewModel.swift */,
 				3A5450D52C73815B0090EE0F /* BabyGlobalConfigurationViewModel.swift */,
+				E40EEFCE2C7441EA00BCD991 /* BabyMealListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -377,13 +387,9 @@
 		E40EEFB22C732CDE00BCD991 /* Collection */ = {
 			isa = PBXGroup;
 			children = (
-				E40EEFC32C7433B800BCD991 /* FilterRecipeProtocol.swift */,
-				E40EEFC12C73632C00BCD991 /* CollectionViewModel.swift */,
 				E40EEFAE2C732CDE00BCD991 /* CollectionView.swift */,
-				E40EEFAD2C732CDE00BCD991 /* CollectionSegment.swift */,
 				E40EEFBA2C732D0400BCD991 /* Components */,
 				E40EEFBB2C732D2300BCD991 /* Pages */,
-				E40EEFBE2C73304000BCD991 /* Dummy Model */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -391,7 +397,7 @@
 		E40EEFBA2C732D0400BCD991 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				E40EEFB12C732CDE00BCD991 /* RecipeListView.swift */,
+				E40EEFB12C732CDE00BCD991 /* RecipeRowView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -404,13 +410,15 @@
 			path = Pages;
 			sourceTree = "<group>";
 		};
-		E40EEFBE2C73304000BCD991 /* Dummy Model */ = {
+		E40EEFCB2C74403D00BCD991 /* BabyMeal */ = {
 			isa = PBXGroup;
 			children = (
-				E40EEFB02C732CDE00BCD991 /* DummyRecipeModel.swift */,
-				E40EEFAF2C732CDE00BCD991 /* DummyModelContainer.swift */,
+				E40EEFCC2C74405E00BCD991 /* GetBabyMealList.swift */,
+				E40EEFC32C7433B800BCD991 /* GetBabyMealUseCase.swift */,
+				E40EEFD02C74465100BCD991 /* GetBabyMealAllergicList.swift */,
+				E40EEFD22C74530300BCD991 /* DeleteBabyMealUseCase.swift */,
 			);
-			path = "Dummy Model";
+			path = BabyMeal;
 			sourceTree = "<group>";
 		};
 		E612725C2C6DE92E007698E6 /* Service */ = {
@@ -457,6 +465,7 @@
 		E68C0F292C6F473100532140 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				E40EEFCB2C74403D00BCD991 /* BabyMeal */,
 				3A5450C82C730A3E0090EE0F /* BabyProfile */,
 				E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */,
 			);
@@ -567,7 +576,6 @@
 			files = (
 				E68C0F4A2C708CAB00532140 /* AIServiceStatusEnum.swift in Sources */,
 				E68C0F382C707A2F00532140 /* ExploreViewModel.swift in Sources */,
-				E40EEFB82C732CDE00BCD991 /* DummyRecipeModel.swift in Sources */,
 				E68C0F522C70916D00532140 /* BabyMealDetailUIView.swift in Sources */,
 				E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */,
 				E612726A2C6DEDC0007698E6 /* AIService.swift in Sources */,
@@ -576,21 +584,24 @@
 				E68C0F2D2C6F5B7100532140 /* RecipeCard.swift in Sources */,
 				3A5450C72C73072C0090EE0F /* ResponseError.swift in Sources */,
 				E68C0F542C70918B00532140 /* BabyMealDetailPreview.swift in Sources */,
+				E40EEFCA2C743EF500BCD991 /* BabyMealRepositoryImpl.swift in Sources */,
 				E68C0F422C707F8F00532140 /* BabyMealJsonPreview.swift in Sources */,
 				E68C0F502C70914900532140 /* BabyMealDetailViewModel.swift in Sources */,
 				E68C0F4C2C708CFA00532140 /* +Publisher.swift in Sources */,
 				E68C0F472C70832D00532140 /* LoadingCard.swift in Sources */,
 				E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */,
+				E40EEFCF2C7441EA00BCD991 /* BabyMealListViewModel.swift in Sources */,
 				3A5450B82C72E8740090EE0F /* MainTabView.swift in Sources */,
 				E612726E2C6E0272007698E6 /* BabyMealDetailViewController.swift in Sources */,
 				E40EEFB52C732CDE00BCD991 /* CollectionSegment.swift in Sources */,
 				E68C0F562C7091F100532140 /* BabyMealDetailViewControllerRepresentable.swift in Sources */,
+				E40EEFC82C743E7600BCD991 /* BabyMealRepositoryProtocol.swift in Sources */,
 				E68C0F442C7082DF00532140 /* RecipeCardPlaceholder.swift in Sources */,
 				3A5450BE2C72FE910090EE0F /* BabyProfileSchema.swift in Sources */,
 				3A5450D62C73815B0090EE0F /* BabyGlobalConfigurationViewModel.swift in Sources */,
+				E40EEFD12C74465100BCD991 /* GetBabyMealAllergicList.swift in Sources */,
 				3A5450B52C71F79F0090EE0F /* ReactionEndingView.swift in Sources */,
 				3A5450A82C71E1D00090EE0F /* ReactionStatus.swift in Sources */,
-				E40EEFC22C73632D00BCD991 /* CollectionViewModel.swift in Sources */,
 				3AB03C6B2C6F9A4F001F5473 /* OnboardingTagsComponent.swift in Sources */,
 				3AB03C552C6F3C51001F5473 /* OnboardingBabyAllergies.swift in Sources */,
 				E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */,
@@ -603,12 +614,12 @@
 				3A5450AA2C71E2520090EE0F /* ReactionDetails.swift in Sources */,
 				3AB03C582C6F3F2E001F5473 /* OnboardingTextField.swift in Sources */,
 				3A5450A32C71DDC10090EE0F /* RadioButton.swift in Sources */,
-				3A5450D32C730AD30090EE0F /* BabyRepositoryProtocol.swift in Sources */,
+				3A5450D32C730AD30090EE0F /* BabyProfileRepositoryProtocol.swift in Sources */,
 				3A5450A02C71DA230090EE0F /* ReactionPromptView.swift in Sources */,
 				3A5450CA2C730A4D0090EE0F /* GetBabyProfileData.swift in Sources */,
-				E40EEFC42C7433B800BCD991 /* FilterRecipeProtocol.swift in Sources */,
+				E40EEFC42C7433B800BCD991 /* GetBabyMealUseCase.swift in Sources */,
 				3AB03C672C6F9722001F5473 /* Gender.swift in Sources */,
-				E40EEFB92C732CDE00BCD991 /* RecipeListView.swift in Sources */,
+				E40EEFB92C732CDE00BCD991 /* RecipeRowView.swift in Sources */,
 				3AB03C702C6F9A9F001F5473 /* +View.swift in Sources */,
 				3A5450B32C71F40B0090EE0F /* KiddyEatsButtonStyle.swift in Sources */,
 				3A5450D82C7387830090EE0F /* CreateBabyProfileData.swift in Sources */,
@@ -620,12 +631,13 @@
 				3A5450CF2C730A990090EE0F /* BabyMeal.swift in Sources */,
 				3A5450AE2C71E9970090EE0F /* CheckboxButton.swift in Sources */,
 				3A5450AC2C71E6420090EE0F /* ReactionChooseListView.swift in Sources */,
+				E40EEFCD2C74405E00BCD991 /* GetBabyMealList.swift in Sources */,
 				E40EEFBD2C732E0000BCD991 /* AIServiceKeys.swift in Sources */,
 				E40EEFB42C732CDE00BCD991 /* CollectionRecipeView.swift in Sources */,
-				E40EEFB72C732CDE00BCD991 /* DummyModelContainer.swift in Sources */,
 				E68C0F332C7079C800532140 /* +BabyMeal.swift in Sources */,
 				E68C0F4E2C708D5600532140 /* AIBlockingResponse.swift in Sources */,
 				E68C0F402C707CAA00532140 /* +BabyMealRecommenderUseCase.swift in Sources */,
+				E40EEFD32C74530400BCD991 /* DeleteBabyMealUseCase.swift in Sources */,
 				3AB03C402C6DE845001F5473 /* KiddyEatsApp.swift in Sources */,
 				3AB03C732C70E7E8001F5473 /* ReactionFormView.swift in Sources */,
 			);

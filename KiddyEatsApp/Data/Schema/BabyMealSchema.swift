@@ -20,7 +20,7 @@ final class BabyMealSchema {
     var estimatedCookingTimeMinutes: Int?
 	var isAllergic: Bool?
     
-    init(id: UUID, name: String, emoji: String, ingredients: [String], allergens: [String], cookingSteps: String, servingSize: Int, estimatedCookingTimeMinutes: Int) {
+	init(id: UUID, name: String, emoji: String, ingredients: [String], allergens: [String], cookingSteps: String, servingSize: Int, estimatedCookingTimeMinutes: Int, isAllergic: Bool) {
         self.id = id
         self.name = name
         self.emoji = emoji

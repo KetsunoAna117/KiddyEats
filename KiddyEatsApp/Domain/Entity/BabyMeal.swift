@@ -29,5 +29,18 @@ struct BabyMeal: Identifiable, Codable {
         self.estimatedCookingTimeMinutes = estimatedCookingTimeMinutes
 		self.isAllergic = isAllergic
     }
-
+	
+	func mapToBabyMealSchema() -> BabyMealSchema {
+		return BabyMealSchema(
+			id: self.id,
+			name: self.name,
+			emoji: self.emoji,
+			ingredients: self.ingredients,
+			allergens: self.allergens,
+			cookingSteps: self.cookingSteps,
+			servingSize: self.servingSize,
+			estimatedCookingTimeMinutes: self.estimatedCookingTimeMinutes,
+			isAllergic: self.isAllergic
+		)
+	}
 }

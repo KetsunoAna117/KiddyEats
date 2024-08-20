@@ -17,6 +17,6 @@ struct KiddyEatsApp: App {
         WindowGroup {
             MainTabView()
         }
-		.modelContainer(DummyModelContainer.createCombinedContainer())
+		.modelContainer(modelContainer)
     }
 }

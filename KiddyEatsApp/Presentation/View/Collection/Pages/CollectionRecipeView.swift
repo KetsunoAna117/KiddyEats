@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct CollectionRecipeView: View {
-	var babyMeal: [BabyMealSchema]
+	@Binding
+	var babyMeal: [BabyMeal]
+	
+	@Bindable
+	var viewModel: BabyMealListViewModel
 	
     var body: some View {
 		List {
@@ -17,7 +21,7 @@ struct CollectionRecipeView: View {
 					// TODO: Change the destination to recipe detail page
 					EmptyView()
 				} label: {
-					RecipeListView(mealRecipe: meals)
+					RecipeRowView(viewModel: viewModel, mealRecipe: meals)
 				}
 			}
 			.listRowSeparator(.hidden)
