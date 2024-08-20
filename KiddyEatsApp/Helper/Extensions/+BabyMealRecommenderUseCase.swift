@@ -13,8 +13,8 @@ extension BabyMealRecommenderUseCase {
     // NOTE: Nanti ini bakal sesuai profile bayi
     var fakeBaby: BabyProfile {
         BabyProfile(
-            id: UUID(),
-            name: "Nathan",
+			id: UUID(),
+			name: "Nathan",
             gender: "Male",
             allergies: ["Sesame"],
             dateOfBirth: Calendar.current.date(byAdding: .month, value: -9, to: Date())!,
