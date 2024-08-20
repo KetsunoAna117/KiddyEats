@@ -13,8 +13,8 @@ struct OnboardingBabyInfo: View {
     
     let dateRange: ClosedRange<Date> = {
         let today = Date()
-        let oneYearFromNow = Calendar.current.date(byAdding: .year, value: 1, to: today)!
-        return today...oneYearFromNow
+        let oneYearAgo = Calendar.current.date(byAdding: .year, value: -2, to: today)!
+        return oneYearAgo...today
     }()
     
     var dateFormatter: DateFormatter {
@@ -56,9 +56,9 @@ struct OnboardingBabyInfo: View {
                                     VStack {
                                         Text("Select your baby date of birth")
                                         DatePicker("Select Date of Birth", selection: $vm.savedbabyDOB, in: dateRange, displayedComponents: .date)
-                                            .datePickerStyle(.wheel)
+                                            .datePickerStyle(.graphical)
                                             .labelsHidden()
-                                            .presentationDetents([.medium])
+                                            .presentationDetents([.height(500)])
                                         Button {
                                             showDatePicker = false
                                         } label: {
