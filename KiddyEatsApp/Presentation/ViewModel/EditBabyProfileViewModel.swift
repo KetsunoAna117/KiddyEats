@@ -31,8 +31,13 @@ class EditBabyProfileViewModel {
 		print(babyProfile)
 	}
 	
-	//TODO: add function to update baby profile
 	func updateBabyProfile(modelContext: ModelContext) {
+		//TODO: add function to update baby profile
+		guard let existingBabyProfile = babyProfile else {
+			print("No baby profile to update")
+			return
+		}
 		
+		updateBabyProfileUseCase.execute(modelContext: modelContext, toUpdateBabyProfile: existingBabyProfile)
 	}
 }
