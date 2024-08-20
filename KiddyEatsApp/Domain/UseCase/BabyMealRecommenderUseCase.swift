@@ -16,7 +16,6 @@ class BabyMealRecommenderUseCase {
     
     func recommendMeals(profile: BabyProfile, searchQuery: String? = nil) async -> [BabyMeal] {
         let llmPrompt = constructLLMPrompt(profile: profile, searchQuery: searchQuery)
-        print(llmPrompt)
         
         let response = aiService.sendMessage(query: llmPrompt, uiImage: nil)
         return decodeMeals(from: response)
@@ -24,7 +23,6 @@ class BabyMealRecommenderUseCase {
     
     func recommendMealsStreaming(profile: BabyProfile, searchQuery: String? = nil, onToken: @escaping MealRecommendationCallback) async throws {
         let llmPrompt = constructLLMPrompt(profile: profile, searchQuery: searchQuery)
-        print(llmPrompt)
         
         try await aiService.sendMessageStreaming(query: llmPrompt, uiImage: nil, onToken: onToken)
     }
