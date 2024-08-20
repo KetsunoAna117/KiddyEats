@@ -8,30 +8,57 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @Environment (\.modelContext) var modelContext
+    @AppStorage("isOnboardingCompleted") var isOnboardingCompleted: Bool = false
+    @State var vm = BabyGlobalConfigurationViewModel(
+        babyDataFetcherUseCase: GetBabyProfileData(repo: BabyProfileRepositoryImpl.shared)
+    )
+    
     var body: some View {
-        TabView {
-            NavigationStack {
-                ExploreView()
+        VStack {
+            if isOnboardingCompleted {
+                if let baby = vm.babyProfile {
+                    TabView {
+                        NavigationStack {
+                            ExploreView()
+                        }
+                        .tabItem {
+                            Label("Explore", systemImage: "magnifyingglass.circle")
+                        }
+                        
+                        NavigationStack {
+                            Text("Hello")
+                        }
+                        .tabItem {
+                            Label("Collections", systemImage: "heart.circle")
+                        }
+                        
+                        NavigationStack {
+                            Text("Hello")
+                        }
+                        .tabItem {
+                            Label("Profile", systemImage: "person.circle")
+                        }
+                    }
+                    .environment(ExploreViewModel())
+                    .onAppear(){
+                        print("Baby data detected: \(baby)")
+                    }
+                }
             }
-            .tabItem {
-                Label("Explore", systemImage: "magnifyingglass.circle")
-            }
-            
-            NavigationStack {
-                CollectionView()
-            }
-            .tabItem {
-                Label("Collections", systemImage: "heart.circle")
-            }
-            
-            NavigationStack {
-                Text("Hello")
-            }
-            .tabItem {
-                Label("Profile", systemImage: "person.circle")
+            else {
+                OnboardingView(onBoardingCompleted: {
+                    isOnboardingCompleted = true
+                    vm.getBabyProfileData(modelContext: modelContext)
+                })
             }
         }
-        .environment(ExploreViewModel())
+        .onAppear(){
+            vm.getBabyProfileData(modelContext: modelContext)
+            if vm.babyProfile == nil {
+                self.isOnboardingCompleted = false
+            }
+        }
     }
 }
 

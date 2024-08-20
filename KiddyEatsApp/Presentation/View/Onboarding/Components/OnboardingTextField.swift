@@ -12,6 +12,8 @@ struct OnboardingTextField: View {
     var placeholder: String?
     @Binding var content: String
     
+    @FocusState private var isTapped: Bool
+    
     var body: some View {
         VStack {
             if let title = title {
@@ -28,6 +30,10 @@ struct OnboardingTextField: View {
                     }
                 }
                 .padding()
+                .onSubmit {
+                    isTapped = true
+                }
+                .focused($isTapped)
             }
             .background(
                 RoundedRectangle(cornerRadius: 10)
