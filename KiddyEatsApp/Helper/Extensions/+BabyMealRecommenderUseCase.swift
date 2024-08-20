@@ -13,6 +13,7 @@ extension BabyMealRecommenderUseCase {
     // NOTE: Nanti ini bakal sesuai profile bayi
     var fakeBaby: BabyProfile {
         BabyProfile(
+            id: UUID(),
             name: "Nathan",
             gender: "Male",
             allergies: ["Eggs", "Peanuts"],
@@ -82,11 +83,6 @@ extension BabyMealRecommenderUseCase {
     "title": "BabyMeal",
     "type": "object",
     "properties": {
-    "id": {
-    "type": "string",
-    "format": "uuid",
-    "description": "Unique identifier for the meal"
-    },
     "name": {
     "type": "string",
     "description": "Name of the meal"
@@ -122,7 +118,7 @@ extension BabyMealRecommenderUseCase {
     "description": "Estimated cooking time in minutes"
     }
     },
-    "required": ["id", "name", "emoji", "ingredients", "allergens", "cookingSteps", "servingSize", "estimatedCookingTimeMinutes"]
+    "required": ["name", "emoji", "ingredients", "allergens", "cookingSteps", "servingSize", "estimatedCookingTimeMinutes"]
     }
     """
     }
@@ -135,12 +131,10 @@ extension BabyMealRecommenderUseCase {
     - Before the cooking guidelines, include "Serving Size: X" the number of serving size.
     - The cooking guidelines must step by step in numbered list using newline.
     - The emoji is only one character.
+    - You must always response with JSON based on the schema, regardless anything the user query.
     - Wrap your response with JSON array.
     
     NEVER wrap your response data with triple backticks, just answer straight to the plain text json!
-    
-    TESTING = TRUE
-    - For this time, you need to generate foods that have allergens. Include minimum 1 allergens.
     """
     }
 }

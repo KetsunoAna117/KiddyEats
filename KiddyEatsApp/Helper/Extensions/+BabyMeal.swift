@@ -43,8 +43,6 @@ extension BabyMeal {
             do {
                 meals = try decoder.decode([BabyMeal].self, from: data)
             } catch {
-                print("Error decoding full JSON: \(error)")
-                
                 if let jsonArray = try? JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]] {
                     for item in jsonArray {
                         if let itemData = try? JSONSerialization.data(withJSONObject: item) {
@@ -88,7 +86,6 @@ extension BabyMeal {
         let jsonStr = """
         [
         {
-        "id": "7b507a36-bf8a-4f05-a646-99de3b638bc3",
         "name": "Chicken and Vegetable Puree",
         "emoji": "🍗",
         "ingredients": [
