@@ -28,8 +28,10 @@ struct ProfileView: View {
 					} header: {
 						// Baby Name
 						Text("\(babyProfile.name)")
-							.font(.headline)
+							.font(.title2)
+							.fontWeight(.semibold)
 					}
+					.foregroundStyle(Color.greenPrimary)
 					
 					Section {
 						// TODO: Put allergy analysis here
@@ -38,17 +40,25 @@ struct ProfileView: View {
 							.frame(maxWidth: .infinity, alignment: .leading)
 							.background(
 								RoundedRectangle(cornerRadius: 10)
-									.foregroundStyle(.quaternary)
+									.foregroundStyle(.exploreCardBackground)
+									.overlay(
+										RoundedRectangle(cornerRadius: 10)
+											.stroke(lineWidth: 3)
+											.foregroundStyle(.greenPrimary)
+									)
 							)
 					} header: {
 						Text("Allergy Analysis")
-							.font(.headline)
+							.font(.title2)
+							.fontWeight(.semibold)
 					}
+					.foregroundStyle(Color.greenPrimary)
 					
 					Spacer()
 				}
 				.padding()
 				.frame(maxWidth: .infinity, alignment: .leading)
+				.background(.appBackground)
 				.navigationTitle("Your Baby's Profile")
 				.toolbar {
 					ToolbarItem(placement: .primaryAction) {
@@ -57,7 +67,7 @@ struct ProfileView: View {
 								
 							}
 						} label: {
-							Label("Edit Profile", systemImage: "wrench.and.screwdriver")
+							Label("Edit Profile", systemImage: "gear")
 						}
 					}
 				}

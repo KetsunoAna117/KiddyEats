@@ -41,6 +41,11 @@ struct CollectionView: View {
 								Text("Your favorite recipes will appear here.")
 							}
 						} else {
+							Text("Exciting recipes waiting for you")
+								.font(.headline)
+								.foregroundStyle(Color.accentColor)
+								.padding(.horizontal)
+							
 							CollectionRecipeView(babyMeal: $viewModel.showedMealList, viewModel: viewModel)
 						}
 					case .allergicRecipes:
@@ -53,10 +58,16 @@ struct CollectionView: View {
 								Text("Recipes that can cause allergic reaction will appear here.")
 							}
 						} else {
+							Text("Recipes that caused allergic reactions")
+								.font(.headline)
+								.foregroundStyle(Color.accentColor)
+								.padding(.horizontal)
+							
 							CollectionRecipeView(babyMeal: $viewModel.showedMealList, viewModel: viewModel)
 						}
 				}
 			}
+			.background(.appBackground)
 			.navigationTitle("Your Saved Recipes")
 			.searchable(text: $viewModel.searchRecipe, prompt: "Search your saved recipes")
 			.onAppear {
@@ -70,6 +81,9 @@ struct CollectionView: View {
 					case .allergicRecipes:
 						viewModel.getMealAllergic(modelContext: modelContext)
 				}
+			}
+			.onChange(of: viewModel.searchRecipe) { oldValue, newValue in
+				viewModel.filterRecipe(modelContext: modelContext)
 			}
 		}
     }
