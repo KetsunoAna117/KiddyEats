@@ -57,5 +57,8 @@ struct RecipeCard: View {
                 .padding(.trailing, 15)
             }
         }
+        .onAppear(){
+            vm.checkIfAlreadyFavorite(modelContext: modelContext, babyMealID: babyMeal.id)
+        }
     }
 }
