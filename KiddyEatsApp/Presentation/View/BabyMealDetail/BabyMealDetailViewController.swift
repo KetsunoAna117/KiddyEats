@@ -175,8 +175,27 @@ class BulletListUILabel: UILabel {
     }
     
     func setItems(_ items: [String]) {
-        let bulletList = items.map { "• \($0)" }.joined(separator: "\n")
-        text = bulletList
+        let attributedString = NSMutableAttributedString()
+        
+        items.forEach { item in
+            let bulletPoint = "• "
+            let formattedString = "\(bulletPoint)\(item)\n"
+            let attributedText = NSMutableAttributedString(string: formattedString)
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.headIndent = 15
+            paragraphStyle.firstLineHeadIndent = 0
+            paragraphStyle.tailIndent = -15
+            paragraphStyle.lineBreakMode = .byWordWrapping
+            
+            attributedText.addAttribute(.paragraphStyle, 
+                                        value: paragraphStyle, 
+                                        range: NSRange(location: 0, length: attributedText.length))
+            
+            attributedString.append(attributedText)
+        }
+        
+        self.attributedText = attributedString
     }
 }
 
