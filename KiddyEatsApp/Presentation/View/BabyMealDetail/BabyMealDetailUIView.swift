@@ -9,21 +9,23 @@ import SwiftUI
 import UIKit
 
 class BabyMealDetailUIView: UIView {
-    private let scrollView = UIScrollView()
-    private let contentView = UIView()
+    private lazy var scrollView = UIScrollView()
+    private lazy var contentView = UIView()
     
-    private let emojiLabel = UILabel()
-    private let titleLabel = UILabel()
-    private let allergensView = UIView()
-    private let recipeInfoLabel = UILabel()
-    private let ingredientsLabel = UILabel()
-    private let cookingInstructionsLabel = UILabel()
-    private let addToLogButton = UIButton(type: .system) // NOTE: Nanti mungkin jadi SwiftUI
+    private lazy var emojiLabel = UILabel()
+    private lazy var titleLabel = UILabel()
+    private lazy var allergensView = UIView()
+    private lazy var recipeInfoLabel = UILabel()
+    private lazy var ingredientsLabel = UILabel()
+    private lazy var cookingInstructionsLabel = UILabel()
+    private lazy var addToLogButton = UIButton(type: .system) // NOTE: Nanti mungkin jadi SwiftUI
     
-    private let viewModel: BabyMealDetailViewModel
+    private var viewModel: BabyMealDetailViewModel
+    private var babyMeal: BabyMeal
     
-    init(viewModel: BabyMealDetailViewModel) {
+    init(viewModel: BabyMealDetailViewModel, babyMeal: BabyMeal) {
         self.viewModel = viewModel
+        self.babyMeal = babyMeal
         super.init(frame: .zero)
         setupUI()
     }
@@ -68,7 +70,7 @@ class BabyMealDetailUIView: UIView {
     private func setupEmojiLabel() {
         contentView.addSubview(emojiLabel)
         emojiLabel.translatesAutoresizingMaskIntoConstraints = false
-        emojiLabel.text = viewModel.babyMeal.emoji
+        emojiLabel.text = self.babyMeal.emoji
         emojiLabel.font = UIFont.systemFont(ofSize: 80)
         emojiLabel.textAlignment = .center
         emojiLabel.backgroundColor = .systemGray6
@@ -88,7 +90,7 @@ class BabyMealDetailUIView: UIView {
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        titleLabel.text = viewModel.babyMeal.name
+        titleLabel.text = self.babyMeal.name
         titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         titleLabel.textColor = .label
         
@@ -114,14 +116,14 @@ class BabyMealDetailUIView: UIView {
         allergensStack.axis = .vertical
         allergensStack.spacing = 4
         
-        if viewModel.babyMeal.allergens.isEmpty {
+        if self.babyMeal.allergens.isEmpty {
             let noAllergensLabel = UILabel()
             noAllergensLabel.text = "No Allergens"
             noAllergensLabel.font = UIFont.italicSystemFont(ofSize: 14)
             noAllergensLabel.textColor = .white
             allergensStack.addArrangedSubview(noAllergensLabel)
         } else {
-            for allergen in viewModel.babyMeal.allergens {
+            for allergen in self.babyMeal.allergens {
                 let allergenLabel = UILabel()
                 allergenLabel.text = "• \(allergen)"
                 allergenLabel.textColor = .white
@@ -157,7 +159,7 @@ class BabyMealDetailUIView: UIView {
         recipeInfoLabel.numberOfLines = 0
         
         let recipeInfoTitle = NSMutableAttributedString(string: "Recipe Information\n", attributes: [.font: UIFont.boldSystemFont(ofSize: 16)])
-        let recipeInfoDetails = NSAttributedString(string: "Serving size: \(viewModel.babyMeal.servingSize)\nEstimated cooking time: \(viewModel.babyMeal.estimatedCookingTimeMinutes) mins")
+        let recipeInfoDetails = NSAttributedString(string: "Serving size: \(self.babyMeal.servingSize)\nEstimated cooking time: \(self.babyMeal.estimatedCookingTimeMinutes) mins")
         recipeInfoTitle.append(recipeInfoDetails)
         
         recipeInfoLabel.attributedText = recipeInfoTitle
@@ -175,7 +177,7 @@ class BabyMealDetailUIView: UIView {
         ingredientsLabel.numberOfLines = 0
         
         let ingredientsTitle = NSMutableAttributedString(string: "Ingredients\n", attributes: [.font: UIFont.boldSystemFont(ofSize: 16)])
-        let ingredientsList = viewModel.babyMeal.ingredients.map { "• \($0)" }.joined(separator: "\n")
+        let ingredientsList = self.babyMeal.ingredients.map { "• \($0)" }.joined(separator: "\n")
         ingredientsTitle.append(NSAttributedString(string: ingredientsList))
         
         ingredientsLabel.attributedText = ingredientsTitle
@@ -193,7 +195,7 @@ class BabyMealDetailUIView: UIView {
         cookingInstructionsLabel.numberOfLines = 0
         
         let cookingInstructionsTitle = NSMutableAttributedString(string: "Cooking Instructions\n", attributes: [.font: UIFont.boldSystemFont(ofSize: 16)])
-        cookingInstructionsTitle.append(NSAttributedString(string: viewModel.babyMeal.cookingSteps))
+        cookingInstructionsTitle.append(NSAttributedString(string: self.babyMeal.cookingSteps))
         
         cookingInstructionsLabel.attributedText = cookingInstructionsTitle
         
@@ -225,6 +227,6 @@ class BabyMealDetailUIView: UIView {
     }
     
     @objc private func addToLogTapped() {
-        viewModel.addToLog()
+        #warning("Add to log button hasn't been implemented")
     }
 }

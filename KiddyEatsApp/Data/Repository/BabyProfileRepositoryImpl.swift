@@ -15,8 +15,8 @@ struct BabyProfileRepositoryImpl {
 }
 
 extension BabyProfileRepositoryImpl: BabyProfileRepositoryProtocol {
-    func createBabyProfile(modelContext: ModelContext, babyProfile: BabyProfile) {
-        modelContext.insert(babyProfile.mapToBabyProfileSchema())
+    func createBabyProfile(modelContext: ModelContext, babyProfile: BabyProfileSchema) {
+        modelContext.insert(babyProfile)
         try? modelContext.save()
     }
     

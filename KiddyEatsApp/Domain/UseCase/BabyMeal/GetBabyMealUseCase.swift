@@ -1,25 +1,26 @@
 //
-//  RecipeFiltering.swift
+//  GetBabymealUseCase.swift
 //  KiddyEatsApp
 //
-//  Created by Gusti Rizky Fajar on 20/08/24.
+//  Created by Hans Arthur Cupiterson on 20/08/24.
 //
 
 import Foundation
+import SwiftData
 
-protocol GetBabyMealProtocol {
-	func execute(babyMeal: [BabyMeal], searchQuery: String) -> [BabyMeal]
+protocol GetBabymealUseCaseProtocol {
+    func execute(modelContext: ModelContext, id: UUID) -> BabyMeal?
 }
 
-struct FilterBabyMealUseCase: GetBabyMealProtocol {
-	func execute(babyMeal: [BabyMeal], searchQuery: String) -> [BabyMeal] {
-		if searchQuery.isEmpty {
-			return babyMeal
-		}
-		
-		return babyMeal.compactMap { meal in
-			let recipeContainsQuery = meal.name.range(of: searchQuery, options: .caseInsensitive) != nil
-			return recipeContainsQuery ? meal : nil
-		}
-	}
+struct GetBabymealUseCase: GetBabymealUseCaseProtocol {
+    let repo: BabyMealRepositoryProtocol
+    
+    func execute(modelContext: ModelContext, id: UUID) -> BabyMeal? {
+        if let fetchedBabyMeal = repo.getBabyMealByID(modelContext: modelContext, toFetchBabyMealID: id) {
+            return fetchedBabyMeal.mapToBabyMeal()
+        }
+        return nil
+    }
+    
+    
 }

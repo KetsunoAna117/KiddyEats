@@ -9,6 +9,8 @@ import Foundation
 import SwiftData
 
 protocol BabyMealRepositoryProtocol {
+    func getBabyMealByID(modelContext: ModelContext, toFetchBabyMealID: UUID) -> BabyMealSchema?
 	func getBabyMealList(modelContext: ModelContext) -> [BabyMealSchema]
-	func deleteBabyMeal(modelContext: ModelContext, toDeleteBabyMealSchema: BabyMealSchema)
+	func deleteBabyMeal(modelContext: ModelContext, toDeleteBabyMealID: UUID)
+    func saveBabyMeal(modelContext: ModelContext, toSaveBabyMealSchema: BabyMealSchema)
 }

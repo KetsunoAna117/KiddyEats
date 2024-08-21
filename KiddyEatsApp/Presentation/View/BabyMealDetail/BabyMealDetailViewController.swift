@@ -6,8 +6,15 @@ class BabyMealDetailViewController: UIViewController {
     private let viewModel: BabyMealDetailViewModel
     private var detailView: BabyMealDetailUIView!
     
+    private var babyMeal: BabyMeal
+    
     init(babyMeal: BabyMeal) {
-        self.viewModel = BabyMealDetailViewModel(babyMeal: babyMeal)
+        self.viewModel = BabyMealDetailViewModel(
+            saveBabyMealUseCase: SaveBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
+            deleteBabyMealUseCase: DeleteBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
+            getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
+        )
+        self.babyMeal = babyMeal
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,7 +31,7 @@ class BabyMealDetailViewController: UIViewController {
         title = "Recipe Detail"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeTapped))
         
-        detailView = BabyMealDetailUIView(viewModel: viewModel)
+        detailView = BabyMealDetailUIView(viewModel: viewModel, babyMeal: babyMeal)
         view.addSubview(detailView)
         detailView.translatesAutoresizingMaskIntoConstraints = false
         
