@@ -24,12 +24,20 @@ struct RecipeRowView: View {
 			
 			VStack(alignment: .leading) {
 				Text(mealRecipe.name)
-					.font(.title2)
+					.font(.headline)
 					.padding(.bottom, 2)
-				Text("Cooking time: \(mealRecipe.estimatedCookingTimeMinutes)")
-					.font(.caption)
-				Text("Difficulty: ")
-					.font(.caption)
+				
+				HStack {
+					Image(systemName: "takeoutbag.and.cup.and.straw")
+					Text("\(mealRecipe.ingredients[0])")
+				}
+				.font(.callout)
+
+				HStack {
+					Image(systemName: "clock.arrow.circlepath")
+					Text("\(mealRecipe.estimatedCookingTimeMinutes) minutes")
+				}
+				.font(.callout)
 			}
 			
 			Spacer()
@@ -38,7 +46,7 @@ struct RecipeRowView: View {
 				Image(systemName: "exclamationmark.triangle")
 					.symbolVariant(.fill)
 					.font(.largeTitle)
-					.foregroundStyle(Color.red)
+					.foregroundStyle(Color.greenPrimary)
 			}
 		}
 		.swipeActions {

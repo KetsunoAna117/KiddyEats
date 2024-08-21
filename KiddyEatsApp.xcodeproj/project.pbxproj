@@ -59,6 +59,9 @@
 		E40EEFCF2C7441EA00BCD991 /* BabyMealListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFCE2C7441EA00BCD991 /* BabyMealListViewModel.swift */; };
 		E40EEFD12C74465100BCD991 /* GetBabyMealAllergicList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFD02C74465100BCD991 /* GetBabyMealAllergicList.swift */; };
 		E40EEFD32C74530400BCD991 /* DeleteBabyMealUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFD22C74530300BCD991 /* DeleteBabyMealUseCase.swift */; };
+		E40EEFD62C746DB100BCD991 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFD52C746DB100BCD991 /* ProfileView.swift */; };
+		E40EEFD92C747D8000BCD991 /* EditBabyProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFD82C747D8000BCD991 /* EditBabyProfileViewModel.swift */; };
+		E40EEFDB2C7487EA00BCD991 /* UpdateBabyProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFDA2C7487EA00BCD991 /* UpdateBabyProfileData.swift */; };
 		E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61272632C6DE92E007698E6 /* ExploreView.swift */; };
 		E612726A2C6DEDC0007698E6 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61272692C6DEDBC007698E6 /* AIService.swift */; };
 		E612726E2C6E0272007698E6 /* BabyMealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */; };
@@ -149,6 +152,9 @@
 		E40EEFCE2C7441EA00BCD991 /* BabyMealListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealListViewModel.swift; sourceTree = "<group>"; };
 		E40EEFD02C74465100BCD991 /* GetBabyMealAllergicList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBabyMealAllergicList.swift; sourceTree = "<group>"; };
 		E40EEFD22C74530300BCD991 /* DeleteBabyMealUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteBabyMealUseCase.swift; sourceTree = "<group>"; };
+		E40EEFD52C746DB100BCD991 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		E40EEFD82C747D8000BCD991 /* EditBabyProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBabyProfileViewModel.swift; sourceTree = "<group>"; };
+		E40EEFDA2C7487EA00BCD991 /* UpdateBabyProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBabyProfileData.swift; sourceTree = "<group>"; };
 		E61272632C6DE92E007698E6 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		E61272692C6DEDBC007698E6 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
 		E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealDetailViewController.swift; sourceTree = "<group>"; };
@@ -274,6 +280,7 @@
 			children = (
 				3A5450C92C730A4D0090EE0F /* GetBabyProfileData.swift */,
 				3A5450D72C7387830090EE0F /* CreateBabyProfileData.swift */,
+				E40EEFDA2C7487EA00BCD991 /* UpdateBabyProfileData.swift */,
 			);
 			path = BabyProfile;
 			sourceTree = "<group>";
@@ -396,6 +403,7 @@
 				3A5450A42C71E1460090EE0F /* ReactionLoggerViewModel.swift */,
 				3A5450D52C73815B0090EE0F /* BabyGlobalConfigurationViewModel.swift */,
 				E40EEFCE2C7441EA00BCD991 /* BabyMealListViewModel.swift */,
+				E40EEFD82C747D8000BCD991 /* EditBabyProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -469,6 +477,22 @@
 			path = BabyMeal;
 			sourceTree = "<group>";
 		};
+		E40EEFD42C746D7800BCD991 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				E40EEFD52C746DB100BCD991 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		E40EEFD72C747D2300BCD991 /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+				E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */,
+			);
+			path = Explore;
+			sourceTree = "<group>";
+		};
 		E612725C2C6DE92E007698E6 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -496,6 +520,7 @@
 				3AB03C4D2C6F3B61001F5473 /* Onboarding */,
 				E67BD8E62C709887006393F4 /* Explore */,
 				E40EEFB22C732CDE00BCD991 /* Collection */,
+				E40EEFD42C746D7800BCD991 /* Profile */,
 				E68C0F362C707A1200532140 /* BabyMealDetail */,
 			);
 			path = View;
@@ -532,9 +557,9 @@
 		E68C0F292C6F473100532140 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				E40EEFD72C747D2300BCD991 /* Explore */,
 				E40EEFCB2C74403D00BCD991 /* BabyMeal */,
 				3A5450C82C730A3E0090EE0F /* BabyProfile */,
-				E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -706,6 +731,7 @@
 				3A5450A82C71E1D00090EE0F /* ReactionStatus.swift in Sources */,
 				3AB03C6B2C6F9A4F001F5473 /* OnboardingTagsComponent.swift in Sources */,
 				3AB03C552C6F3C51001F5473 /* OnboardingBabyAllergies.swift in Sources */,
+				E40EEFD92C747D8000BCD991 /* EditBabyProfileViewModel.swift in Sources */,
 				E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */,
 				3AB03C4F2C6F3B77001F5473 /* StartingOnboardingView.swift in Sources */,
 				3AB03C652C6F96D6001F5473 /* BabyOnboardingInformationViewModel.swift in Sources */,
@@ -716,6 +742,7 @@
 				3A5450AA2C71E2520090EE0F /* ReactionDetails.swift in Sources */,
 				3AB03C582C6F3F2E001F5473 /* OnboardingTextField.swift in Sources */,
 				3A5450A32C71DDC10090EE0F /* RadioButton.swift in Sources */,
+				E40EEFD62C746DB100BCD991 /* ProfileView.swift in Sources */,
 				3A5450D32C730AD30090EE0F /* BabyProfileRepositoryProtocol.swift in Sources */,
 				3A5450A02C71DA230090EE0F /* ReactionPromptView.swift in Sources */,
 				3A5450CA2C730A4D0090EE0F /* GetBabyProfileData.swift in Sources */,
@@ -744,6 +771,7 @@
 				E68C0F402C707CAA00532140 /* +BabyMealRecommenderUseCase.swift in Sources */,
 				E40EEFD32C74530400BCD991 /* DeleteBabyMealUseCase.swift in Sources */,
 				3AB03C402C6DE845001F5473 /* KiddyEatsApp.swift in Sources */,
+				E40EEFDB2C7487EA00BCD991 /* UpdateBabyProfileData.swift in Sources */,
 				3AB03C732C70E7E8001F5473 /* ReactionFormView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
