@@ -26,7 +26,7 @@ struct OnboardingBabyAllergies: View {
                     .padding(.bottom, 30)
                     
                     VStack(alignment: .leading) {
-                        OnboardingTextField(placeholder: "\"Peanuts\"", content: $userInput)
+                        KiddyEatsTextField(placeholder: "\"Peanuts\"", content: $userInput)
                             .onSubmit {
                                 addTag()
                             }
@@ -37,25 +37,11 @@ struct OnboardingBabyAllergies: View {
                     .padding(.bottom, 30)
                     
                     VStack {
-                        HStack {
-                            Text("Allergens Known")
-                            Spacer()
-                        }
-                        
-                        VStack {
-                            ScrollView {
-                                FlexibleView(
-                                    availableWidth: 310,
-                                    views: renderTags()
-                                )
-                            }
-                            .padding(20)
-                        }
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundStyle(Color.primaryStrong)
+                        KiddyEatsAllergenList(
+                            title: "Allergens Known",
+                            tagList: $vm.savedallergiesList,
+                            removeTag: removeTags
                         )
-                        .frame(width: 330, height: 250)
                     }
                 }
                 .padding(.top, 100)
@@ -64,20 +50,6 @@ struct OnboardingBabyAllergies: View {
             }
             .padding(.horizontal, 20)
         }
-    }
-    // MARK: UIVIew to render text
-    func renderTags() -> [AnyView] {
-        var views: [AnyView] = []
-        
-        for tag in vm.savedallergiesList {
-            views.append(
-                AnyView(
-                    OnboardingTagsComponent(name: tag, onTap: removeTags)
-                )
-            )
-        }
-        
-        return views
     }
     
     func addTag(){

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnboardingTagsComponent: View {
+struct TagsComponent: View {
     let name: String
     let onTap: (String) -> ()
     

@@ -10,20 +10,16 @@ import SwiftData
 @testable import KiddyEatsApp
 
 class FakeBabyProfileRepository: BabyProfileRepositoryProtocol {
-    func createBabyProfile(modelContext: ModelContext, babyProfile: KiddyEatsApp.BabyProfileSchema) {
-        <#code#>
+    func createBabyProfile(modelContext: ModelContext, babyProfile: BabyProfileSchema) {
+        let schema = babyProfile
+        profiles.append(schema)
     }
     
-    func updateBabyProfile(modelContext: ModelContext, toUpdateBabyProfile: KiddyEatsApp.BabyProfile) {
-        <#code#>
+    func updateBabyProfile(modelContext: ModelContext, toUpdateBabyProfile: BabyProfile) {
+        
     }
     
     var profiles: [BabyProfileSchema] = []
-    
-    func createBabyProfile(modelContext: ModelContext, babyProfile: BabyProfile) {
-        let schema = babyProfile.mapToBabyProfileSchema()
-        profiles.append(schema)
-    }
     
     func getBabyProfile(modelContext: ModelContext) -> BabyProfileSchema? {
         return profiles.first
