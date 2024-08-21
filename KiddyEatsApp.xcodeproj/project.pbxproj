@@ -30,6 +30,7 @@
 		3A5450D82C7387830090EE0F /* CreateBabyProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450D72C7387830090EE0F /* CreateBabyProfileData.swift */; };
 		3A5450DA2C74D7390090EE0F /* SaveBabyMealUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450D92C74D7390090EE0F /* SaveBabyMealUseCase.swift */; };
 		3A5450DC2C74E0E20090EE0F /* GetBabymealUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450DB2C74E0E20090EE0F /* GetBabymealUseCase.swift */; };
+		3A5450DE2C758ECB0090EE0F /* +UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450DD2C758ECB0090EE0F /* +UIColor.swift */; };
 		3AB03C402C6DE845001F5473 /* KiddyEatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB03C3F2C6DE845001F5473 /* KiddyEatsApp.swift */; };
 		3AB03C442C6DE848001F5473 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB03C432C6DE848001F5473 /* Assets.xcassets */; };
 		3AB03C472C6DE848001F5473 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB03C462C6DE848001F5473 /* Preview Assets.xcassets */; };
@@ -118,6 +119,7 @@
 		3A5450D72C7387830090EE0F /* CreateBabyProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBabyProfileData.swift; sourceTree = "<group>"; };
 		3A5450D92C74D7390090EE0F /* SaveBabyMealUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveBabyMealUseCase.swift; sourceTree = "<group>"; };
 		3A5450DB2C74E0E20090EE0F /* GetBabymealUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBabymealUseCase.swift; sourceTree = "<group>"; };
+		3A5450DD2C758ECB0090EE0F /* +UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+UIColor.swift"; sourceTree = "<group>"; };
 		3AB03C3C2C6DE845001F5473 /* KiddyEatsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KiddyEatsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB03C3F2C6DE845001F5473 /* KiddyEatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KiddyEatsApp.swift; sourceTree = "<group>"; };
 		3AB03C432C6DE848001F5473 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 				E68C0F4B2C708CF500532140 /* +Publisher.swift */,
 				E68C0F3F2C707CA400532140 /* +BabyMealRecommenderUseCase.swift */,
 				E68C0F322C7079C500532140 /* +BabyMeal.swift */,
+				3A5450DD2C758ECB0090EE0F /* +UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -689,6 +692,7 @@
 				E68C0F442C7082DF00532140 /* RecipeCardPlaceholder.swift in Sources */,
 				3A5450BE2C72FE910090EE0F /* BabyProfileSchema.swift in Sources */,
 				3A5450D62C73815B0090EE0F /* BabyGlobalConfigurationViewModel.swift in Sources */,
+				3A5450DE2C758ECB0090EE0F /* +UIColor.swift in Sources */,
 				E40EEFD12C74465100BCD991 /* GetBabyMealAllergicList.swift in Sources */,
 				3A5450B52C71F79F0090EE0F /* ReactionEndingView.swift in Sources */,
 				3A5450A82C71E1D00090EE0F /* ReactionStatus.swift in Sources */,

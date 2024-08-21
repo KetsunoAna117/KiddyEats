@@ -104,15 +104,28 @@ class BabyMealDetailUIView: UIView {
     private func setupAllergensView() {
         contentView.addSubview(allergensView)
         allergensView.translatesAutoresizingMaskIntoConstraints = false
-        allergensView.backgroundColor = .systemRed
+        allergensView.backgroundColor = .possibleAllergen
         allergensView.layer.cornerRadius = 8
         
+        let allergensTitleStack = UIStackView()
+        allergensTitleStack.translatesAutoresizingMaskIntoConstraints = false
+        allergensTitleStack.axis = .horizontal
+        allergensTitleStack.spacing = 4
+        
+        let allergenTitleImage = UIImageView()
+        allergenTitleImage.image = UIImage(systemName: "exclamationmark.triangle")
+        
         let allergensTitle = UILabel()
+        allergensTitle.translatesAutoresizingMaskIntoConstraints = false
         allergensTitle.text = "Possible Allergens"
         allergensTitle.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        allergensTitle.textColor = .white
+        allergensTitle.textColor = .black
+        
+        allergensTitleStack.addArrangedSubview(allergenTitleImage)
+        allergensTitleStack.addArrangedSubview(allergensTitle)
         
         let allergensStack = UIStackView()
+        allergensStack.translatesAutoresizingMaskIntoConstraints = false
         allergensStack.axis = .vertical
         allergensStack.spacing = 4
         
@@ -120,31 +133,27 @@ class BabyMealDetailUIView: UIView {
             let noAllergensLabel = UILabel()
             noAllergensLabel.text = "No Allergens"
             noAllergensLabel.font = UIFont.italicSystemFont(ofSize: 14)
-            noAllergensLabel.textColor = .white
+            noAllergensLabel.textColor = .black
             allergensStack.addArrangedSubview(noAllergensLabel)
         } else {
             for allergen in self.babyMeal.allergens {
                 let allergenLabel = UILabel()
                 allergenLabel.text = "• \(allergen)"
-                allergenLabel.textColor = .white
+                allergenLabel.textColor = .black
                 allergensStack.addArrangedSubview(allergenLabel)
             }
         }
         
-        allergensView.addSubview(allergensTitle)
+        allergensView.addSubview(allergensTitleStack)
         allergensView.addSubview(allergensStack)
-        
-        allergensTitle.translatesAutoresizingMaskIntoConstraints = false
-        allergensStack.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             allergensView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
             allergensView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             allergensView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
-            allergensTitle.topAnchor.constraint(equalTo: allergensView.topAnchor, constant: 8),
-            allergensTitle.leadingAnchor.constraint(equalTo: allergensView.leadingAnchor, constant: 8),
-            allergensTitle.trailingAnchor.constraint(equalTo: allergensView.trailingAnchor, constant: -8),
+            allergensTitleStack.topAnchor.constraint(equalTo: allergensView.topAnchor, constant: 8),
+            allergensTitleStack.leadingAnchor.constraint(equalTo: allergensView.leadingAnchor, constant: 8),
             
             allergensStack.topAnchor.constraint(equalTo: allergensTitle.bottomAnchor, constant: 8),
             allergensStack.leadingAnchor.constraint(equalTo: allergensView.leadingAnchor, constant: 8),
@@ -210,7 +219,7 @@ class BabyMealDetailUIView: UIView {
         contentView.addSubview(addToLogButton)
         addToLogButton.translatesAutoresizingMaskIntoConstraints = false
         
-        addToLogButton.setTitle("Add to Log", for: .normal)
+        addToLogButton.setTitle("Save to Collections", for: .normal)
         addToLogButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         addToLogButton.setTitleColor(.white, for: .normal)
         addToLogButton.backgroundColor = .accent
