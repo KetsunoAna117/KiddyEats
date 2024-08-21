@@ -300,7 +300,8 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        title = babyMeal.name
+        navigationItem.title = babyMeal.name
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeTapped))
         
         setupScrollView()
