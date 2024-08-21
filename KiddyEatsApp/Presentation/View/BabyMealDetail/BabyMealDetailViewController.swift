@@ -263,7 +263,6 @@ class BabyMealDetailViewController: UIViewController {
     private let contentView = UIView()
     
     private let emojiLabel = EmojiUILabel()
-    private let titleLabel = TitleUILabel()
     private let allergensView = AllergensUIView()
     private let recipeInfoLabel = BulletListUILabel()
     private let ingredientsLabel = BulletListUILabel()
@@ -297,12 +296,11 @@ class BabyMealDetailViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
-        title = "Recipe Detail"
+        title = babyMeal.name
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeTapped))
         
         setupScrollView()
         setupEmojiLabel()
-        setupTitleLabel()
         setupAllergensView()
         setupRecipeInfoHeader()
         setupRecipeInfoLabel()
@@ -346,25 +344,13 @@ class BabyMealDetailViewController: UIViewController {
         ])
     }
     
-    private func setupTitleLabel() {
-        contentView.addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = babyMeal.name
-        
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: emojiLabel.bottomAnchor, constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
-        ])
-    }
-    
     private func setupAllergensView() {
         contentView.addSubview(allergensView)
         allergensView.translatesAutoresizingMaskIntoConstraints = false
         allergensView.setAllergens(babyMeal.allergens)
         
         NSLayoutConstraint.activate([
-            allergensView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            allergensView.topAnchor.constraint(equalTo: emojiLabel.bottomAnchor, constant: 16),
             allergensView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             allergensView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
