@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ReactionFormView: View {
+    @Environment(\.modelContext) var modelContext
+    
     let totalPages: Int = 2
     @State private var currentTab: Int = 1
     @State private var buttonPrompt: String = "Save reactions"
@@ -78,6 +80,7 @@ struct ReactionFormView: View {
             changeButtonPrompt()
         }
         else {
+            vm.updateBabyMealReaction(modelContext: modelContext)
             #warning("End of form logic hasn't been implemented")
         }
     }
