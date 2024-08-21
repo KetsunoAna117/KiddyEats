@@ -183,9 +183,9 @@ class BulletListUILabel: UILabel {
             let attributedText = NSMutableAttributedString(string: formattedString)
             
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.headIndent = 15
+            paragraphStyle.headIndent = 12
             paragraphStyle.firstLineHeadIndent = 0
-            paragraphStyle.tailIndent = -15
+            paragraphStyle.tailIndent = -12
             paragraphStyle.lineBreakMode = .byWordWrapping
             
             attributedText.addAttribute(.paragraphStyle, 
@@ -221,7 +221,7 @@ class NumberedListUILabel: UILabel {
             let numberString = "\(index + 1). "
             let fullString = numberString + strippedItem
             
-            let paragraphStyle = createParagraphStyle(firstLineHeadIndent: 0, headIndent: 20)
+            let paragraphStyle = createParagraphStyle(firstLineHeadIndent: 0, headIndent: 18)
             let attributes: [NSAttributedString.Key: Any] = [
                 .paragraphStyle: paragraphStyle,
                 .font: UIFont.systemFont(ofSize: 16)
