@@ -8,6 +8,8 @@
 import Foundation
 
 @Observable class ReactionLoggerViewModel {
+    var selectedBabyMeal: BabyMeal?
+    
     var reactionStatus: ReactionStatus
     var reactionDetails: [ReactionDetails]
     
@@ -15,4 +17,10 @@ import Foundation
         self.reactionStatus = .unfilled
         self.reactionDetails = []
     }
+    
+    func setupBabyMeal(selectedBabyMeal: BabyMeal) {
+        self.selectedBabyMeal = selectedBabyMeal
+    }
+    
+    
 }

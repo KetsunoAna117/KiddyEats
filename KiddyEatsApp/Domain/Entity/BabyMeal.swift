@@ -17,8 +17,9 @@ struct BabyMeal: Identifiable, Codable {
     var servingSize: Int
     var estimatedCookingTimeMinutes: Int
 	var isAllergic: Bool
+    var reactionList: [String]
     
-	init(id: UUID = UUID(), name: String, emoji: String, ingredients: [String], allergens: [String], cookingSteps: String, servingSize: Int, estimatedCookingTimeMinutes: Int, isAllergic: Bool) {
+    init(id: UUID = UUID(), name: String, emoji: String, ingredients: [String], allergens: [String], cookingSteps: String, servingSize: Int, estimatedCookingTimeMinutes: Int, isAllergic: Bool, reactionList: [String]) {
         self.id = id
         self.name = name
         self.emoji = emoji
@@ -28,6 +29,7 @@ struct BabyMeal: Identifiable, Codable {
         self.servingSize = servingSize
         self.estimatedCookingTimeMinutes = estimatedCookingTimeMinutes
 		self.isAllergic = isAllergic
+        self.reactionList = reactionList
     }
 	
 	func mapToBabyMealSchema() -> BabyMealSchema {
@@ -40,7 +42,8 @@ struct BabyMeal: Identifiable, Codable {
 			cookingSteps: self.cookingSteps,
 			servingSize: self.servingSize,
 			estimatedCookingTimeMinutes: self.estimatedCookingTimeMinutes,
-			isAllergic: self.isAllergic
+			isAllergic: self.isAllergic,
+            reactionList: self.reactionList
 		)
 	}
 }
