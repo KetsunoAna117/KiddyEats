@@ -71,6 +71,7 @@
 		E67BD90C2C7464F2006393F4 /* ExploreViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD90B2C7464DA006393F4 /* ExploreViewModelTests.swift */; };
 		E67BD90F2C746811006393F4 /* BabyMealJsonParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD90E2C7467F8006393F4 /* BabyMealJsonParserTests.swift */; };
 		E67BD9122C75DE21006393F4 /* AddToLogUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD9112C75DE1C006393F4 /* AddToLogUIButton.swift */; };
+		E67BD9142C75DE84006393F4 /* SaveToCollectionsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD9132C75DE7D006393F4 /* SaveToCollectionsButton.swift */; };
 		E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */; };
 		E68C0F2D2C6F5B7100532140 /* RecipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */; };
 		E68C0F332C7079C800532140 /* +BabyMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F322C7079C500532140 /* +BabyMeal.swift */; };
@@ -164,6 +165,7 @@
 		E67BD90B2C7464DA006393F4 /* ExploreViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModelTests.swift; sourceTree = "<group>"; };
 		E67BD90E2C7467F8006393F4 /* BabyMealJsonParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealJsonParserTests.swift; sourceTree = "<group>"; };
 		E67BD9112C75DE1C006393F4 /* AddToLogUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToLogUIButton.swift; sourceTree = "<group>"; };
+		E67BD9132C75DE7D006393F4 /* SaveToCollectionsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToCollectionsButton.swift; sourceTree = "<group>"; };
 		E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealRecommenderUseCase.swift; sourceTree = "<group>"; };
 		E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCard.swift; sourceTree = "<group>"; };
 		E68C0F322C7079C500532140 /* +BabyMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+BabyMeal.swift"; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 		E67BD9102C75DDFE006393F4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E67BD9132C75DE7D006393F4 /* SaveToCollectionsButton.swift */,
 				E67BD9112C75DE1C006393F4 /* AddToLogUIButton.swift */,
 			);
 			path = Components;
@@ -733,6 +736,7 @@
 				3AB03C652C6F96D6001F5473 /* BabyOnboardingInformationViewModel.swift in Sources */,
 				3A5450C52C73048D0090EE0F /* BabyProfileRepositoryImpl.swift in Sources */,
 				3AB03C512C6F3BBB001F5473 /* OnboardingBabyInfo.swift in Sources */,
+				E67BD9142C75DE84006393F4 /* SaveToCollectionsButton.swift in Sources */,
 				3A5450A52C71E1460090EE0F /* ReactionLoggerViewModel.swift in Sources */,
 				3A5450CD2C730A930090EE0F /* BabyProfile.swift in Sources */,
 				3A5450AA2C71E2520090EE0F /* ReactionDetails.swift in Sources */,
