@@ -23,38 +23,57 @@ struct RecipeCard: View {
             if babyMeal.name.isEmpty {
                 LoadingCard()
             } else {
-                VStack {
-                    Text(babyMeal.emoji)
-                        .font(.system(size: 60))
-                        .frame(height: 100)
+                VStack(alignment: .leading) {
+                    
+                    HStack{
+                        Spacer()
+                        Text(babyMeal.emoji)
+                            .font(.system(size: 60))
+                            .frame(height: 80)
+                        Spacer()
+                    }
                     
                     Text(babyMeal.name)
+                        .fontWeight(.bold)
                         .font(.system(size: 13))
-                        .multilineTextAlignment(.center)
+                        .multilineTextAlignment(.leading)
                         .foregroundColor(.accent)
+                    
+                    HStack {
+                        Image(systemName: "clock.arrow.circlepath")
+                        Text("\(babyMeal.estimatedCookingTimeMinutes) minutes")
+                            .font(.system(size: 13))
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(.accent)
+                    }
+                    .padding(.top, 1)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        // Save to swiftData if isn't favorited
+                        if vm.isFavorited == false {
+                            vm.saveMeal(modelContext: modelContext, babyMeal: babyMeal)
+                        }
+                        // Delete from swiftData if already favorited
+                        else {
+                            vm.deleteMeal(modelContext: modelContext, babyMeal: babyMeal)
+                        }
+                        vm.checkIfAlreadyFavorite(modelContext: modelContext, babyMealID: babyMeal.id)
+                    }) {
+                        Text("Save to collections")
+                            .font(.system(size: 12))
+                            .fontWeight(.bold)
+                    }
+                    .buttonStyle(KiddyEatsProminentButtonStyle())
+                    .frame(height: 30)
+                    .cornerRadius(25)
+                    .padding(.top, 10)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .init(horizontal: .center, vertical: .top))
                 .padding()
                 .background(Color.exploreCardBackground)
                 .cornerRadius(10)
-                
-                Button(action: {
-                    // Save to swiftData if isn't favorited
-                    if vm.isFavorited == false {
-                        vm.saveMeal(modelContext: modelContext, babyMeal: babyMeal)
-                    }
-                    // Delete from swiftData if already favorited
-                    else {
-                        vm.deleteMeal(modelContext: modelContext, babyMeal: babyMeal)
-                    }
-                    vm.checkIfAlreadyFavorite(modelContext: modelContext, babyMealID: babyMeal.id)
-                }) {
-                    Image(systemName: vm.isFavorited ? "heart.fill" : "heart")
-                        .foregroundColor(.accent)
-                }
-                .scaleEffect(1.5)
-                .padding(.top, 15)
-                .padding(.trailing, 15)
             }
         }
     }
