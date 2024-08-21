@@ -82,7 +82,6 @@
 		E68C0F4C2C708CFA00532140 /* +Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F4B2C708CF500532140 /* +Publisher.swift */; };
 		E68C0F4E2C708D5600532140 /* AIBlockingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F4D2C708D5100532140 /* AIBlockingResponse.swift */; };
 		E68C0F502C70914900532140 /* BabyMealDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F4F2C70914300532140 /* BabyMealDetailViewModel.swift */; };
-		E68C0F522C70916D00532140 /* BabyMealDetailUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F512C70916900532140 /* BabyMealDetailUIView.swift */; };
 		E68C0F542C70918B00532140 /* BabyMealDetailPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F532C70918600532140 /* BabyMealDetailPreview.swift */; };
 		E68C0F562C7091F100532140 /* BabyMealDetailViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F552C7091DE00532140 /* BabyMealDetailViewControllerRepresentable.swift */; };
 /* End PBXBuildFile section */
@@ -175,7 +174,6 @@
 		E68C0F4B2C708CF500532140 /* +Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+Publisher.swift"; sourceTree = "<group>"; };
 		E68C0F4D2C708D5100532140 /* AIBlockingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIBlockingResponse.swift; sourceTree = "<group>"; };
 		E68C0F4F2C70914300532140 /* BabyMealDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealDetailViewModel.swift; sourceTree = "<group>"; };
-		E68C0F512C70916900532140 /* BabyMealDetailUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealDetailUIView.swift; sourceTree = "<group>"; };
 		E68C0F532C70918600532140 /* BabyMealDetailPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealDetailPreview.swift; sourceTree = "<group>"; };
 		E68C0F552C7091DE00532140 /* BabyMealDetailViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealDetailViewControllerRepresentable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -560,7 +558,6 @@
 				E68C0F532C70918600532140 /* BabyMealDetailPreview.swift */,
 				E68C0F552C7091DE00532140 /* BabyMealDetailViewControllerRepresentable.swift */,
 				E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */,
-				E68C0F512C70916900532140 /* BabyMealDetailUIView.swift */,
 			);
 			path = BabyMealDetail;
 			sourceTree = "<group>";
@@ -690,7 +687,6 @@
 			files = (
 				E68C0F4A2C708CAB00532140 /* AIServiceStatusEnum.swift in Sources */,
 				E68C0F382C707A2F00532140 /* ExploreViewModel.swift in Sources */,
-				E68C0F522C70916D00532140 /* BabyMealDetailUIView.swift in Sources */,
 				E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */,
 				E612726A2C6DEDC0007698E6 /* AIService.swift in Sources */,
 				3A5450DA2C74D7390090EE0F /* SaveBabyMealUseCase.swift in Sources */,
