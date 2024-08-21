@@ -67,13 +67,12 @@ struct ProfileView: View {
 							}
 						} label: {
 							Label("Edit Baby Profile", systemImage: "gear")
+								.navigationDestination(isPresented: $isEditProfileButtonTapped) {
+									EditProfileView(vm: viewModel)
+								}
 						}
 					}
 				}
-                .navigationDestination(isPresented: $isEditProfileButtonTapped) {
-                    EditProfileView(vm: viewModel)
-                }
-
 			}
 		}
 		.onAppear {
