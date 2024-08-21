@@ -18,12 +18,43 @@ struct ExploreView: View {
     )
     
     var body: some View {
+        let babyName = exploreVM.babyProfile?.name ?? "Baby"
+        
         NavigationStack {
             VStack(alignment: .leading, spacing: 10) {
-                Text("Try our recommendations for your 6 months old!")
-                    .font(.system(size: 12))
-                    .fontWeight(.bold)
-                    .foregroundStyle(.accent)
+                
+                HStack {
+                    Text("Try our newest recommendations for\n\(babyName)!")
+                        .font(.system(size: 16))
+                        .fontWeight(.bold)
+                        .foregroundStyle(.accent)
+                    Spacer()
+                    if exploreVM.isLoading {
+                        Button(action: exploreVM.cancelRecommendations) {
+                            HStack {
+                                Image(systemName: "stop.circle.fill")
+                            }
+                            .font(.system(size: 36, weight: .semibold))
+                            .foregroundColor(.accentColor)
+                        }
+                    } else {
+                        Button(action: {
+                            Task {
+                                do {
+                                    try await exploreVM.refreshRecommendations()
+                                } catch {
+                                    print(error)
+                                }
+                            }
+                        }) {
+                            HStack {
+                                Image(systemName: "arrow.clockwise.circle.fill")
+                            }
+                            .font(.system(size: 36, weight: .semibold))
+                            .foregroundColor(.accentColor)
+                        }
+                    }
+                }
                 
                 ScrollView {
                     VStack(spacing: 20) {
@@ -50,42 +81,6 @@ struct ExploreView: View {
                                 }
                             }
                         }
-                        
-                        if exploreVM.isLoading {
-                            Button(action: exploreVM.cancelRecommendations) {
-                                HStack {
-                                    Image(systemName: "xmark.circle.fill")
-                                    Text("Stop")
-                                }
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.red)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 20)
-                                .background(Color.red.opacity(0.1))
-                                .cornerRadius(20)
-                            }
-                        } else if exploreVM.errorMessage == nil {
-                            Button(action: {
-                                Task {
-                                    do {
-                                        try await exploreVM.refreshRecommendations()
-                                    } catch {
-                                        print(error)
-                                    }
-                                }
-                            }) {
-                                HStack {
-                                    Image(systemName: "arrow.clockwise.circle.fill")
-                                    Text("Refresh")
-                                }
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.accentColor)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 20)
-                                .background(Color.accentColor.opacity(0.1))
-                                .cornerRadius(20)
-                            }
-                        }
                     }
                 }
                 .scrollIndicators(.hidden)
@@ -105,12 +100,12 @@ struct ExploreView: View {
             if exploreVM.babyMeals.isEmpty && exploreVM.errorMessage == nil {
                 Task {
                     // NOTE: Uncomment this to make it refresh on appear
-                    try? await exploreVM.refreshRecommendations()
+//                    try? await exploreVM.refreshRecommendations()
                 }
             }
         }
         .onAppear {
-            self.exploreVM.setModelContext(modelContext: modelContext)
+            self.exploreVM.initViewModel(modelContext: modelContext)
             
         }
     }
