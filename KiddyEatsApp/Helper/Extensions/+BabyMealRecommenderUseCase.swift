@@ -113,7 +113,7 @@ extension BabyMealRecommenderUseCase {
     "items": {
     "type": "string"
     },
-    "description": "List of food allergens, each allergen must 1-2 words in title case. If there are no allergens, just leave this array empty. This section must be handled carefully based on meal and ingredients."
+    "description": "SUPER IMPORTANT! List of food allergens. If there are no allergens, just leave this array empty. This section must be handled carefully based on meal and ingredients. Never miss an allergen as it would be very dangerous for the baby. Common Food Allergies based on FDA: \(commonFoodAllergies)"
     },
     "cookingSteps": {
     "type": "string",
