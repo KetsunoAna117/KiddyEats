@@ -572,10 +572,10 @@
 		E67BD9152C75EEBB006393F4 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				E67BD91D2C75EF1B006393F4 /* ButtonHostingController.swift */,
 				E67BD9232C75F01B006393F4 /* NumberedListUILabel.swift */,
 				E67BD9212C75EF3A006393F4 /* BulletListUILabel.swift */,
 				E67BD91F2C75EF23006393F4 /* HeaderUIView.swift */,
-				E67BD91D2C75EF1B006393F4 /* ButtonHostingController.swift */,
 				E67BD91B2C75EF0B006393F4 /* AllergensUIView.swift */,
 				E67BD9192C75EEFF006393F4 /* TitleUILabel.swift */,
 				E67BD9172C75EEEB006393F4 /* EmojiUILabel.swift */,

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SaveToCollectionsButton: View {
     let babyMeal: BabyMeal
+    
     @Environment(\.modelContext) var modelContext
     
     @State private var vm = BabyMealDetailViewModel(
