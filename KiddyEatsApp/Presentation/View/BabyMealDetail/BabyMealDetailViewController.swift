@@ -42,7 +42,7 @@ class AllergensUIView: UIView {
     private let stackView = UIStackView()
     
     override init(frame: CGRect) {
-        self.headerView = HeaderUIView(icon: UIImage(systemName: "exclamationmark.triangle"), title: "Possible Allergens", color: .white)
+        self.headerView = HeaderUIView(icon: UIImage(systemName: "exclamationmark.triangle"), title: "Possible Allergens", color: .label)
         super.init(frame: frame)
         configure()
     }
@@ -83,13 +83,13 @@ class AllergensUIView: UIView {
             let noAllergensLabel = UILabel()
             noAllergensLabel.text = "No Allergens"
             noAllergensLabel.font = UIFont.italicSystemFont(ofSize: 14)
-            noAllergensLabel.textColor = .white
+            noAllergensLabel.textColor = .label
             stackView.addArrangedSubview(noAllergensLabel)
         } else {
             for allergen in allergens {
                 let allergenLabel = UILabel()
                 allergenLabel.text = "• \(allergen)"
-                allergenLabel.textColor = .white
+                allergenLabel.textColor = .label
                 stackView.addArrangedSubview(allergenLabel)
             }
         }
@@ -275,9 +275,9 @@ class BabyMealDetailViewController: UIViewController {
     private let cookingInstructionsLabel = NumberedListUILabel()
     private let addToLogButton = AddToLogUIButton()
     
-    private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.circle"), title: "Recipe Information", color: .label)
-    private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "list.bullet"), title: "Ingredients", color: .label)
-    private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "text.book.closed"), title: "Cooking Instructions", color: .label)
+    private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.square"), title: "Recipe Information", color: .label)
+    private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "note.text"), title: "Ingredients", color: .label)
+    private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "frying.pan"), title: "Cooking Instructions", color: .label)
     
     private var babyMeal: BabyMeal
     
