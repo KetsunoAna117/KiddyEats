@@ -423,7 +423,9 @@ class BabyMealDetailViewController: UIViewController {
     
     private func setupSaveToCollectionsButton() {
         let saveToCollectionsButton = SaveToCollectionsButton(babyMeal: babyMeal)
-        saveToCollectionsHostingController = SaveToCollectionsHostingController(rootView: saveToCollectionsButton)
+            .frame(height: 60)
+            .cornerRadius(15)
+        saveToCollectionsHostingController = SaveToCollectionsHostingController(rootView: saveToCollectionsButton as! SaveToCollectionsButton)
         
         if let hostingView = saveToCollectionsHostingController?.view {
             contentView.addSubview(hostingView)

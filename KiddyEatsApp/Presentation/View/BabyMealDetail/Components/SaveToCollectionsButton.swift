@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SaveToCollectionsButton: View {
     let babyMeal: BabyMeal
-    
     @Environment(\.modelContext) var modelContext
     
     @State private var vm = BabyMealDetailViewModel(
@@ -45,7 +44,10 @@ struct SaveToCollectionsButton: View {
         .frame(height: 30)
         .cornerRadius(25)
         .padding(.top, 10)
-        .disabled(vm.isFavorited)
+        .opacity(vm.isFavorited ? 0.75 : 1.0)
+        .onAppear() {
+            vm.checkIfAlreadyFavorite(modelContext: modelContext, babyMealID: babyMeal.id)
+        }
     }
     
     func saveToCollections() {
