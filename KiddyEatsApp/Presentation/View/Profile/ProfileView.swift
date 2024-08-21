@@ -31,11 +31,9 @@ struct ProfileView: View {
 							.font(.title2)
 							.fontWeight(.semibold)
 					}
-					.foregroundStyle(Color.greenPrimary)
 					
 					Section {
-						// TODO: Put allergy analysis here
-						Text("Put allergy analysis here.")
+						Text(viewModel.getAllergies())
 							.padding()
 							.frame(maxWidth: .infinity, alignment: .leading)
 							.background(
@@ -47,12 +45,12 @@ struct ProfileView: View {
 											.foregroundStyle(.greenPrimary)
 									)
 							)
+
 					} header: {
 						Text("Allergy Analysis")
 							.font(.title2)
 							.fontWeight(.semibold)
 					}
-					.foregroundStyle(Color.greenPrimary)
 					
 					Spacer()
 				}

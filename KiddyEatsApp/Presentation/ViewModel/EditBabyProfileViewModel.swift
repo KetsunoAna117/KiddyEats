@@ -40,4 +40,16 @@ class EditBabyProfileViewModel {
 		
 		updateBabyProfileUseCase.execute(modelContext: modelContext, toUpdateBabyProfile: existingBabyProfile)
 	}
+	
+	func getAllergies() -> String {
+		if let babyProfile = babyProfile {
+			var allergyText = babyProfile.allergies.isEmpty ? "No allergies have been recorded." : "\(babyProfile.name) may be allergic to:\n"
+			for allergy in babyProfile.allergies {
+				allergyText += "- \(allergy)\n"
+			}
+			allergyText += "\nPlease consult your doctor for further information and assistance."
+			return allergyText
+		}
+		return ""
+	}
 }
