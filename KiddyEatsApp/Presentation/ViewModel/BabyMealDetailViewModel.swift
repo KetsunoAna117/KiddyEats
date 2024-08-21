@@ -5,17 +5,42 @@
 //  Created by Arya Adyatma on 17/08/24.
 //
 
+import Foundation
+import SwiftData
 
-class BabyMealDetailViewModel {
-    let babyMeal: BabyMeal
-    var isFavorite: Bool = false
+@Observable class BabyMealDetailViewModel {
+    var isFavorited: Bool = false
     
-    init(babyMeal: BabyMeal) {
-        self.babyMeal = babyMeal
+    // Use Case
+    private var saveBabyMealUseCase: SaveBabyMealUseCaseProtocol
+    private var deleteBabyMealUseCase: DeleteBabyMealProtocol
+    private var getBabyMealUseCase: GetBabymealUseCaseProtocol
+    
+    init(
+        saveBabyMealUseCase: SaveBabyMealUseCaseProtocol,
+        deleteBabyMealUseCase: DeleteBabyMealProtocol,
+        getBabyMealUseCase: GetBabymealUseCaseProtocol
+    ) {
+        self.saveBabyMealUseCase = saveBabyMealUseCase
+        self.deleteBabyMealUseCase = deleteBabyMealUseCase
+        self.getBabyMealUseCase = getBabyMealUseCase
     }
     
-    func addToLog() {
-        // Implement add to log functionality
-        print("Add to log tapped")
+    func saveMeal(modelContext: ModelContext, babyMeal: BabyMeal) {
+        saveBabyMealUseCase.execute(modelContext: modelContext, toSaveBabyMeal: babyMeal)
+    }
+    
+    func deleteMeal(modelContext: ModelContext, babyMeal: BabyMeal) {
+        deleteBabyMealUseCase.execute(modelContext: modelContext, toDeleteBabyMealID: babyMeal.id)
+    }
+    
+    func checkIfAlreadyFavorite(modelContext: ModelContext, babyMealID: UUID){
+        let fetchedBabyMeal = getBabyMealUseCase.execute(modelContext: modelContext, id: babyMealID)
+        if fetchedBabyMeal == nil {
+            self.isFavorited = false
+        }
+        else {
+            self.isFavorited = true
+        }
     }
 }

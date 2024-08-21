@@ -18,13 +18,13 @@ class BabyMealListViewModel {
 	
 	// Use Case
 	private let getBabyMealListUseCase: GetBabyMealListProtocol
-	private let getFilterBabyMeal: GetBabyMealProtocol
+	private let getFilterBabyMeal: FilterBabyMealProtocol
 	private let getBabyMealAllergicList: GetBabyMealAllergicListProtocol
 	private let deleteBabyMealUseCase: DeleteBabyMealProtocol
 	
 	init(
 		getBabyMealListUseCase: GetBabyMealListProtocol,
-		getFilterBabyMeal: GetBabyMealProtocol,
+		getFilterBabyMeal: FilterBabyMealProtocol,
 		getBabyMealAllergicList: GetBabyMealAllergicListProtocol,
 		deleteBabyMealUseCase: DeleteBabyMealProtocol
 	) {
@@ -51,6 +51,6 @@ class BabyMealListViewModel {
 	}
 	
 	func deleteBabyMeal(modelContext: ModelContext, toDeleteBabyMeal: BabyMeal) {
-		deleteBabyMealUseCase.execute(modelContext: modelContext, toDeleteBabyMeal: toDeleteBabyMeal)
+        deleteBabyMealUseCase.execute(modelContext: modelContext, toDeleteBabyMealID: toDeleteBabyMeal.id)
 	}
 }
