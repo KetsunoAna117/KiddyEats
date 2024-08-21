@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct EditProfileView: View {
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelContext
     @Bindable var vm: EditBabyProfileViewModel
     
     let dateRange: ClosedRange<Date> = {
@@ -49,7 +51,7 @@ struct EditProfileView: View {
                         .padding(.bottom, 30)
                         
                         VStack {
-                            AllergenContainerView(
+                            KiddyEatsAllergenList(
                                 title: "Possible Allergen Known",
                                 tagList: $vm.toUpdateAllergenList,
                                 removeTag: removeTags
@@ -60,7 +62,8 @@ struct EditProfileView: View {
                 }
                 Spacer()
                 Button(action: {
-                    #warning("Save changes to SwiftData hasn't been implemented")
+                    vm.updateBabyProfile(modelContext: modelContext)
+                    dismiss()
                 }, label: {
                     Text("Save Changes")
                 })

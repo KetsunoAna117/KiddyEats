@@ -37,7 +37,7 @@ struct OnboardingBabyAllergies: View {
                     .padding(.bottom, 30)
                     
                     VStack {
-                        AllergenContainerView(
+                        KiddyEatsAllergenList(
                             title: "Allergens Known",
                             tagList: $vm.savedallergiesList,
                             removeTag: removeTags

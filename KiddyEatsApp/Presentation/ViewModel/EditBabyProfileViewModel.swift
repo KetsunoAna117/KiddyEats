@@ -35,13 +35,20 @@ class EditBabyProfileViewModel {
 	}
 	
 	func updateBabyProfile(modelContext: ModelContext) {
-		//TODO: add function to update baby profile
-		guard let existingBabyProfile = fetchedBabyProfile else {
-			print("No baby profile to update")
-			return
-		}
+        guard let fetchedBabyProfile = fetchedBabyProfile else {
+            return
+        }
+        
+		let toUpdateBabyProfile = BabyProfile(
+            id: fetchedBabyProfile.id,
+            name: toUpdateBabyName,
+            gender: fetchedBabyProfile.gender,
+            allergies: toUpdateAllergenList,
+            dateOfBirth: toUpdateBabyDate,
+            location: fetchedBabyProfile.location
+        )
 		
-		updateBabyProfileUseCase.execute(modelContext: modelContext, toUpdateBabyProfile: existingBabyProfile)
+		updateBabyProfileUseCase.execute(modelContext: modelContext, toUpdateBabyProfile: toUpdateBabyProfile)
 	}
     
     func setupViewModel(){
