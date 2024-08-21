@@ -29,7 +29,6 @@ class BabyMealDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        print(viewModel.isFavorited)
     }
     
     private func setupUI() {

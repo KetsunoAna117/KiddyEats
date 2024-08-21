@@ -18,7 +18,9 @@ class BabyMealDetailUIView: UIView {
     private lazy var recipeInfoLabel = UILabel()
     private lazy var ingredientsLabel = UILabel()
     private lazy var cookingInstructionsLabel = UILabel()
+    
     private lazy var addToLogButton = UIButton(type: .system) // NOTE: Nanti mungkin jadi SwiftUI
+    private lazy var viewIfSavedToCollection = UIView()
     
     private var viewModel: BabyMealDetailViewModel
     private var babyMeal: BabyMeal
@@ -46,7 +48,7 @@ class BabyMealDetailUIView: UIView {
         setupRecipeInfo()
         setupIngredients()
         setupCookingInstructions()
-        setupAddToLogButton()
+        setupAddToCollectionButton()
     }
     
     private func setupScrollView() {
@@ -217,7 +219,7 @@ class BabyMealDetailUIView: UIView {
         ])
     }
     
-    private func setupAddToLogButton() {
+    private func setupAddToCollectionButton() {
         contentView.addSubview(addToLogButton)
         addToLogButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -226,7 +228,7 @@ class BabyMealDetailUIView: UIView {
         addToLogButton.setTitleColor(.white, for: .normal)
         addToLogButton.backgroundColor = .accent
         addToLogButton.layer.cornerRadius = 8
-        addToLogButton.addTarget(self, action: #selector(addToLogTapped), for: .touchUpInside)
+        addToLogButton.addTarget(self, action: #selector(addToCollectionTapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             addToLogButton.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 24),
@@ -237,11 +239,17 @@ class BabyMealDetailUIView: UIView {
         ])
     }
     
-    func setIsAlreadySaved(status: Bool){
-        self.isAlreadySaved = status
+    private func setupButtonIfSavedToCollection(){
+        
     }
     
-    @objc private func addToLogTapped() {
+    @objc private func addToCollectionTapped() {
         #warning("Add to log button hasn't been implemented")
+    }
+}
+
+extension BabyMealDetailUIView {
+    func setIsAlreadySaved(status: Bool){
+        self.isAlreadySaved = status
     }
 }
