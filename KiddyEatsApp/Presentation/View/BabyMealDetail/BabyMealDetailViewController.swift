@@ -52,7 +52,7 @@ class AllergensUIView: UIView {
     }
     
     private func configure() {
-        backgroundColor = .systemRed
+        backgroundColor = UIColor(named: "GreenSecondary")
         layer.cornerRadius = 8
         
         stackView.axis = .vertical
@@ -109,8 +109,10 @@ class AddToLogUIButton: UIButton {
     private func configure() {
         setTitle("Add to Log", for: .normal)
         titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        setTitleColor(.white, for: .normal)
-        backgroundColor = .systemBlue
+        setTitleColor(UIColor(named: "AccentColor"), for: .normal)
+        backgroundColor = .clear
+        layer.borderWidth = 2
+        layer.borderColor = UIColor(named: "AccentColor")?.cgColor
         layer.cornerRadius = 8
     }
 }
@@ -119,16 +121,16 @@ class HeaderUIView: UIView {
     private let iconImageView = UIImageView()
     private let titleLabel = UILabel()
     
-    init(icon: UIImage?, title: String, color: UIColor = .label) {
+    init(icon: UIImage?, title: String) {
         super.init(frame: .zero)
-        configure(icon: icon, title: title, color: color)
+        configure(icon: icon, title: title)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure(icon: UIImage?, title: String, color: UIColor) {
+    private func configure(icon: UIImage?, title: String) {
         let stackView = UIStackView(arrangedSubviews: [iconImageView, titleLabel])
         stackView.axis = .horizontal
         stackView.spacing = 8
@@ -146,7 +148,7 @@ class HeaderUIView: UIView {
         
         iconImageView.image = icon
         iconImageView.contentMode = .scaleAspectFit
-        iconImageView.tintColor = color
+        iconImageView.tintColor = UIColor(named: "AccentColor")
         
         NSLayoutConstraint.activate([
             iconImageView.widthAnchor.constraint(equalToConstant: 24),
@@ -155,7 +157,7 @@ class HeaderUIView: UIView {
         
         titleLabel.text = title
         titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        titleLabel.textColor = color
+        titleLabel.textColor = UIColor(named: "AccentColor")
     }
 }
 
@@ -260,6 +262,10 @@ class NumberedListUILabel: UILabel {
 class BabyMealDetailViewController: UIViewController {
     private let viewModel: BabyMealDetailViewModel
     private let scrollView = UIScrollView()
+    
+    private func color(named: String) -> UIColor {
+        return UIColor(named: named) ?? .systemBackground
+    }
     private let contentView = UIView()
     
     private let emojiLabel = EmojiUILabel()
@@ -269,9 +275,9 @@ class BabyMealDetailViewController: UIViewController {
     private let cookingInstructionsLabel = NumberedListUILabel()
     private let addToLogButton = AddToLogUIButton()
     
-    private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.circle"), title: "Recipe Information", color: .label)
-    private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "list.bullet"), title: "Ingredients", color: .label)
-    private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "text.book.closed"), title: "Cooking Instructions", color: .label)
+    private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.circle"), title: "Recipe Information")
+    private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "list.bullet"), title: "Ingredients")
+    private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "text.book.closed"), title: "Cooking Instructions")
     
     private var babyMeal: BabyMeal
     
@@ -292,6 +298,7 @@ class BabyMealDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = color(named: "AppBackgroundColor")
         setupUI()
     }
     
