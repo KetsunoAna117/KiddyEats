@@ -23,6 +23,7 @@ extension BabyMealRepositoryImpl: BabyMealRepositoryProtocol {
     func updateBabyMealReaction(modelContext: ModelContext, babyMealID: UUID, toUpdateReaction: [String]) {
         if let fetchedBabyMeal = getBabyMealByID(modelContext: modelContext, toFetchBabyMealID: babyMealID) {
             fetchedBabyMeal.reactionList = toUpdateReaction
+            fetchedBabyMeal.hasFilledReaction = true
             try? modelContext.save()
         }
     }

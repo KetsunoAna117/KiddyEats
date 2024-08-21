@@ -17,6 +17,8 @@ struct ReactionFormView: View {
         updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared)
     )
     
+    var babyMeal: BabyMeal
+    
     var body: some View {
         ZStack {
             Color.appBackground.ignoresSafeArea()
@@ -71,6 +73,19 @@ struct ReactionFormView: View {
                 .padding(.horizontal, 30)
             }
         }
+        .onAppear(){
+            if babyMeal.hasFilledReaction {
+                if babyMeal.reactionList.isEmpty {
+                    vm.reactionStatus = .noReaction
+                }
+                else {
+                    vm.reactionStatus = .hadReaction
+                    vm.reactionDetails = babyMeal.reactionList.compactMap { rawString in
+                        ReactionDetails(rawValue: rawString)
+                    }
+                }
+            }
+        }
     }
     
     // MARK: Below are UI Functions to modify the view
@@ -81,7 +96,7 @@ struct ReactionFormView: View {
         }
         else {
             vm.updateBabyMealReaction(modelContext: modelContext)
-            #warning("End of form logic hasn't been implemented")
+#warning("End of form logic hasn't been implemented")
         }
     }
     
@@ -92,7 +107,7 @@ struct ReactionFormView: View {
             
         }
         else {
-            #warning("Go back logic from this view hasn't been implemented")
+#warning("Go back logic from this view hasn't been implemented")
         }
     }
     
@@ -118,8 +133,4 @@ private struct PromptTab<Content: View>: View {
                 .transition(.slide)
         }
     }
-}
-
-#Preview {
-    ReactionFormView()
 }
