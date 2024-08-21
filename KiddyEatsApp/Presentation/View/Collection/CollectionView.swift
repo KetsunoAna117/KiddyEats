@@ -85,6 +85,14 @@ struct CollectionView: View {
 			.onChange(of: viewModel.searchRecipe) { oldValue, newValue in
 				viewModel.filterRecipe(modelContext: modelContext)
 			}
+            .onChange(of: viewModel.allMealList.count) { oldValue, newValue in
+                switch viewModel.selectedView {
+                case .favoriteRecipes:
+                    viewModel.setFavoriteList()
+                case .allergicRecipes:
+                    viewModel.getMealAllergic(modelContext: modelContext)
+                }
+            }
 		}
     }
 }
