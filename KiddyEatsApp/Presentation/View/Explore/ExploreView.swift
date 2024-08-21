@@ -119,5 +119,20 @@ struct ExploreView: View {
 
 #Preview {
     ExploreView()
-        .modelContainer(for: [BabyMealSchema.self, BabyProfileSchema.self], inMemory: true)
+        .modelContainer(for: [BabyMealSchema.self, BabyProfileSchema.self], inMemory: true) { container in
+            createAndInsertFakeBabyProfile(in: container)
+        }
+}
+
+func createAndInsertFakeBabyProfile(in container: ModelContainer) {
+    let context = ModelContext(container)
+    let fakeBabyProfile = BabyProfileSchema(
+        id: UUID(),
+        name: "Baby Doe",
+        gender: "Female",
+        allergies: ["Peanuts", "Eggs"],
+        dateOfBirth: Calendar.current.date(byAdding: .month, value: -6, to: Date())!,
+        location: "New York"
+    )
+    context.insert(fakeBabyProfile)
 }
