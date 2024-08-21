@@ -70,7 +70,7 @@ class AllergensUIView: UIView {
             headerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             
             stackView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 8),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         ])
@@ -375,7 +375,7 @@ class BabyMealDetailViewController: UIViewController {
         recipeInfoHeader.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            recipeInfoHeader.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 12),
+            recipeInfoHeader.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 24),
             recipeInfoHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             recipeInfoHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
@@ -392,7 +392,7 @@ class BabyMealDetailViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             recipeInfoLabel.topAnchor.constraint(equalTo: recipeInfoHeader.bottomAnchor, constant: 8),
-            recipeInfoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            recipeInfoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             recipeInfoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
@@ -402,7 +402,7 @@ class BabyMealDetailViewController: UIViewController {
         ingredientsHeader.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            ingredientsHeader.topAnchor.constraint(equalTo: recipeInfoLabel.bottomAnchor, constant: 12),
+            ingredientsHeader.topAnchor.constraint(equalTo: recipeInfoLabel.bottomAnchor, constant: 24),
             ingredientsHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             ingredientsHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
@@ -415,7 +415,7 @@ class BabyMealDetailViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             ingredientsLabel.topAnchor.constraint(equalTo: ingredientsHeader.bottomAnchor, constant: 8),
-            ingredientsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            ingredientsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             ingredientsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
@@ -425,7 +425,7 @@ class BabyMealDetailViewController: UIViewController {
         cookingInstructionsHeader.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            cookingInstructionsHeader.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 12),
+            cookingInstructionsHeader.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 24),
             cookingInstructionsHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             cookingInstructionsHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
@@ -438,7 +438,7 @@ class BabyMealDetailViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             cookingInstructionsLabel.topAnchor.constraint(equalTo: cookingInstructionsHeader.bottomAnchor, constant: 8),
-            cookingInstructionsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            cookingInstructionsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             cookingInstructionsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
