@@ -32,11 +32,9 @@ struct ProfileView: View {
 							.font(.title2)
 							.fontWeight(.semibold)
 					}
-					.foregroundStyle(Color.greenPrimary)
 					
 					Section {
-						// TODO: Put allergy analysis here
-						Text("Put allergy analysis here.")
+						Text(viewModel.getAllergies())
 							.padding()
 							.frame(maxWidth: .infinity, alignment: .leading)
 							.background(
@@ -48,19 +46,19 @@ struct ProfileView: View {
 											.foregroundStyle(.greenPrimary)
 									)
 							)
+
 					} header: {
 						Text("Allergy Analysis")
 							.font(.title2)
 							.fontWeight(.semibold)
 					}
-					.foregroundStyle(Color.greenPrimary)
 					
 					Spacer()
 				}
 				.padding()
 				.frame(maxWidth: .infinity, alignment: .leading)
 				.background(.appBackground)
-				.navigationTitle("Your Baby's Profile")
+				.navigationTitle("\(babyProfile.name)'s Profile")
 				.toolbar {
 					ToolbarItem(placement: .primaryAction) {
 						Button {
@@ -68,7 +66,11 @@ struct ProfileView: View {
                                 isEditProfileButtonTapped = true
 							}
 						} label: {
-							Label("Edit Profile", systemImage: "gear")
+							Label("Edit Baby Profile", systemImage: "gear")
+								.navigationDestination(isPresented: $isPresented) {
+									#warning("Replace this with a View to edit baby profile")
+									ContentUnavailableView("Baby Profile View", systemImage: "person.fill.questionmark")
+								}
 						}
 					}
 				}
