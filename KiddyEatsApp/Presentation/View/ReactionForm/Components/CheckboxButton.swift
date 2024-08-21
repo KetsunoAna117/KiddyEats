@@ -50,6 +50,3 @@ struct CheckboxButton<SelectionType: Hashable & Equatable>: View {
     }
 }
 
-#Preview {
-    ReactionChooseListView(vm: ReactionLoggerViewModel(), previousState: .constant(.unfilled))
-}
