@@ -121,16 +121,16 @@ class HeaderUIView: UIView {
     private let iconImageView = UIImageView()
     private let titleLabel = UILabel()
     
-    init(icon: UIImage?, title: String) {
+    init(icon: UIImage?, title: String, color: UIColor = .label) {
         super.init(frame: .zero)
-        configure(icon: icon, title: title)
+        configure(icon: icon, title: title, color: color)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure(icon: UIImage?, title: String) {
+    private func configure(icon: UIImage?, title: String, color: UIColor) {
         let stackView = UIStackView(arrangedSubviews: [iconImageView, titleLabel])
         stackView.axis = .horizontal
         stackView.spacing = 8
