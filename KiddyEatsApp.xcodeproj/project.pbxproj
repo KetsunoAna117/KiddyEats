@@ -72,6 +72,13 @@
 		E67BD90F2C746811006393F4 /* BabyMealJsonParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD90E2C7467F8006393F4 /* BabyMealJsonParserTests.swift */; };
 		E67BD9122C75DE21006393F4 /* AddToLogButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD9112C75DE1C006393F4 /* AddToLogButton.swift */; };
 		E67BD9142C75DE84006393F4 /* SaveToCollectionsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD9132C75DE7D006393F4 /* SaveToCollectionsButton.swift */; };
+		E67BD9182C75EEF1006393F4 /* EmojiUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD9172C75EEEB006393F4 /* EmojiUILabel.swift */; };
+		E67BD91A2C75EF05006393F4 /* TitleUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD9192C75EEFF006393F4 /* TitleUILabel.swift */; };
+		E67BD91C2C75EF10006393F4 /* AllergensUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD91B2C75EF0B006393F4 /* AllergensUIView.swift */; };
+		E67BD91E2C75EF1C006393F4 /* ButtonHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD91D2C75EF1B006393F4 /* ButtonHostingController.swift */; };
+		E67BD9202C75EF24006393F4 /* HeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD91F2C75EF23006393F4 /* HeaderUIView.swift */; };
+		E67BD9222C75EF3E006393F4 /* BulletListUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD9212C75EF3A006393F4 /* BulletListUILabel.swift */; };
+		E67BD9242C75F01D006393F4 /* NumberedListUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD9232C75F01B006393F4 /* NumberedListUILabel.swift */; };
 		E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */; };
 		E68C0F2D2C6F5B7100532140 /* RecipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */; };
 		E68C0F332C7079C800532140 /* +BabyMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F322C7079C500532140 /* +BabyMeal.swift */; };
@@ -166,6 +173,13 @@
 		E67BD90E2C7467F8006393F4 /* BabyMealJsonParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealJsonParserTests.swift; sourceTree = "<group>"; };
 		E67BD9112C75DE1C006393F4 /* AddToLogButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToLogButton.swift; sourceTree = "<group>"; };
 		E67BD9132C75DE7D006393F4 /* SaveToCollectionsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToCollectionsButton.swift; sourceTree = "<group>"; };
+		E67BD9172C75EEEB006393F4 /* EmojiUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiUILabel.swift; sourceTree = "<group>"; };
+		E67BD9192C75EEFF006393F4 /* TitleUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleUILabel.swift; sourceTree = "<group>"; };
+		E67BD91B2C75EF0B006393F4 /* AllergensUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergensUIView.swift; sourceTree = "<group>"; };
+		E67BD91D2C75EF1B006393F4 /* ButtonHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonHostingController.swift; sourceTree = "<group>"; };
+		E67BD91F2C75EF23006393F4 /* HeaderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderUIView.swift; sourceTree = "<group>"; };
+		E67BD9212C75EF3A006393F4 /* BulletListUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletListUILabel.swift; sourceTree = "<group>"; };
+		E67BD9232C75F01B006393F4 /* NumberedListUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberedListUILabel.swift; sourceTree = "<group>"; };
 		E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealRecommenderUseCase.swift; sourceTree = "<group>"; };
 		E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCard.swift; sourceTree = "<group>"; };
 		E68C0F322C7079C500532140 /* +BabyMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+BabyMeal.swift"; sourceTree = "<group>"; };
@@ -549,10 +563,33 @@
 		E67BD9102C75DDFE006393F4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E67BD9162C75EEC1006393F4 /* SwiftUI */,
+				E67BD9152C75EEBB006393F4 /* UIKit */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		E67BD9152C75EEBB006393F4 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				E67BD9232C75F01B006393F4 /* NumberedListUILabel.swift */,
+				E67BD9212C75EF3A006393F4 /* BulletListUILabel.swift */,
+				E67BD91F2C75EF23006393F4 /* HeaderUIView.swift */,
+				E67BD91D2C75EF1B006393F4 /* ButtonHostingController.swift */,
+				E67BD91B2C75EF0B006393F4 /* AllergensUIView.swift */,
+				E67BD9192C75EEFF006393F4 /* TitleUILabel.swift */,
+				E67BD9172C75EEEB006393F4 /* EmojiUILabel.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		E67BD9162C75EEC1006393F4 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
 				E67BD9132C75DE7D006393F4 /* SaveToCollectionsButton.swift */,
 				E67BD9112C75DE1C006393F4 /* AddToLogButton.swift */,
 			);
-			path = Components;
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		E68C0F292C6F473100532140 /* UseCase */ = {
@@ -570,8 +607,8 @@
 			children = (
 				E67BD9102C75DDFE006393F4 /* Components */,
 				E68C0F532C70918600532140 /* BabyMealDetailPreview.swift */,
-				E68C0F552C7091DE00532140 /* BabyMealDetailViewControllerRepresentable.swift */,
 				E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */,
+				E68C0F552C7091DE00532140 /* BabyMealDetailViewControllerRepresentable.swift */,
 			);
 			path = BabyMealDetail;
 			sourceTree = "<group>";
@@ -703,6 +740,7 @@
 				E68C0F382C707A2F00532140 /* ExploreViewModel.swift in Sources */,
 				E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */,
 				E67BD9122C75DE21006393F4 /* AddToLogButton.swift in Sources */,
+				E67BD91E2C75EF1C006393F4 /* ButtonHostingController.swift in Sources */,
 				E612726A2C6DEDC0007698E6 /* AIService.swift in Sources */,
 				3A5450DA2C74D7390090EE0F /* SaveBabyMealUseCase.swift in Sources */,
 				3A5450C02C72FEDF0090EE0F /* BabyMealSchema.swift in Sources */,
@@ -724,7 +762,9 @@
 				E40EEFC82C743E7600BCD991 /* BabyMealRepositoryProtocol.swift in Sources */,
 				E68C0F442C7082DF00532140 /* RecipeCardPlaceholder.swift in Sources */,
 				3A5450BE2C72FE910090EE0F /* BabyProfileSchema.swift in Sources */,
+				E67BD9182C75EEF1006393F4 /* EmojiUILabel.swift in Sources */,
 				3A5450D62C73815B0090EE0F /* BabyGlobalConfigurationViewModel.swift in Sources */,
+				E67BD91C2C75EF10006393F4 /* AllergensUIView.swift in Sources */,
 				E40EEFD12C74465100BCD991 /* GetBabyMealAllergicList.swift in Sources */,
 				3A5450B52C71F79F0090EE0F /* ReactionEndingView.swift in Sources */,
 				3A5450A82C71E1D00090EE0F /* ReactionStatus.swift in Sources */,
@@ -735,17 +775,20 @@
 				3AB03C4F2C6F3B77001F5473 /* StartingOnboardingView.swift in Sources */,
 				3AB03C652C6F96D6001F5473 /* BabyOnboardingInformationViewModel.swift in Sources */,
 				3A5450C52C73048D0090EE0F /* BabyProfileRepositoryImpl.swift in Sources */,
+				E67BD91A2C75EF05006393F4 /* TitleUILabel.swift in Sources */,
 				3AB03C512C6F3BBB001F5473 /* OnboardingBabyInfo.swift in Sources */,
 				E67BD9142C75DE84006393F4 /* SaveToCollectionsButton.swift in Sources */,
 				3A5450A52C71E1460090EE0F /* ReactionLoggerViewModel.swift in Sources */,
 				3A5450CD2C730A930090EE0F /* BabyProfile.swift in Sources */,
 				3A5450AA2C71E2520090EE0F /* ReactionDetails.swift in Sources */,
 				3AB03C582C6F3F2E001F5473 /* OnboardingTextField.swift in Sources */,
+				E67BD9242C75F01D006393F4 /* NumberedListUILabel.swift in Sources */,
 				3A5450A32C71DDC10090EE0F /* RadioButton.swift in Sources */,
 				E40EEFD62C746DB100BCD991 /* ProfileView.swift in Sources */,
 				3A5450D32C730AD30090EE0F /* BabyProfileRepositoryProtocol.swift in Sources */,
 				3A5450A02C71DA230090EE0F /* ReactionPromptView.swift in Sources */,
 				3A5450CA2C730A4D0090EE0F /* GetBabyProfileData.swift in Sources */,
+				E67BD9202C75EF24006393F4 /* HeaderUIView.swift in Sources */,
 				E40EEFC42C7433B800BCD991 /* FilterBabyMealUseCase.swift in Sources */,
 				3AB03C672C6F9722001F5473 /* Gender.swift in Sources */,
 				E40EEFB92C732CDE00BCD991 /* RecipeRowView.swift in Sources */,
@@ -762,6 +805,7 @@
 				E67BD8F62C743A09006393F4 /* AIServiceKeys.swift in Sources */,
 				3A5450AC2C71E6420090EE0F /* ReactionChooseListView.swift in Sources */,
 				3A5450DC2C74E0E20090EE0F /* GetBabymealUseCase.swift in Sources */,
+				E67BD9222C75EF3E006393F4 /* BulletListUILabel.swift in Sources */,
 				E40EEFCD2C74405E00BCD991 /* GetBabyMealList.swift in Sources */,
 				E40EEFBD2C732E0000BCD991 /* AIServiceKeys.swift in Sources */,
 				E40EEFB42C732CDE00BCD991 /* CollectionRecipeView.swift in Sources */,

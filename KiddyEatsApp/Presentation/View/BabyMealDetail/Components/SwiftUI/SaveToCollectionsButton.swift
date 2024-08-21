@@ -40,10 +40,6 @@ struct SaveToCollectionsButton: View {
                     .fontWeight(.bold)
             }
         }
-        .buttonStyle(KiddyEatsProminentButtonStyle())
-        .frame(height: 30)
-        .cornerRadius(25)
-        .padding(.top, 10)
         .opacity(vm.isFavorited ? 0.75 : 1.0)
         .onAppear() {
             vm.checkIfAlreadyFavorite(modelContext: modelContext, babyMealID: babyMeal.id)

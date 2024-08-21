@@ -37,5 +37,6 @@ struct BabyMealDetailVCRepresentable: UIViewControllerRepresentable {
 struct BabyMealDetailViewController_Preview: PreviewProvider {
     static var previews: some View {
         BabyMealDetailVCRepresentable()
+            .modelContainer(ModelContextManager.createModelContainer())
     }
 }

@@ -10,6 +10,14 @@ import SwiftData
 @testable import KiddyEatsApp
 
 class FakeBabyProfileRepository: BabyProfileRepositoryProtocol {
+    func createBabyProfile(modelContext: ModelContext, babyProfile: KiddyEatsApp.BabyProfileSchema) {
+        <#code#>
+    }
+    
+    func updateBabyProfile(modelContext: ModelContext, toUpdateBabyProfile: KiddyEatsApp.BabyProfile) {
+        <#code#>
+    }
+    
     var profiles: [BabyProfileSchema] = []
     
     func createBabyProfile(modelContext: ModelContext, babyProfile: BabyProfile) {

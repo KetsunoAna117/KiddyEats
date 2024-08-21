@@ -52,6 +52,7 @@ struct RecipeCard: View {
                     Spacer()
                     
                     SaveToCollectionsButton(babyMeal: babyMeal)
+                        .buttonStyle(KiddyEatsMiniProminentButtonStyle())
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .init(horizontal: .center, vertical: .top))
                 .padding()
