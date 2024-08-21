@@ -187,7 +187,7 @@ class BulletListUILabel: UILabel {
             paragraphStyle.firstLineHeadIndent = 0
             paragraphStyle.tailIndent = -12
             paragraphStyle.lineBreakMode = .byWordWrapping
-            paragraphStyle.paragraphSpacing = 4 // Reduce space between paragraphs
+            paragraphStyle.paragraphSpacing = 0
             
             attributedText.addAttribute(.paragraphStyle, 
                                         value: paragraphStyle, 
@@ -252,7 +252,7 @@ class NumberedListUILabel: UILabel {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.firstLineHeadIndent = firstLineHeadIndent
         paragraphStyle.headIndent = headIndent
-        paragraphStyle.paragraphSpacingBefore = 4
+        paragraphStyle.paragraphSpacingBefore = 0
         return paragraphStyle
     }
 }
