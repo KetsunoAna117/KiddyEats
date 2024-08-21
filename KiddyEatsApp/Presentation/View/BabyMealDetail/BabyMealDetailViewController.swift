@@ -275,9 +275,9 @@ class BabyMealDetailViewController: UIViewController {
     private let cookingInstructionsLabel = NumberedListUILabel()
     private let addToLogButton = AddToLogUIButton()
     
-    private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.circle"), title: "Recipe Information", color: UIColor(named: "AccentColor") ?? .label)
-    private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "list.bullet"), title: "Ingredients", color: UIColor(named: "AccentColor") ?? .label)
-    private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "text.book.closed"), title: "Cooking Instructions", color: UIColor(named: "AccentColor") ?? .label)
+    private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.circle"), title: "Recipe Information", color: .label)
+    private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "list.bullet"), title: "Ingredients", color: .label)
+    private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "text.book.closed"), title: "Cooking Instructions", color: .label)
     
     private var babyMeal: BabyMeal
     
