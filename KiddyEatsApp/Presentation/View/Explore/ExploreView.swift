@@ -119,4 +119,5 @@ struct ExploreView: View {
 
 #Preview {
     ExploreView()
+        .modelContainer(for: [BabyMealSchema.self, BabyProfileSchema.self], inMemory: true)
 }
