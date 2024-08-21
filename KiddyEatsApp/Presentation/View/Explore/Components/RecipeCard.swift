@@ -76,5 +76,8 @@ struct RecipeCard: View {
                 .cornerRadius(10)
             }
         }
+        .onAppear(){
+            vm.checkIfAlreadyFavorite(modelContext: modelContext, babyMealID: babyMeal.id)
+        }
     }
 }
