@@ -16,6 +16,8 @@ struct ProfileView: View {
 		getBabyProfileUseCase: GetBabyProfileData(repo: BabyProfileRepositoryImpl.shared),
 		updateBabyProfileUseCase: UpdateBabyProfileData(repo: BabyProfileRepositoryImpl.shared)
 	)
+    
+    @State private var isEditProfileButtonTapped = false
 	
     var body: some View {
 		NavigationStack {
@@ -64,13 +66,16 @@ struct ProfileView: View {
 					ToolbarItem(placement: .primaryAction) {
 						Button {
 							withAnimation {
-								
+                                isEditProfileButtonTapped = true
 							}
 						} label: {
 							Label("Edit Profile", systemImage: "gear")
 						}
 					}
 				}
+                .navigationDestination(isPresented: $isEditProfileButtonTapped) {
+                    EditProfileView()
+                }
 
 			}
 		}
