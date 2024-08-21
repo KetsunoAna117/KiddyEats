@@ -40,7 +40,6 @@ class ExploreViewModel {
     func setModelContext(modelContext: ModelContext) {
         self.modelContext = modelContext
     }
-    
     func refreshRecommendations() async throws {
         isLoading = true
         babyMeals = []
@@ -64,9 +63,9 @@ class ExploreViewModel {
                     let currentTime = Date()
                     
                     if currentTime.timeIntervalSince(self.lastProcessingTime) >= self.processingInterval {
-                        let meals = BabyMeal.fromIncompleteJsonList(jsonStr: jsonResponse)
+                        let newMeals = BabyMeal.fromIncompleteJsonList(jsonStr: jsonResponse)
                         Task { @MainActor in
-                            self.babyMeals = meals
+                            self.updateBabyMeals(with: newMeals)
                         }
                         self.lastProcessingTime = currentTime
                     }
@@ -81,14 +80,14 @@ class ExploreViewModel {
                     do {
                         let meals = try JSONDecoder().decode([BabyMeal].self, from: data)
                         Task { @MainActor in
-                            self.babyMeals = meals
+                            self.updateBabyMeals(with: meals)
                         }
                     } catch {
                         print("Error decoding complete JSON: \(error)")
                         // Fallback to incomplete JSON parsing if complete parsing fails
                         let meals = BabyMeal.fromIncompleteJsonList(jsonStr: jsonResponse)
                         Task { @MainActor in
-                            self.babyMeals = meals
+                            self.updateBabyMeals(with: meals)
                         }
                     }
                 }
@@ -107,12 +106,21 @@ class ExploreViewModel {
         }
     }
     
+    private func updateBabyMeals(with newMeals: [BabyMeal]) {
+        for newMeal in newMeals {
+            if !self.babyMeals.contains(where: { $0.name == newMeal.name }) {
+                self.babyMeals.append(newMeal)
+            }
+        }
+    }
+    
     func cancelRecommendations() {
         currentTask?.cancel()
         isLoading = false
     }
     
     func debouncedSearch() {
+        cancelRecommendations()
         searchCancellable?.cancel()
         searchCancellable = Just(searchText)
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)

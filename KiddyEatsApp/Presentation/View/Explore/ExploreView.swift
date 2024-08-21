@@ -116,7 +116,29 @@ struct ExploreView: View {
     }
 }
 
-
 #Preview {
-    ExploreView()
+    let container: ModelContainer = {
+        do {
+            let container = ModelContextManager.createModelContainer()
+            let context = container.mainContext
+            
+            // Create and insert fake baby profile
+            let fakeBabyProfile = BabyProfileSchema(
+                id: UUID(),
+                name: "Baby Doe",
+                gender: "Female",
+                allergies: ["Peanuts", "Eggs"],
+                dateOfBirth: Calendar.current.date(byAdding: .month, value: -7, to: Date())!,
+                location: "New York"
+            )
+            context.insert(fakeBabyProfile)
+            
+            return container
+        } catch {
+            fatalError("Failed to create container: \(error.localizedDescription)")
+        }
+    }()
+
+    return ExploreView()
+        .modelContainer(container)
 }
