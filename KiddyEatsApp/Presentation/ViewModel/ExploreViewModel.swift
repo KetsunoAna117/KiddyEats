@@ -113,6 +113,7 @@ class ExploreViewModel {
     }
     
     func debouncedSearch() {
+        cancelRecommendations()
         searchCancellable?.cancel()
         searchCancellable = Just(searchText)
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
