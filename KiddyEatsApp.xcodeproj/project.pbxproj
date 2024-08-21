@@ -31,6 +31,8 @@
 		3A5450DA2C74D7390090EE0F /* SaveBabyMealUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450D92C74D7390090EE0F /* SaveBabyMealUseCase.swift */; };
 		3A5450DC2C74E0E20090EE0F /* GetBabymealUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450DB2C74E0E20090EE0F /* GetBabymealUseCase.swift */; };
 		3A5450E52C75DB900090EE0F /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450E42C75DB900090EE0F /* EditProfileView.swift */; };
+		3A5450E72C75DFD90090EE0F /* OnboardingDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450E62C75DFD90090EE0F /* OnboardingDatePicker.swift */; };
+		3A5450E92C75EA0C0090EE0F /* OnboardingAllergenList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450E82C75EA0C0090EE0F /* OnboardingAllergenList.swift */; };
 		3AB03C402C6DE845001F5473 /* KiddyEatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB03C3F2C6DE845001F5473 /* KiddyEatsApp.swift */; };
 		3AB03C442C6DE848001F5473 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB03C432C6DE848001F5473 /* Assets.xcassets */; };
 		3AB03C472C6DE848001F5473 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB03C462C6DE848001F5473 /* Preview Assets.xcassets */; };
@@ -123,6 +125,8 @@
 		3A5450D92C74D7390090EE0F /* SaveBabyMealUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveBabyMealUseCase.swift; sourceTree = "<group>"; };
 		3A5450DB2C74E0E20090EE0F /* GetBabymealUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBabymealUseCase.swift; sourceTree = "<group>"; };
 		3A5450E42C75DB900090EE0F /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		3A5450E62C75DFD90090EE0F /* OnboardingDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingDatePicker.swift; sourceTree = "<group>"; };
+		3A5450E82C75EA0C0090EE0F /* OnboardingAllergenList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAllergenList.swift; sourceTree = "<group>"; };
 		3AB03C3C2C6DE845001F5473 /* KiddyEatsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KiddyEatsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB03C3F2C6DE845001F5473 /* KiddyEatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KiddyEatsApp.swift; sourceTree = "<group>"; };
 		3AB03C432C6DE848001F5473 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -367,10 +371,12 @@
 		3AB03C562C6F3F18001F5473 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				3A5450E62C75DFD90090EE0F /* OnboardingDatePicker.swift */,
 				3AB03C572C6F3F2E001F5473 /* OnboardingTextField.swift */,
 				3AB03C592C6F890D001F5473 /* FlexibleView.swift */,
 				3AB03C682C6F9A2E001F5473 /* OnboardingGenderChoice.swift */,
 				3AB03C6A2C6F9A4F001F5473 /* OnboardingTagsComponent.swift */,
+				3A5450E82C75EA0C0090EE0F /* OnboardingAllergenList.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -693,6 +699,7 @@
 			files = (
 				E68C0F4A2C708CAB00532140 /* AIServiceStatusEnum.swift in Sources */,
 				E68C0F382C707A2F00532140 /* ExploreViewModel.swift in Sources */,
+				3A5450E72C75DFD90090EE0F /* OnboardingDatePicker.swift in Sources */,
 				E68C0F522C70916D00532140 /* BabyMealDetailUIView.swift in Sources */,
 				E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */,
 				E612726A2C6DEDC0007698E6 /* AIService.swift in Sources */,
@@ -754,6 +761,7 @@
 				E67BD8F62C743A09006393F4 /* AIServiceKeys.swift in Sources */,
 				3A5450AC2C71E6420090EE0F /* ReactionChooseListView.swift in Sources */,
 				3A5450DC2C74E0E20090EE0F /* GetBabymealUseCase.swift in Sources */,
+				3A5450E92C75EA0C0090EE0F /* OnboardingAllergenList.swift in Sources */,
 				E40EEFCD2C74405E00BCD991 /* GetBabyMealList.swift in Sources */,
 				E40EEFBD2C732E0000BCD991 /* AIServiceKeys.swift in Sources */,
 				E40EEFB42C732CDE00BCD991 /* CollectionRecipeView.swift in Sources */,

@@ -11,7 +11,11 @@ import SwiftData
 @Observable
 class EditBabyProfileViewModel {
 	
-	var babyProfile: BabyProfile?
+	var fetchedBabyProfile: BabyProfile?
+    
+    var toUpdateBabyName: String = ""
+    var toUpdateBabyDate: Date = Date.now
+    var toUpdateAllergenList: [String] = []
 		
 	// Use Case
 	var getBabyProfileUseCase: GetBabyProfileDataProtocol
@@ -27,17 +31,25 @@ class EditBabyProfileViewModel {
 	}
 	
 	func initBabyProfile(modelContext: ModelContext) {
-		self.babyProfile = getBabyProfileUseCase.execute(modelContext: modelContext)
-		print(babyProfile)
+		self.fetchedBabyProfile = getBabyProfileUseCase.execute(modelContext: modelContext)
 	}
 	
 	func updateBabyProfile(modelContext: ModelContext) {
 		//TODO: add function to update baby profile
-		guard let existingBabyProfile = babyProfile else {
+		guard let existingBabyProfile = fetchedBabyProfile else {
 			print("No baby profile to update")
 			return
 		}
 		
 		updateBabyProfileUseCase.execute(modelContext: modelContext, toUpdateBabyProfile: existingBabyProfile)
 	}
+    
+    func setupViewModel(){
+        if let fetchedBabyProfile = fetchedBabyProfile {
+            toUpdateBabyName = fetchedBabyProfile.name
+            toUpdateBabyDate = fetchedBabyProfile.dateOfBirth
+            toUpdateAllergenList = fetchedBabyProfile.allergies
+        }
+        
+    }
 }

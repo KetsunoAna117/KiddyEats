@@ -41,39 +41,11 @@ struct OnboardingBabyInfo: View {
                     }
                     
                     VStack {
-                        HStack {
-                            Text("Date of Birth")
-                            Spacer()
-                        }
-                        ZStack {
-                            Text(dateFormatter.string(from: vm.savedbabyDOB))
-                                .frame(maxWidth: .infinity, alignment: .center)
-                                .padding()
-                                .onTapGesture {
-                                    showDatePicker = true
-                                }
-                                .sheet(isPresented: $showDatePicker, content: {
-                                    VStack {
-                                        Text("Select your baby date of birth")
-                                        DatePicker("Select Date of Birth", selection: $vm.savedbabyDOB, in: dateRange, displayedComponents: .date)
-                                            .datePickerStyle(.graphical)
-                                            .labelsHidden()
-                                            .presentationDetents([.height(500)])
-                                        Button {
-                                            showDatePicker = false
-                                        } label: {
-                                            Text("Done")
-                                        }
-                                        .buttonStyle(KiddyEatsProminentButtonStyle())
-                                        .padding(.horizontal, 30)
-                                    }
-                                })
-                            
-                            
-                        }
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundStyle(Color.white)
+                        OnboardingDatePicker(
+                            title: "Date of birth",
+                            placeholder: Date.now,
+                            dateRange: dateRange,
+                            date: $vm.savedbabyDOB
                         )
                     }
                     .padding(.top, 20)

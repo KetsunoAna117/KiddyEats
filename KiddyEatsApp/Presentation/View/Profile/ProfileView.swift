@@ -11,8 +11,7 @@ struct ProfileView: View {
 	@Environment(\.modelContext)
 	var modelContext
 	
-	@Bindable
-	var viewModel = EditBabyProfileViewModel(
+	@State var viewModel = EditBabyProfileViewModel(
 		getBabyProfileUseCase: GetBabyProfileData(repo: BabyProfileRepositoryImpl.shared),
 		updateBabyProfileUseCase: UpdateBabyProfileData(repo: BabyProfileRepositoryImpl.shared)
 	)
@@ -21,7 +20,7 @@ struct ProfileView: View {
 	
     var body: some View {
 		NavigationStack {
-			if let babyProfile = viewModel.babyProfile {
+			if let babyProfile = viewModel.fetchedBabyProfile {
 				VStack(alignment: .leading) {
 					Section {
 						// Baby Gender, Baby Age months old
@@ -74,13 +73,12 @@ struct ProfileView: View {
 					}
 				}
                 .navigationDestination(isPresented: $isEditProfileButtonTapped) {
-                    EditProfileView()
+                    EditProfileView(vm: viewModel)
                 }
 
 			}
 		}
 		.onAppear {
-			print("onappear")
 			viewModel.initBabyProfile(modelContext: modelContext)
 		}
     }

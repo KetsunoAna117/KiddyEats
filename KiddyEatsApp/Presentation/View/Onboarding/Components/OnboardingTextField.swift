@@ -15,30 +15,33 @@ struct OnboardingTextField: View {
     @FocusState private var isTapped: Bool
     
     var body: some View {
-        VStack {
-            if let title = title {
-                HStack {
+        VStack(alignment: .leading) {
+            Section {
+                ZStack {
+                    TextField(text: $content) {
+                        if let placeholder = placeholder {
+                            Text(placeholder)
+                        }
+                    }
+                    .padding()
+                    .onSubmit {
+                        isTapped = true
+                    }
+                    .focused($isTapped)
+                }
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundStyle(Color.white)
+                )
+            } header: {
+                if let title = title {
                     Text(title)
-                    Spacer()
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(Color.greenPrimary)
                 }
             }
             
-            ZStack {
-                TextField(text: $content) {
-                    if let placeholder = placeholder {
-                        Text(placeholder)
-                    }
-                }
-                .padding()
-                .onSubmit {
-                    isTapped = true
-                }
-                .focused($isTapped)
-            }
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(Color.white)
-            )
         }
     }
 }
