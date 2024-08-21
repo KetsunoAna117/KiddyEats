@@ -116,23 +116,29 @@ struct ExploreView: View {
     }
 }
 
-
 #Preview {
-    ExploreView()
-        .modelContainer(for: [BabyMealSchema.self, BabyProfileSchema.self], inMemory: true) { container in
-            createAndInsertFakeBabyProfile(in: container)
+    let container: ModelContainer = {
+        do {
+            let container = ModelContextManager.createModelContainer()
+            let context = container.mainContext
+            
+            // Create and insert fake baby profile
+            let fakeBabyProfile = BabyProfileSchema(
+                id: UUID(),
+                name: "Baby Doe",
+                gender: "Female",
+                allergies: ["Peanuts", "Eggs"],
+                dateOfBirth: Calendar.current.date(byAdding: .month, value: -7, to: Date())!,
+                location: "New York"
+            )
+            context.insert(fakeBabyProfile)
+            
+            return container
+        } catch {
+            fatalError("Failed to create container: \(error.localizedDescription)")
         }
-}
+    }()
 
-func createAndInsertFakeBabyProfile(in container: ModelContainer) {
-    let context = ModelContext(container)
-    let fakeBabyProfile = BabyProfileSchema(
-        id: UUID(),
-        name: "Baby Doe",
-        gender: "Female",
-        allergies: ["Peanuts", "Eggs"],
-        dateOfBirth: Calendar.current.date(byAdding: .month, value: -6, to: Date())!,
-        location: "New York"
-    )
-    context.insert(fakeBabyProfile)
+    return ExploreView()
+        .modelContainer(container)
 }
