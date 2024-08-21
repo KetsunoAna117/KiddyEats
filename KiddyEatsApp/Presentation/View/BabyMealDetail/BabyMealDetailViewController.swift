@@ -292,10 +292,14 @@ class BabyMealDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupNavigationBar()
     }
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
+    }
+    
+    private func setupNavigationBar() {
         title = babyMeal.name
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeTapped))
         
