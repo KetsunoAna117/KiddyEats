@@ -60,7 +60,8 @@ struct ExploreView: View {
                     VStack(spacing: 20) {
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
                             ForEach(exploreVM.babyMeals) { meal in
-                                NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)) {
+                                NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meal)
+                                    .navigationTitle(meal.name)) {
                                     RecipeCard(babyMeal: meal)
                                 }
                             }

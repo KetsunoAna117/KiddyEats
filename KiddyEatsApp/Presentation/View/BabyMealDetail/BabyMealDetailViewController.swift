@@ -283,6 +283,7 @@ class BabyMealDetailViewController: UIViewController {
         )
         self.babyMeal = babyMeal
         super.init(nibName: nil, bundle: nil)
+        self.title = babyMeal.name
     }
     
     required init?(coder: NSCoder) {
