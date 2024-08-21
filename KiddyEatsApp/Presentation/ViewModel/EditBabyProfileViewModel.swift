@@ -61,7 +61,7 @@ class EditBabyProfileViewModel {
     }
 	
 	func getAllergies() -> String {
-		if let babyProfile = babyProfile {
+		if let babyProfile = fetchedBabyProfile {
 			var allergyText = babyProfile.allergies.isEmpty ? "No allergies have been recorded." : "\(babyProfile.name) may be allergic to:\n"
 			for allergy in babyProfile.allergies {
 				allergyText += "- \(allergy)\n"

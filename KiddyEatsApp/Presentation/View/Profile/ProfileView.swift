@@ -67,17 +67,12 @@ struct ProfileView: View {
 							}
 						} label: {
 							Label("Edit Baby Profile", systemImage: "gear")
-								.navigationDestination(isPresented: $isPresented) {
-									#warning("Replace this with a View to edit baby profile")
-									ContentUnavailableView("Baby Profile View", systemImage: "person.fill.questionmark")
+								.navigationDestination(isPresented: $isEditProfileButtonTapped) {
+									EditProfileView(vm: viewModel)
 								}
 						}
 					}
 				}
-                .navigationDestination(isPresented: $isEditProfileButtonTapped) {
-                    EditProfileView(vm: viewModel)
-                }
-
 			}
 		}
 		.onAppear {
