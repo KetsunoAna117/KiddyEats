@@ -106,7 +106,7 @@ class AddToLogUIButton: UIButton {
     }
     
     private func configure() {
-        setTitle("Add to Log", for: .normal)
+        setTitle("Save to collections", for: .normal)
         titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         setTitleColor(UIColor(named: "AccentColor"), for: .normal)
         backgroundColor = .clear
