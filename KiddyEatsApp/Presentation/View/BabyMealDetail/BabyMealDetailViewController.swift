@@ -14,7 +14,6 @@ class EmojiUILabel: UILabel {
     private func configure() {
         font = UIFont.systemFont(ofSize: 80)
         textAlignment = .center
-        backgroundColor = .systemGray6
         layer.cornerRadius = 8
         clipsToBounds = true
     }
