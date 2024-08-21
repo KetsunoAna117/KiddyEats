@@ -17,6 +17,9 @@ struct ProfileView: View {
 		updateBabyProfileUseCase: UpdateBabyProfileData(repo: BabyProfileRepositoryImpl.shared)
 	)
 	
+	@State
+	private var isPresented = false
+	
     var body: some View {
 		NavigationStack {
 			if let babyProfile = viewModel.babyProfile {
@@ -57,23 +60,25 @@ struct ProfileView: View {
 				.padding()
 				.frame(maxWidth: .infinity, alignment: .leading)
 				.background(.appBackground)
-				.navigationTitle("Your Baby's Profile")
+				.navigationTitle("\(babyProfile.name)'s Profile")
 				.toolbar {
 					ToolbarItem(placement: .primaryAction) {
 						Button {
 							withAnimation {
-								
+								isPresented.toggle()
 							}
 						} label: {
-							Label("Edit Profile", systemImage: "gear")
+							Label("Edit Baby Profile", systemImage: "gear")
+								.navigationDestination(isPresented: $isPresented) {
+									#warning("Replace this with a View to edit baby profile")
+									ContentUnavailableView("Baby Profile View", systemImage: "person.fill.questionmark")
+								}
 						}
 					}
 				}
-
 			}
 		}
 		.onAppear {
-			print("onappear")
 			viewModel.initBabyProfile(modelContext: modelContext)
 		}
     }

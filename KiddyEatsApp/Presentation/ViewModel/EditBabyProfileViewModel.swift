@@ -28,7 +28,6 @@ class EditBabyProfileViewModel {
 	
 	func initBabyProfile(modelContext: ModelContext) {
 		self.babyProfile = getBabyProfileUseCase.execute(modelContext: modelContext)
-		print(babyProfile)
 	}
 	
 	func updateBabyProfile(modelContext: ModelContext) {

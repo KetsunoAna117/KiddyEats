@@ -61,6 +61,8 @@
 		E40EEFD62C746DB100BCD991 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFD52C746DB100BCD991 /* ProfileView.swift */; };
 		E40EEFD92C747D8000BCD991 /* EditBabyProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFD82C747D8000BCD991 /* EditBabyProfileViewModel.swift */; };
 		E40EEFDB2C7487EA00BCD991 /* UpdateBabyProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFDA2C7487EA00BCD991 /* UpdateBabyProfileData.swift */; };
+		E40EEFDD2C75E43900BCD991 /* TestMealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFDC2C75E43900BCD991 /* TestMealDetailViewController.swift */; };
+		E40EEFE12C75E60500BCD991 /* TestMealDetailUIViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EEFE02C75E60500BCD991 /* TestMealDetailUIViewRepresentable.swift */; };
 		E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61272632C6DE92E007698E6 /* ExploreView.swift */; };
 		E612726A2C6DEDC0007698E6 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61272692C6DEDBC007698E6 /* AIService.swift */; };
 		E612726E2C6E0272007698E6 /* BabyMealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */; };
@@ -153,6 +155,8 @@
 		E40EEFD52C746DB100BCD991 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E40EEFD82C747D8000BCD991 /* EditBabyProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBabyProfileViewModel.swift; sourceTree = "<group>"; };
 		E40EEFDA2C7487EA00BCD991 /* UpdateBabyProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBabyProfileData.swift; sourceTree = "<group>"; };
+		E40EEFDC2C75E43900BCD991 /* TestMealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMealDetailViewController.swift; sourceTree = "<group>"; };
+		E40EEFE02C75E60500BCD991 /* TestMealDetailUIViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMealDetailUIViewRepresentable.swift; sourceTree = "<group>"; };
 		E61272632C6DE92E007698E6 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		E61272692C6DEDBC007698E6 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
 		E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealDetailViewController.swift; sourceTree = "<group>"; };
@@ -450,6 +454,8 @@
 			isa = PBXGroup;
 			children = (
 				E40EEFAC2C732CDE00BCD991 /* CollectionRecipeView.swift */,
+				E40EEFDC2C75E43900BCD991 /* TestMealDetailViewController.swift */,
+				E40EEFE02C75E60500BCD991 /* TestMealDetailUIViewRepresentable.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -705,11 +711,13 @@
 				E68C0F4C2C708CFA00532140 /* +Publisher.swift in Sources */,
 				E68C0F472C70832D00532140 /* LoadingCard.swift in Sources */,
 				E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */,
+				E40EEFE12C75E60500BCD991 /* TestMealDetailUIViewRepresentable.swift in Sources */,
 				E40EEFCF2C7441EA00BCD991 /* BabyMealListViewModel.swift in Sources */,
 				3A5450B82C72E8740090EE0F /* MainTabView.swift in Sources */,
 				E612726E2C6E0272007698E6 /* BabyMealDetailViewController.swift in Sources */,
 				E40EEFB52C732CDE00BCD991 /* CollectionSegment.swift in Sources */,
 				E68C0F562C7091F100532140 /* BabyMealDetailViewControllerRepresentable.swift in Sources */,
+				E40EEFDD2C75E43900BCD991 /* TestMealDetailViewController.swift in Sources */,
 				E40EEFC82C743E7600BCD991 /* BabyMealRepositoryProtocol.swift in Sources */,
 				E68C0F442C7082DF00532140 /* RecipeCardPlaceholder.swift in Sources */,
 				3A5450BE2C72FE910090EE0F /* BabyProfileSchema.swift in Sources */,
