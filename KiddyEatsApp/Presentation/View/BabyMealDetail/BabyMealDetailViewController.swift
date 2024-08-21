@@ -1,5 +1,6 @@
 import UIKit
 import SwiftUI
+import SwiftUI
 
 class EmojiUILabel: UILabel {
     override init(frame: CGRect) {
@@ -95,24 +96,15 @@ class AllergensUIView: UIView {
     }
 }
 
-class AddToLogUIButton: UIButton {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configure()
-    }
+import SwiftUI
+
+class SaveToCollectionsHostingController: UIHostingController<SaveToCollectionsButton> {
+    var onHeightChange: ((CGFloat) -> Void)?
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configure() {
-        setTitle("Save to collections", for: .normal)
-        titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        setTitleColor(UIColor(named: "AccentColor"), for: .normal)
-        backgroundColor = .clear
-        layer.borderWidth = 2
-        layer.borderColor = UIColor(named: "AccentColor")?.cgColor
-        layer.cornerRadius = 8
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.view.invalidateIntrinsicContentSize()
+        onHeightChange?(view.intrinsicContentSize.height)
     }
 }
 
@@ -272,7 +264,7 @@ class BabyMealDetailViewController: UIViewController {
     private let recipeInfoLabel = BulletListUILabel()
     private let ingredientsLabel = BulletListUILabel()
     private let cookingInstructionsLabel = NumberedListUILabel()
-    private let addToLogButton = AddToLogUIButton()
+    private var saveToCollectionsHostingController: SaveToCollectionsHostingController?
     
     private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.square"), title: "Recipe Information", color: .label)
     private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "note.text"), title: "Ingredients", color: .label)
@@ -311,7 +303,7 @@ class BabyMealDetailViewController: UIViewController {
         setupIngredientsLabel()
         setupCookingInstructionsHeader()
         setupCookingInstructionsLabel()
-        setupAddToLogButton()
+        setupSaveToCollectionsButton()
     }
     
     private func setupScrollView() {
@@ -432,27 +424,35 @@ class BabyMealDetailViewController: UIViewController {
         ])
     }
     
-    private func setupAddToLogButton() {
-        contentView.addSubview(addToLogButton)
-        addToLogButton.translatesAutoresizingMaskIntoConstraints = false
-        addToLogButton.addTarget(self, action: #selector(addToLogTapped), for: .touchUpInside)
+    private func setupSaveToCollectionsButton() {
+        let saveToCollectionsButton = SaveToCollectionsButton(babyMeal: babyMeal)
+        saveToCollectionsHostingController = SaveToCollectionsHostingController(rootView: saveToCollectionsButton)
         
-        NSLayoutConstraint.activate([
-            addToLogButton.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 16),
-            addToLogButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            addToLogButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            addToLogButton.heightAnchor.constraint(equalToConstant: 44),
-            addToLogButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
-        ])
+        if let hostingView = saveToCollectionsHostingController?.view {
+            contentView.addSubview(hostingView)
+            hostingView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                hostingView.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 16),
+                hostingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                hostingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                hostingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+            ])
+            
+            saveToCollectionsHostingController?.onHeightChange = { [weak self] height in
+                hostingView.heightAnchor.constraint(equalToConstant: height).isActive = true
+                self?.view.layoutIfNeeded()
+            }
+        }
+        
+        addChild(saveToCollectionsHostingController!)
+        saveToCollectionsHostingController?.didMove(toParent: self)
     }
     
     @objc private func closeTapped() {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc private func addToLogTapped() {
-        // Implement the logic for adding the meal to the log
-    }
 }
 
 #Preview {
