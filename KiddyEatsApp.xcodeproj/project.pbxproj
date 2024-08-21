@@ -70,7 +70,7 @@
 		E67BD90A2C746224006393F4 /* BabyProfileRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD9092C74621D006393F4 /* BabyProfileRepositoryTests.swift */; };
 		E67BD90C2C7464F2006393F4 /* ExploreViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD90B2C7464DA006393F4 /* ExploreViewModelTests.swift */; };
 		E67BD90F2C746811006393F4 /* BabyMealJsonParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD90E2C7467F8006393F4 /* BabyMealJsonParserTests.swift */; };
-		E67BD9122C75DE21006393F4 /* AddToLogUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD9112C75DE1C006393F4 /* AddToLogUIButton.swift */; };
+		E67BD9122C75DE21006393F4 /* AddToLogButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD9112C75DE1C006393F4 /* AddToLogButton.swift */; };
 		E67BD9142C75DE84006393F4 /* SaveToCollectionsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67BD9132C75DE7D006393F4 /* SaveToCollectionsButton.swift */; };
 		E68C0F2B2C6F473900532140 /* BabyMealRecommenderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */; };
 		E68C0F2D2C6F5B7100532140 /* RecipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */; };
@@ -164,7 +164,7 @@
 		E67BD9092C74621D006393F4 /* BabyProfileRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyProfileRepositoryTests.swift; sourceTree = "<group>"; };
 		E67BD90B2C7464DA006393F4 /* ExploreViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModelTests.swift; sourceTree = "<group>"; };
 		E67BD90E2C7467F8006393F4 /* BabyMealJsonParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealJsonParserTests.swift; sourceTree = "<group>"; };
-		E67BD9112C75DE1C006393F4 /* AddToLogUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToLogUIButton.swift; sourceTree = "<group>"; };
+		E67BD9112C75DE1C006393F4 /* AddToLogButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToLogButton.swift; sourceTree = "<group>"; };
 		E67BD9132C75DE7D006393F4 /* SaveToCollectionsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToCollectionsButton.swift; sourceTree = "<group>"; };
 		E68C0F2A2C6F473800532140 /* BabyMealRecommenderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyMealRecommenderUseCase.swift; sourceTree = "<group>"; };
 		E68C0F2C2C6F5B6E00532140 /* RecipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCard.swift; sourceTree = "<group>"; };
@@ -550,7 +550,7 @@
 			isa = PBXGroup;
 			children = (
 				E67BD9132C75DE7D006393F4 /* SaveToCollectionsButton.swift */,
-				E67BD9112C75DE1C006393F4 /* AddToLogUIButton.swift */,
+				E67BD9112C75DE1C006393F4 /* AddToLogButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -702,7 +702,7 @@
 				E68C0F4A2C708CAB00532140 /* AIServiceStatusEnum.swift in Sources */,
 				E68C0F382C707A2F00532140 /* ExploreViewModel.swift in Sources */,
 				E61272652C6DE92E007698E6 /* ExploreView.swift in Sources */,
-				E67BD9122C75DE21006393F4 /* AddToLogUIButton.swift in Sources */,
+				E67BD9122C75DE21006393F4 /* AddToLogButton.swift in Sources */,
 				E612726A2C6DEDC0007698E6 /* AIService.swift in Sources */,
 				3A5450DA2C74D7390090EE0F /* SaveBabyMealUseCase.swift in Sources */,
 				3A5450C02C72FEDF0090EE0F /* BabyMealSchema.swift in Sources */,
