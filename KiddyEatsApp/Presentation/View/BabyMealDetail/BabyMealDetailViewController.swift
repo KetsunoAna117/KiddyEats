@@ -227,7 +227,7 @@ class NumberedListUILabel: UILabel {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.firstLineHeadIndent = firstLineHeadIndent
         paragraphStyle.headIndent = headIndent
-        paragraphStyle.paragraphSpacingBefore = 8
+        paragraphStyle.paragraphSpacingBefore = 4
         return paragraphStyle
     }
 }
