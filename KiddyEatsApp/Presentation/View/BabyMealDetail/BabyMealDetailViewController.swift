@@ -187,12 +187,18 @@ class BulletListUILabel: UILabel {
             paragraphStyle.firstLineHeadIndent = 0
             paragraphStyle.tailIndent = -12
             paragraphStyle.lineBreakMode = .byWordWrapping
+            paragraphStyle.paragraphSpacing = 4 // Reduce space between paragraphs
             
             attributedText.addAttribute(.paragraphStyle, 
                                         value: paragraphStyle, 
                                         range: NSRange(location: 0, length: attributedText.length))
             
             attributedString.append(attributedText)
+        }
+        
+        // Remove the last newline to reduce extra bottom spacing
+        if let lastChar = attributedString.string.last, lastChar == "\n" {
+            attributedString.deleteCharacters(in: NSRange(location: attributedString.length - 1, length: 1))
         }
         
         self.attributedText = attributedString
@@ -369,7 +375,7 @@ class BabyMealDetailViewController: UIViewController {
         recipeInfoHeader.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            recipeInfoHeader.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 16),
+            recipeInfoHeader.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 12),
             recipeInfoHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             recipeInfoHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
@@ -396,7 +402,7 @@ class BabyMealDetailViewController: UIViewController {
         ingredientsHeader.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            ingredientsHeader.topAnchor.constraint(equalTo: recipeInfoLabel.bottomAnchor, constant: 16),
+            ingredientsHeader.topAnchor.constraint(equalTo: recipeInfoLabel.bottomAnchor, constant: 12),
             ingredientsHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             ingredientsHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
@@ -419,7 +425,7 @@ class BabyMealDetailViewController: UIViewController {
         cookingInstructionsHeader.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            cookingInstructionsHeader.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 16),
+            cookingInstructionsHeader.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 12),
             cookingInstructionsHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             cookingInstructionsHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
