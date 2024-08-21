@@ -121,7 +121,7 @@ class HeaderUIView: UIView {
     private let iconImageView = UIImageView()
     private let titleLabel = UILabel()
     
-    init(icon: UIImage?, title: String, color: UIColor = .label) {
+    init(icon: UIImage?, title: String, color: UIColor) {
         super.init(frame: .zero)
         configure(icon: icon, title: title, color: color)
     }
@@ -148,7 +148,7 @@ class HeaderUIView: UIView {
         
         iconImageView.image = icon
         iconImageView.contentMode = .scaleAspectFit
-        iconImageView.tintColor = UIColor(named: "AccentColor")
+        iconImageView.tintColor = color
         
         NSLayoutConstraint.activate([
             iconImageView.widthAnchor.constraint(equalToConstant: 24),
@@ -157,7 +157,7 @@ class HeaderUIView: UIView {
         
         titleLabel.text = title
         titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        titleLabel.textColor = UIColor(named: "AccentColor")
+        titleLabel.textColor = color
     }
 }
 
@@ -275,9 +275,9 @@ class BabyMealDetailViewController: UIViewController {
     private let cookingInstructionsLabel = NumberedListUILabel()
     private let addToLogButton = AddToLogUIButton()
     
-    private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.circle"), title: "Recipe Information")
-    private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "list.bullet"), title: "Ingredients")
-    private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "text.book.closed"), title: "Cooking Instructions")
+    private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.circle"), title: "Recipe Information", color: UIColor(named: "AccentColor") ?? .label)
+    private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "list.bullet"), title: "Ingredients", color: UIColor(named: "AccentColor") ?? .label)
+    private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "text.book.closed"), title: "Cooking Instructions", color: UIColor(named: "AccentColor") ?? .label)
     
     private var babyMeal: BabyMeal
     
