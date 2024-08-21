@@ -1,6 +1,5 @@
 import UIKit
 import SwiftUI
-import SwiftUI
 
 class EmojiUILabel: UILabel {
     override init(frame: CGRect) {
@@ -95,8 +94,6 @@ class AllergensUIView: UIView {
         }
     }
 }
-
-import SwiftUI
 
 class SaveToCollectionsHostingController: UIHostingController<SaveToCollectionsButton> {
     var onHeightChange: ((CGFloat) -> Void)?

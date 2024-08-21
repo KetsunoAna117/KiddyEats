@@ -9,9 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct RecipeCard: View {
+    let babyMeal: BabyMeal
+    
     @Environment(\.modelContext) var modelContext
     
-    let babyMeal: BabyMeal
     @State private var vm = BabyMealDetailViewModel(
         saveBabyMealUseCase: SaveBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
         deleteBabyMealUseCase: DeleteBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
@@ -50,25 +51,7 @@ struct RecipeCard: View {
                     
                     Spacer()
                     
-                    Button(action: {
-                        // Save to swiftData if isn't favorited
-                        if vm.isFavorited == false {
-                            vm.saveMeal(modelContext: modelContext, babyMeal: babyMeal)
-                        }
-                        // Delete from swiftData if already favorited
-                        else {
-                            vm.deleteMeal(modelContext: modelContext, babyMeal: babyMeal)
-                        }
-                        vm.checkIfAlreadyFavorite(modelContext: modelContext, babyMealID: babyMeal.id)
-                    }) {
-                        Text("Save to collections")
-                            .font(.system(size: 12))
-                            .fontWeight(.bold)
-                    }
-                    .buttonStyle(KiddyEatsProminentButtonStyle())
-                    .frame(height: 30)
-                    .cornerRadius(25)
-                    .padding(.top, 10)
+                    SaveToCollectionsButton(babyMeal: babyMeal)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .init(horizontal: .center, vertical: .top))
                 .padding()
