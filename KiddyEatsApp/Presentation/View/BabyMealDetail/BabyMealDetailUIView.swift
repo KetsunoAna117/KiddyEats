@@ -22,10 +22,12 @@ class BabyMealDetailUIView: UIView {
     
     private var viewModel: BabyMealDetailViewModel
     private var babyMeal: BabyMeal
+    private var isAlreadySaved: Bool
     
-    init(viewModel: BabyMealDetailViewModel, babyMeal: BabyMeal) {
+    init(viewModel: BabyMealDetailViewModel, babyMeal: BabyMeal, isAlreadySaved: Bool) {
         self.viewModel = viewModel
         self.babyMeal = babyMeal
+        self.isAlreadySaved = isAlreadySaved
         super.init(frame: .zero)
         setupUI()
     }
@@ -233,6 +235,10 @@ class BabyMealDetailUIView: UIView {
             addToLogButton.heightAnchor.constraint(equalToConstant: 44),
             addToLogButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24)
         ])
+    }
+    
+    func setIsAlreadySaved(status: Bool){
+        self.isAlreadySaved = status
     }
     
     @objc private func addToLogTapped() {

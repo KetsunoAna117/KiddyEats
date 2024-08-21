@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct BabyMealDetailVCRepresentable: UIViewControllerRepresentable {
+    @Environment(\.modelContext) var modelContext
     func makeUIViewController(context: Context) -> BabyMealDetailViewController {
         let sampleMeal = BabyMeal(
             name: "Sweet Potato Puree",
@@ -20,7 +21,7 @@ struct BabyMealDetailVCRepresentable: UIViewControllerRepresentable {
             estimatedCookingTimeMinutes: 20,
 			isAllergic: false
         )
-        return BabyMealDetailViewController(babyMeal: sampleMeal)
+        return BabyMealDetailViewController(babyMeal: sampleMeal, modelContext: modelContext)
     }
     
     func updateUIViewController(_ uiViewController: BabyMealDetailViewController, context: Context) {}

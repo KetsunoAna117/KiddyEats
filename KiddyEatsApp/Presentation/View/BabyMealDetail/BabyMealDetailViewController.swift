@@ -1,5 +1,6 @@
 import UIKit
 import SwiftUI
+import SwiftData
 
 
 class BabyMealDetailViewController: UIViewController {
@@ -7,14 +8,17 @@ class BabyMealDetailViewController: UIViewController {
     private var detailView: BabyMealDetailUIView!
     
     private var babyMeal: BabyMeal
+    private var modelContext: ModelContext
     
-    init(babyMeal: BabyMeal) {
+    init(babyMeal: BabyMeal, modelContext: ModelContext) {
         self.viewModel = BabyMealDetailViewModel(
             saveBabyMealUseCase: SaveBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
             deleteBabyMealUseCase: DeleteBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
             getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
         )
         self.babyMeal = babyMeal
+        self.modelContext = modelContext
+        viewModel.checkIfAlreadyFavorite(modelContext: modelContext, babyMealID: babyMeal.id)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -25,13 +29,14 @@ class BabyMealDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        print(viewModel.isFavorited)
     }
     
     private func setupUI() {
         title = "Recipe Detail"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeTapped))
         
-        detailView = BabyMealDetailUIView(viewModel: viewModel, babyMeal: babyMeal)
+        detailView = BabyMealDetailUIView(viewModel: viewModel, babyMeal: babyMeal, isAlreadySaved: viewModel.isFavorited)
         view.addSubview(detailView)
         detailView.translatesAutoresizingMaskIntoConstraints = false
         
