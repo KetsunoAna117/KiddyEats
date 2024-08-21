@@ -19,7 +19,9 @@ struct CreateBabyProfileData: CreateBabyProfileDataProtocol {
         if (repo.getBabyProfile(modelContext: modelContext)) != nil {
             return
         }
-        repo.createBabyProfile(modelContext: modelContext, babyProfile: babyProfileData)
+        
+        let babyProfileSchema = babyProfileData.mapToBabyProfileSchema()
+        repo.createBabyProfile(modelContext: modelContext, babyProfile: babyProfileSchema)
         
     }
 }

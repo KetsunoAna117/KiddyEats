@@ -40,7 +40,6 @@ struct MainTabView: View {
                             Label("Profile", systemImage: "person.circle")
                         }
                     }
-                    .environment(ExploreViewModel())
                     .onAppear(){
                         print("Baby data detected: \(baby)")
                     }
