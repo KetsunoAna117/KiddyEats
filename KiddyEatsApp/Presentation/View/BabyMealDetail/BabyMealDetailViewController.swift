@@ -358,7 +358,7 @@ class BabyMealDetailViewController: UIViewController {
         allergensView.setAllergens(babyMeal.allergens)
         
         NSLayoutConstraint.activate([
-            allergensView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
+            allergensView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             allergensView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             allergensView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
@@ -369,7 +369,7 @@ class BabyMealDetailViewController: UIViewController {
         recipeInfoHeader.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            recipeInfoHeader.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 24),
+            recipeInfoHeader.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 16),
             recipeInfoHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             recipeInfoHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
@@ -396,7 +396,7 @@ class BabyMealDetailViewController: UIViewController {
         ingredientsHeader.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            ingredientsHeader.topAnchor.constraint(equalTo: recipeInfoLabel.bottomAnchor, constant: 24),
+            ingredientsHeader.topAnchor.constraint(equalTo: recipeInfoLabel.bottomAnchor, constant: 16),
             ingredientsHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             ingredientsHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
@@ -419,7 +419,7 @@ class BabyMealDetailViewController: UIViewController {
         cookingInstructionsHeader.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            cookingInstructionsHeader.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 24),
+            cookingInstructionsHeader.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 16),
             cookingInstructionsHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             cookingInstructionsHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
@@ -443,11 +443,11 @@ class BabyMealDetailViewController: UIViewController {
         addToLogButton.addTarget(self, action: #selector(addToLogTapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            addToLogButton.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 24),
+            addToLogButton.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 16),
             addToLogButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             addToLogButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             addToLogButton.heightAnchor.constraint(equalToConstant: 44),
-            addToLogButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24)
+            addToLogButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
     
