@@ -16,6 +16,7 @@ class ExploreViewModel {
     
     private var modelContext: ModelContext?
     
+    var babyProfile: BabyProfile?
     var searchText: String = ""
     var babyMeals: [BabyMeal] = []
     var previousRecommendedMeals: [BabyMeal] = [] // TODO: This list must max 12 items.
@@ -37,9 +38,11 @@ class ExploreViewModel {
         self.getBabyProfileUseCase = getBabyProfileUseCase
     }
     
-    func setModelContext(modelContext: ModelContext) {
+    func initViewModel(modelContext: ModelContext) {
         self.modelContext = modelContext
+        self.babyProfile = getBabyProfileUseCase.execute(modelContext: modelContext)
     }
+    
     func refreshRecommendations() async throws {
         isLoading = true
         babyMeals = []
