@@ -6,18 +6,3 @@
 //
 
 import SwiftUI
-
-struct SaveToCollectionsButton: View {
-    let babyMeal: BabyMeal
-    
-    var body: some View {
-        Button(action: saveToCollections) {
-            Text("Save to collections")
-        }
-        .buttonStyle(KiddyEatsProminentButtonStyle())
-    }
-    
-    func saveToCollections() {
-        print("Save to collections")
-    }
-}
