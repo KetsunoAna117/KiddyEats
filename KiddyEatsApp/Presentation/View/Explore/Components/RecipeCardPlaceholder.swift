@@ -14,7 +14,7 @@ struct RecipeCardPlaceholder: View {
                 .progressViewStyle(CircularProgressViewStyle(tint: .accent))
                 .scaleEffect(1.5)
         }
-        .frame(height: 150)
+        .frame(height: 220)
         .cornerRadius(10)
     }
 }
