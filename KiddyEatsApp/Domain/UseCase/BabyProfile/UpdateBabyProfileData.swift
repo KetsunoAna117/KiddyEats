@@ -17,6 +17,6 @@ struct UpdateBabyProfileData: UpdateBabyProfileDataProtocol {
 	
 	func execute(modelContext: ModelContext, toUpdateBabyProfile: BabyProfile) {
 		let toUpdateBabyProfileSchema = toUpdateBabyProfile.mapToBabyProfileSchema()
-		repo.updateBabyProfile(modelContext: modelContext, toUpdateBabyProfile: toUpdateBabyProfile)
+		repo.updateBabyProfile(modelContext: modelContext, toUpdateBabyProfile: toUpdateBabyProfileSchema)
 	}
 }

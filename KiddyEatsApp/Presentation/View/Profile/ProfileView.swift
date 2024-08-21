@@ -11,18 +11,16 @@ struct ProfileView: View {
 	@Environment(\.modelContext)
 	var modelContext
 	
-	@Bindable
-	var viewModel = EditBabyProfileViewModel(
+	@State var viewModel = EditBabyProfileViewModel(
 		getBabyProfileUseCase: GetBabyProfileData(repo: BabyProfileRepositoryImpl.shared),
 		updateBabyProfileUseCase: UpdateBabyProfileData(repo: BabyProfileRepositoryImpl.shared)
 	)
-	
-	@State
-	private var isPresented = false
+    
+    @State private var isEditProfileButtonTapped = false
 	
     var body: some View {
 		NavigationStack {
-			if let babyProfile = viewModel.babyProfile {
+			if let babyProfile = viewModel.fetchedBabyProfile {
 				VStack(alignment: .leading) {
 					Section {
 						// Baby Gender, Baby Age months old
@@ -65,7 +63,7 @@ struct ProfileView: View {
 					ToolbarItem(placement: .primaryAction) {
 						Button {
 							withAnimation {
-								isPresented.toggle()
+                                isEditProfileButtonTapped = true
 							}
 						} label: {
 							Label("Edit Baby Profile", systemImage: "gear")
@@ -76,6 +74,10 @@ struct ProfileView: View {
 						}
 					}
 				}
+                .navigationDestination(isPresented: $isEditProfileButtonTapped) {
+                    EditProfileView(vm: viewModel)
+                }
+
 			}
 		}
 		.onAppear {

@@ -15,7 +15,7 @@ struct LoadingCard: View {
                 .progressViewStyle(CircularProgressViewStyle(tint: .accent))
                 .scaleEffect(1.5)
         }
-        .frame(height: 180)
+        .frame(height: 250)
         .cornerRadius(10)
     }
 }
