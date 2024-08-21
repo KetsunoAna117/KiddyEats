@@ -25,10 +25,10 @@ struct EditProfileView: View {
             VStack {
                 ScrollView {
                     VStack(alignment: .leading) {
-                        OnboardingTextField(title: "Name", content: $vm.toUpdateBabyName)
+                        KiddyEatsTextField(title: "Name", content: $vm.toUpdateBabyName)
                             .padding(.bottom, 10)
                             .padding(.top, 30)
-                        OnboardingDatePicker(
+                        KiddyEatsDatePicker(
                             title: "Date of birth",
                             placeholder: vm.fetchedBabyProfile?.dateOfBirth,
                             dateRange: dateRange,
@@ -37,7 +37,7 @@ struct EditProfileView: View {
                         .padding(.bottom, 10)
                         
                         VStack(alignment: .leading) {
-                            OnboardingTextField(title: "Enter Allergen", placeholder: "\"Peanuts\"", content: $userInput)
+                            KiddyEatsTextField(title: "Enter Allergen", placeholder: "\"Peanuts\"", content: $userInput)
                                 .onSubmit {
                                     addTag()
                                 }
@@ -49,7 +49,7 @@ struct EditProfileView: View {
                         .padding(.bottom, 30)
                         
                         VStack {
-                            OnboardingAllergenList(
+                            AllergenContainerView(
                                 title: "Possible Allergen Known",
                                 tagList: $vm.toUpdateAllergenList,
                                 removeTag: removeTags

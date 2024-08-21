@@ -26,7 +26,7 @@ struct OnboardingBabyAllergies: View {
                     .padding(.bottom, 30)
                     
                     VStack(alignment: .leading) {
-                        OnboardingTextField(placeholder: "\"Peanuts\"", content: $userInput)
+                        KiddyEatsTextField(placeholder: "\"Peanuts\"", content: $userInput)
                             .onSubmit {
                                 addTag()
                             }
@@ -37,7 +37,7 @@ struct OnboardingBabyAllergies: View {
                     .padding(.bottom, 30)
                     
                     VStack {
-                        OnboardingAllergenList(
+                        AllergenContainerView(
                             title: "Allergens Known",
                             tagList: $vm.savedallergiesList,
                             removeTag: removeTags

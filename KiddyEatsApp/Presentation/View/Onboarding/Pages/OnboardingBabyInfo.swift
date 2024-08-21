@@ -37,11 +37,11 @@ struct OnboardingBabyInfo: View {
                 
                 VStack {
                     VStack {
-                        OnboardingTextField(title: "Name", placeholder: "Enter your baby's name here", content: $vm.savedbabyName)
+                        KiddyEatsTextField(title: "Name", placeholder: "Enter your baby's name here", content: $vm.savedbabyName)
                     }
                     
                     VStack {
-                        OnboardingDatePicker(
+                        KiddyEatsDatePicker(
                             title: "Date of birth",
                             placeholder: Date.now,
                             dateRange: dateRange,

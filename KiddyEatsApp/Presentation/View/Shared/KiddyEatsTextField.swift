@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnboardingTextField: View {
+struct KiddyEatsTextField: View {
     var title: String?
     var placeholder: String?
     @Binding var content: String
@@ -46,6 +46,3 @@ struct OnboardingTextField: View {
     }
 }
 
-#Preview {
-    OnboardingTextField(title: nil, placeholder: "\"Peanuts\"" ,content: .constant(""))
-}

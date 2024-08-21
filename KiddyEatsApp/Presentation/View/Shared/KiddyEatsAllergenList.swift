@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnboardingAllergenList: View {
+struct KiddyEatsAllergenList: View {
     var title: String?
     @Binding var tagList: [String]
     var removeTag: (String) -> Void
@@ -48,7 +48,7 @@ struct OnboardingAllergenList: View {
         for tag in tagList {
             views.append(
                 AnyView(
-                    OnboardingTagsComponent(name: tag, onTap: removeTag)
+                    TagsComponent(name: tag, onTap: removeTag)
                 )
             )
         }

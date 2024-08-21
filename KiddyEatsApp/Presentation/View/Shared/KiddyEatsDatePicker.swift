@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnboardingDatePicker: View {
+struct KiddyEatsDatePicker: View {
     var title: String?
     var placeholder: Date?
     var dateRange: ClosedRange<Date>?
