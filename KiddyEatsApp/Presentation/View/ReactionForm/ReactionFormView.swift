@@ -11,7 +11,9 @@ struct ReactionFormView: View {
     let totalPages: Int = 2
     @State private var currentTab: Int = 1
     @State private var buttonPrompt: String = "Save reactions"
-    @State private var vm = ReactionLoggerViewModel()
+    @State private var vm = ReactionLoggerViewModel(
+        updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared)
+    )
     
     var body: some View {
         ZStack {
