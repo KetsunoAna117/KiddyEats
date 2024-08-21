@@ -306,6 +306,13 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
+		3A5450E32C759C420090EE0F /* Component */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		3AB03C332C6DE845001F5473 = {
 			isa = PBXGroup;
 			children = (
@@ -535,6 +542,7 @@
 		E68C0F362C707A1200532140 /* BabyMealDetail */ = {
 			isa = PBXGroup;
 			children = (
+				3A5450E32C759C420090EE0F /* Component */,
 				E68C0F532C70918600532140 /* BabyMealDetailPreview.swift */,
 				E68C0F552C7091DE00532140 /* BabyMealDetailViewControllerRepresentable.swift */,
 				E612726D2C6E0264007698E6 /* BabyMealDetailViewController.swift */,

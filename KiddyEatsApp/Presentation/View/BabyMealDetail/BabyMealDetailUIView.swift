@@ -240,7 +240,8 @@ class BabyMealDetailUIView: UIView {
     }
     
     private func setupButtonIfSavedToCollection(){
-        
+        contentView.addSubview(viewIfSavedToCollection)
+        viewIfSavedToCollection.translatesAutoresizingMaskIntoConstraints = false
     }
     
     @objc private func addToCollectionTapped() {
