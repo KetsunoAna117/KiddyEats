@@ -42,7 +42,7 @@ class AllergensUIView: UIView {
     private let stackView = UIStackView()
     
     override init(frame: CGRect) {
-        self.headerView = HeaderUIView(icon: UIImage(systemName: "exclamationmark.triangle"), title: "Possible Allergens")
+        self.headerView = HeaderUIView(icon: UIImage(systemName: "exclamationmark.triangle"), title: "Possible Allergens", color: .white)
         super.init(frame: frame)
         configure()
     }
@@ -119,16 +119,16 @@ class HeaderUIView: UIView {
     private let iconImageView = UIImageView()
     private let titleLabel = UILabel()
     
-    init(icon: UIImage?, title: String) {
+    init(icon: UIImage?, title: String, color: UIColor = .label) {
         super.init(frame: .zero)
-        configure(icon: icon, title: title)
+        configure(icon: icon, title: title, color: color)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure(icon: UIImage?, title: String) {
+    private func configure(icon: UIImage?, title: String, color: UIColor) {
         let stackView = UIStackView(arrangedSubviews: [iconImageView, titleLabel])
         stackView.axis = .horizontal
         stackView.spacing = 8
@@ -146,7 +146,7 @@ class HeaderUIView: UIView {
         
         iconImageView.image = icon
         iconImageView.contentMode = .scaleAspectFit
-        iconImageView.tintColor = .label
+        iconImageView.tintColor = color
         
         NSLayoutConstraint.activate([
             iconImageView.widthAnchor.constraint(equalToConstant: 24),
@@ -155,7 +155,7 @@ class HeaderUIView: UIView {
         
         titleLabel.text = title
         titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        titleLabel.textColor = .label
+        titleLabel.textColor = color
     }
 }
 
@@ -220,9 +220,9 @@ class BabyMealDetailViewController: UIViewController {
     private let cookingInstructionsLabel = NumberedListUILabel()
     private let addToLogButton = AddToLogUIButton()
     
-    private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.circle"), title: "Recipe Information")
-    private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "list.bullet"), title: "Ingredients")
-    private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "text.book.closed"), title: "Cooking Instructions")
+    private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.circle"), title: "Recipe Information", color: .label)
+    private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "list.bullet"), title: "Ingredients", color: .label)
+    private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "text.book.closed"), title: "Cooking Instructions", color: .label)
     
     private var babyMeal: BabyMeal
     
