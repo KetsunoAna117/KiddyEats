@@ -26,8 +26,7 @@ struct CollectionRecipeView: View {
 			}
 			.listRowSeparator(.hidden)
 			.listRowBackground(
-				RoundedRectangle(cornerRadius: 10)
-					.stroke(Color.gray, lineWidth: 0.5)
+				Color.exploreCardBackground
 			)
 		}
 		.listRowSpacing(10)
