@@ -31,7 +31,7 @@ class BabyProfileRepositoryTests: XCTestCase {
     func testCreateBabyProfile() {
         let babyProfile = BabyProfile(id: UUID(), name: "Test Baby", gender: "Male", allergies: ["Peanuts"], dateOfBirth: Date(), location: "Test Location")
         
-        repository.createBabyProfile(modelContext: modelContext, babyProfile: babyProfile)
+        repository.createBabyProfile(modelContext: modelContext, babyProfile: babyProfile.mapToBabyProfileSchema())
         
         XCTAssertEqual(repository.profiles.count, 1)
         XCTAssertEqual(repository.profiles.first?.name, "Test Baby")
@@ -39,7 +39,7 @@ class BabyProfileRepositoryTests: XCTestCase {
     
     func testGetBabyProfile() {
         let babyProfile = BabyProfile(id: UUID(), name: "Test Baby", gender: "Female", allergies: ["Milk"], dateOfBirth: Date(), location: "Test Location")
-        repository.createBabyProfile(modelContext: modelContext, babyProfile: babyProfile)
+        repository.createBabyProfile(modelContext: modelContext, babyProfile: babyProfile.mapToBabyProfileSchema())
         
         let retrievedProfile = repository.getBabyProfile(modelContext: modelContext)
         
@@ -58,8 +58,8 @@ class BabyProfileRepositoryTests: XCTestCase {
         let babyProfile1 = BabyProfile(id: UUID(), name: "Baby 1", gender: "Male", allergies: [], dateOfBirth: Date(), location: "Location 1")
         let babyProfile2 = BabyProfile(id: UUID(), name: "Baby 2", gender: "Female", allergies: ["Eggs"], dateOfBirth: Date(), location: "Location 2")
         
-        repository.createBabyProfile(modelContext: modelContext, babyProfile: babyProfile1)
-        repository.createBabyProfile(modelContext: modelContext, babyProfile: babyProfile2)
+        repository.createBabyProfile(modelContext: modelContext, babyProfile: babyProfile1.mapToBabyProfileSchema())
+        repository.createBabyProfile(modelContext: modelContext, babyProfile: babyProfile2.mapToBabyProfileSchema())
         
         XCTAssertEqual(repository.profiles.count, 2)
         XCTAssertEqual(repository.getBabyProfile(modelContext: modelContext)?.name, "Baby 1") // Should return the first profile

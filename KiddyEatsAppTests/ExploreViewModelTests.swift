@@ -12,7 +12,10 @@ class ExploreViewModelTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        viewModel = ExploreViewModel()
+        viewModel = ExploreViewModel(
+            recommender: BabyMealRecommenderUseCase(),
+            getBabyProfileUseCase: GetBabyProfileData(repo: FakeBabyProfileRepository())
+        )
     }
     
     override func tearDown() {

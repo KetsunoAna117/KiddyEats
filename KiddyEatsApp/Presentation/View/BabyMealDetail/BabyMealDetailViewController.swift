@@ -28,6 +28,7 @@ class BabyMealDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .appBackground
         setupUI()
     }
     
@@ -43,7 +44,7 @@ class BabyMealDetailViewController: UIViewController {
             detailView.topAnchor.constraint(equalTo: view.topAnchor),
             detailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             detailView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            detailView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            detailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     

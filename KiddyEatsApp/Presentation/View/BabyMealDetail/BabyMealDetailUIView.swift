@@ -19,7 +19,6 @@ class BabyMealDetailUIView: UIView {
     private lazy var ingredientsLabel = UILabel()
     private lazy var cookingInstructionsLabel = UILabel()
     
-    private lazy var addToLogButton = UIButton(type: .system) // NOTE: Nanti mungkin jadi SwiftUI
     private lazy var viewIfSavedToCollection = UIView()
     
     private var viewModel: BabyMealDetailViewModel
@@ -39,8 +38,6 @@ class BabyMealDetailUIView: UIView {
     }
     
     private func setupUI() {
-        backgroundColor = .systemBackground
-        
         setupScrollView()
         setupEmojiLabel()
         setupTitle()
@@ -48,7 +45,7 @@ class BabyMealDetailUIView: UIView {
         setupRecipeInfo()
         setupIngredients()
         setupCookingInstructions()
-        setupAddToCollectionButton()
+        setupButtonIfSavedToCollection()
     }
     
     private func setupScrollView() {
@@ -219,38 +216,84 @@ class BabyMealDetailUIView: UIView {
         ])
     }
     
-    private func setupAddToCollectionButton() {
-        contentView.addSubview(addToLogButton)
-        addToLogButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        addToLogButton.setTitle("Save to Collections", for: .normal)
-        addToLogButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        addToLogButton.setTitleColor(.white, for: .normal)
-        addToLogButton.backgroundColor = .accent
-        addToLogButton.layer.cornerRadius = 8
-        addToLogButton.addTarget(self, action: #selector(addToCollectionTapped), for: .touchUpInside)
-        
-        NSLayoutConstraint.activate([
-            addToLogButton.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 24),
-            addToLogButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            addToLogButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            addToLogButton.heightAnchor.constraint(equalToConstant: 44),
-            addToLogButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24)
-        ])
-    }
-    
     private func setupButtonIfSavedToCollection(){
         contentView.addSubview(viewIfSavedToCollection)
         viewIfSavedToCollection.translatesAutoresizingMaskIntoConstraints = false
+        
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 4
+        
+        let logReactionButton = UIButton()
+        logReactionButton.setTitle("Log reaction", for: .normal)
+        logReactionButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        logReactionButton.setTitleColor(.white, for: .normal)
+        logReactionButton.isUserInteractionEnabled = true
+        logReactionButton.backgroundColor = .accent
+        logReactionButton.layer.cornerRadius = 8
+        logReactionButton.addTarget(self, action: #selector(logReactionTapped), for: .touchUpInside)
+        logReactionButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        let removeRecipeButton = UIButton()
+        removeRecipeButton.setTitle("Remove from Collection", for: .normal)
+        removeRecipeButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        removeRecipeButton.setTitleColor(.accent, for: .normal)
+        removeRecipeButton.layer.cornerRadius = 8
+        removeRecipeButton.addTarget(self, action: #selector(removeFromCollectionTapped), for: .touchUpInside)
+        removeRecipeButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        let addToCollectionButton = UIButton()
+        addToCollectionButton.translatesAutoresizingMaskIntoConstraints = false
+        addToCollectionButton.setTitle("Save to Collections", for: .normal)
+        addToCollectionButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        addToCollectionButton.setTitleColor(.white, for: .normal)
+        addToCollectionButton.backgroundColor = .accent
+        addToCollectionButton.layer.cornerRadius = 8
+        addToCollectionButton.addTarget(self, action: #selector(addToCollectionTapped), for: .touchUpInside)
+        addToCollectionButton.isUserInteractionEnabled = true
+        
+        if isAlreadySaved {
+            stackView.addArrangedSubview(logReactionButton)
+            stackView.addArrangedSubview(removeRecipeButton)
+        } else {
+            stackView.addArrangedSubview(addToCollectionButton)
+        }
+        
+        viewIfSavedToCollection.addSubview(stackView)
+        
+        // Set up constraints for the container view to float above the scroll view
+        NSLayoutConstraint.activate([
+            viewIfSavedToCollection.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 24),
+            viewIfSavedToCollection.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            viewIfSavedToCollection.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            viewIfSavedToCollection.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            
+            stackView.leadingAnchor.constraint(equalTo: viewIfSavedToCollection.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: viewIfSavedToCollection.trailingAnchor)
+        ])
     }
     
-    @objc private func addToCollectionTapped() {
-        #warning("Add to log button hasn't been implemented")
-    }
 }
 
 extension BabyMealDetailUIView {
     func setIsAlreadySaved(status: Bool){
         self.isAlreadySaved = status
     }
+    
+    @objc private func addToCollectionTapped() {
+        print("Add to collection button tapped")
+#warning("Add to collection button hasn't been implemented")
+    }
+    
+    @objc private func removeFromCollectionTapped(){
+        print("Remove from collection button tapped")
+#warning("Remove from collection tapped hasn't been implemented")
+    }
+    
+    @objc private func logReactionTapped(){
+        print("log reaction button tapped")
+#warning("log reaction button hasn't been implemented")
+    }
+    
 }
