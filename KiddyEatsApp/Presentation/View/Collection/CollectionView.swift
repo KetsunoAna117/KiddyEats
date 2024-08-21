@@ -61,6 +61,7 @@ struct CollectionView: View {
 			.searchable(text: $viewModel.searchRecipe, prompt: "Search your saved recipes")
 			.onAppear {
 				viewModel.initAllMealList(modelContext: modelContext)
+				viewModel.setFavoriteList()
 			}
 			.onChange(of: viewModel.selectedView) { oldValue, newValue in
 				switch newValue {

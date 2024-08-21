@@ -10,7 +10,7 @@ import SwiftData
 
 protocol BabyProfileRepositoryProtocol {
     func getBabyProfile(modelContext: ModelContext) -> BabyProfileSchema?
-    func createBabyProfile(modelContext: ModelContext, babyProfile: BabyProfile)
+    func createBabyProfile(modelContext: ModelContext, babyProfile: BabyProfileSchema)
 	// TODO: Add update baby profile method swiftdata
 	func updateBabyProfile(modelContext: ModelContext, toUpdateBabyProfile: BabyProfile)
 }
