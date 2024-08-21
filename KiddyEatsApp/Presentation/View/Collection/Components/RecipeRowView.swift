@@ -53,6 +53,7 @@ struct RecipeRowView: View {
 			Button(role: .destructive) {
 				withAnimation {
 					viewModel.deleteBabyMeal(modelContext: modelContext, toDeleteBabyMeal: mealRecipe)
+                    viewModel.initAllMealList(modelContext: modelContext)
 				}
 				
 			} label: {

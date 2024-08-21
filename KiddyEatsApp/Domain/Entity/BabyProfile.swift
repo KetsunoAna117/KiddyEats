@@ -18,7 +18,8 @@ struct BabyProfile: Identifiable {
     var ageMonths: Int  {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.month], from: dateOfBirth, to: Date())
-        return components.month ?? 0
+        let month = components.month ?? 0
+        return max(month, 6)
     }
     
     func mapToBabyProfileSchema() -> BabyProfileSchema {

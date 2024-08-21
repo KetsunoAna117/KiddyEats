@@ -44,8 +44,13 @@ extension BabyMealRepositoryImpl: BabyMealRepositoryProtocol {
     }
     
     func deleteBabyMeal(modelContext: ModelContext, toDeleteBabyMealID: UUID) {
-        try? modelContext.delete(model: BabyMealSchema.self, where: #Predicate{
-            $0.id == toDeleteBabyMealID
-        })
+        do {
+            try modelContext.delete(model: BabyMealSchema.self, where: #Predicate{
+                $0.id == toDeleteBabyMealID
+            })
+        } catch {
+            print("Meal already deleted")
+        }
+        
     }
 }
