@@ -8,7 +8,7 @@
 import Foundation
 
 class BabyMealRecommenderUseCase {
-    let aiService: AIService
+    var aiService: AIService
 
     init() {
         self.aiService = AIService(identifier: AIServiceKeys.generalLLM.rawValue, isConversation: false)
