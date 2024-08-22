@@ -100,7 +100,6 @@ struct ReactionFormView: View {
             if babyMeal.hasFilledReaction {
                 if babyMeal.reactionList.isEmpty {
                     vm.reactionStatus = .noReaction
-					vm.reactionDetails = []
                 }
                 else {
                     vm.reactionStatus = .hadReaction
