@@ -92,11 +92,9 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func updateButtonsBasedOnFavoritedStatus() {
-        if viewModel.isFavorited {
-            showAddToLogButton()
-        } else {
-            hideAddToLogButton()
-        }
+        print("isFavorited status: \(viewModel.isFavorited)")
+        // Always show the Log Reaction button
+        showAddToLogButton()
     }
     
     private func setupReactionsView() {
@@ -223,6 +221,7 @@ class BabyMealDetailViewController: UIViewController {
         addChild(logReactionHostingController)
         buttonsStackView.addArrangedSubview(logReactionHostingController.view)
         logReactionHostingController.didMove(toParent: self)
+        logReactionHostingController.view.isHidden = false  // Ensure it's visible by default
         
         // Add Save to Collections button
         addChild(saveToCollectionsHostingController)
@@ -235,6 +234,9 @@ class BabyMealDetailViewController: UIViewController {
             buttonsStackView.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 24),
             buttonsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24)
         ])
+        
+        // Ensure buttons are visible
+        updateButtonsBasedOnFavoritedStatus()
     }
     
     private func hideAddToLogButton() {
