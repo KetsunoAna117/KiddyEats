@@ -37,6 +37,10 @@ import SwiftData
     }
     
     func updateBabyMealReaction(modelContext: ModelContext){
+		if reactionStatus == .noReaction || reactionStatus == .unfilled {
+			reactionDetails = []
+		}
+		
         if let selectedBabyMeal = selectedBabyMeal {
             updateReactionUseCase.execute(
                 modelContext: modelContext,
