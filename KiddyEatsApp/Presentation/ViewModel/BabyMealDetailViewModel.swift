@@ -11,8 +11,10 @@ import SwiftData
 @Observable
 class BabyMealDetailViewModel {
     
-    var isFavorited: Bool = false {
+    var isFavorited: Bool = false 
+    {
         didSet {
+            print("IS Fav Change")
             isFavoritedDidChange?(isFavorited)
         }
     }
@@ -30,7 +32,6 @@ class BabyMealDetailViewModel {
     private var saveBabyMealUseCase: SaveBabyMealUseCaseProtocol
     private var deleteBabyMealUseCase: DeleteBabyMealProtocol
     private var getBabyMealUseCase: GetBabymealUseCaseProtocol
-    
     
     init(
         saveBabyMealUseCase: SaveBabyMealUseCaseProtocol,
@@ -95,5 +96,6 @@ class BabyMealDetailViewModel {
         else {
             self.isFavorited = true
         }
+        isFavoritedDidChange?(self.isFavorited)
     }
 }
