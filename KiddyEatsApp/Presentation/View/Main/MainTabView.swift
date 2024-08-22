@@ -22,6 +22,7 @@ struct MainTabView: View {
                         NavigationStack {
                             ExploreView()
                         }
+                        
                         .tabItem {
                             Label("Explore", systemImage: "magnifyingglass.circle")
                         }
@@ -40,6 +41,7 @@ struct MainTabView: View {
                             Label("Profile", systemImage: "person.circle")
                         }
                     }
+                    
                     .onAppear(){
                         print("Baby data detected: \(baby)")
                     }
@@ -53,6 +55,12 @@ struct MainTabView: View {
             }
         }
         .onAppear(){
+            let appearance = UITabBarAppearance()
+            appearance.backgroundColor = .appBackground // Set your desired color here
+            
+            UITabBar.appearance().standardAppearance = appearance
+            UITabBar.appearance().scrollEdgeAppearance = appearance
+            
             vm.getBabyProfileData(modelContext: modelContext)
             if vm.babyProfile == nil {
                 self.isOnboardingCompleted = false

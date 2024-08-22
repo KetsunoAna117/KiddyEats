@@ -99,4 +99,5 @@ struct CollectionView: View {
 
 #Preview {
     CollectionView()
+        .modelContainer(ModelContextManager.createModelContainer())
 }

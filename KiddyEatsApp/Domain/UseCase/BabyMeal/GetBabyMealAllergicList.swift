@@ -13,6 +13,6 @@ protocol GetBabyMealAllergicListProtocol {
 
 struct GetBabyMealAllergicList: GetBabyMealAllergicListProtocol {
 	func execute(babyMeal: [BabyMeal]) -> [BabyMeal] {
-		return babyMeal.filter { $0.isAllergic }
+        return babyMeal.filter { $0.hasFilledReaction }
 	}
 }
