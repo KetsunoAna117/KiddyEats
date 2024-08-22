@@ -65,15 +65,21 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func setupReactionsView() {
-        contentView.addSubview(reactionsView)
-        reactionsView.translatesAutoresizingMaskIntoConstraints = false
-        reactionsView.setReactions(babyMeal.reactionList)
-        
-        NSLayoutConstraint.activate([
-            reactionsView.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 16),
-            reactionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            reactionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
-        ])
+        if !areReactionsEmpty() {
+            contentView.addSubview(reactionsView)
+            reactionsView.translatesAutoresizingMaskIntoConstraints = false
+            reactionsView.setReactions(babyMeal.reactionList)
+            
+            NSLayoutConstraint.activate([
+                reactionsView.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 16),
+                reactionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                reactionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            ])
+        }
+    }
+    
+    private func areReactionsEmpty() -> Bool {
+        return babyMeal.reactionList.isEmpty
     }
 
     private func setupScrollView() {
@@ -121,7 +127,11 @@ class BabyMealDetailViewController: UIViewController {
         contentView.addSubview(recipeInfoHeader)
         recipeInfoHeader.translatesAutoresizingMaskIntoConstraints = false
         
-        setupHorizontalConstraints(for: recipeInfoHeader, topAnchor: reactionsView.bottomAnchor, topConstant: 24)
+        if areReactionsEmpty() {
+            setupHorizontalConstraints(for: recipeInfoHeader, topAnchor: allergensView.bottomAnchor, topConstant: 24)
+        } else {
+            setupHorizontalConstraints(for: recipeInfoHeader, topAnchor: reactionsView.bottomAnchor, topConstant: 24)
+        }
     }
     
     private func setupRecipeInfoLabel() {
