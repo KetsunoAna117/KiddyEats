@@ -16,8 +16,8 @@ class BabyMealDetailViewController: UIViewController {
     private let recipeInfoLabel = BulletListUILabel()
     private let ingredientsLabel = BulletListUILabel()
     private let cookingInstructionsLabel = NumberedListUILabel()
-    private var logReactionHostingController: SaveToCollectionsHostingController?
-    private var saveToCollectionsHostingController: SaveToCollectionsHostingController?
+    private var logReactionHostingController: SwiftUIButtonController?
+    private var saveToCollectionsHostingController: SwiftUIButtonController?
     private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.square"), title: "Recipe Information", color: .label)
     private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "note.text"), title: "Ingredients", color: .label)
     private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "frying.pan"), title: "Cooking Instructions", color: .label)
@@ -167,14 +167,14 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func setupButtons() {
-        let logReactionButton = AnyView(LogReactionButton(babyMeal: babyMeal)
-            .buttonStyle(KiddyEatsProminentButtonStyle()))
+        let logReactionButton = AnyView(LogReactionButton(babyMeal: babyMeal))
         
-        let saveToCollectionsButton = AnyView(SaveToCollectionsButton(babyMeal: babyMeal)
-            .buttonStyle(KiddyEatsProminentButtonStyle()))
-        
-        logReactionHostingController = SaveToCollectionsHostingController(rootView: logReactionButton)
-        saveToCollectionsHostingController = SaveToCollectionsHostingController(rootView: saveToCollectionsButton)
+        let saveToCollectionsButton = AnyView(
+            MealDetailSaveToCollectionsButton(babyMeal: babyMeal)
+        )
+
+        logReactionHostingController = SwiftUIButtonController(rootView: logReactionButton)
+        saveToCollectionsHostingController = SwiftUIButtonController(rootView: saveToCollectionsButton)
         
         let stackView = UIStackView()
         stackView.axis = .vertical
