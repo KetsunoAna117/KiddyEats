@@ -92,7 +92,11 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func updateButtonsBasedOnFavoritedStatus() {
-        // Dont touch this
+        if viewModel.isFavorited {
+            showAddToLogButton()
+        } else {
+            hideAddToLogButton()
+        }
     }
     
     private func setupReactionsView() {
@@ -208,9 +212,37 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func setupButtons() {
-        // TODO: At the bottom, add these SwiftUI buttons:
-        // Log reaction button
-        // Save to collection button (Below log to reaction)
+        let buttonsStackView = UIStackView()
+        buttonsStackView.axis = .vertical
+        buttonsStackView.spacing = 8
+        buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(buttonsStackView)
+        
+        // Add Log Reaction button
+        addChild(logReactionHostingController)
+        buttonsStackView.addArrangedSubview(logReactionHostingController.view)
+        logReactionHostingController.didMove(toParent: self)
+        
+        // Add Save to Collections button
+        addChild(saveToCollectionsHostingController)
+        buttonsStackView.addArrangedSubview(saveToCollectionsHostingController.view)
+        saveToCollectionsHostingController.didMove(toParent: self)
+        
+        NSLayoutConstraint.activate([
+            buttonsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            buttonsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            buttonsStackView.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 24),
+            buttonsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24)
+        ])
+    }
+    
+    private func hideAddToLogButton() {
+        logReactionHostingController.view.isHidden = true
+    }
+    
+    private func showAddToLogButton() {
+        logReactionHostingController.view.isHidden = false
     }
     
     private func setupHorizontalConstraints(for view: UIView, topAnchor: NSLayoutYAxisAnchor, topConstant: CGFloat, leadingConstant: CGFloat = 16, trailingConstant: CGFloat = -16, bottomAnchor: NSLayoutYAxisAnchor? = nil, bottomConstant: CGFloat = 0) {
