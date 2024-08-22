@@ -16,10 +16,6 @@ struct BabyMealDetailVCRepresentable: UIViewControllerRepresentable {
             ingredients: [
                 "Sweet potato, 3 pcs, very high quality and allergen free",
                 "Breast milk, 2 tbsp",
-                "Breast milk, 2 tbsp",
-                "Breast milk, 2 tbsp",
-                "Breast milk, 2 tbsp",
-                "Breast milk, 2 tbsp"
             ],
             allergens: ["Milk"],
             cookingSteps: "1. Wash and peel the sweet potato.\n2. Cut into small cubes.\n3. Steam until soft, about 15 minutes.\n4. Mash or puree the sweet potato.\n5. Add breast milk or formula to achieve desired consistency.",

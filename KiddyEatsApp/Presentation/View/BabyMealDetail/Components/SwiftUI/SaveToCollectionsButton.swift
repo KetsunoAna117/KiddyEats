@@ -31,7 +31,7 @@ struct SaveToCollectionsButton: View {
             vm.checkIfAlreadyFavorite(modelContext: modelContext, babyMealID: babyMeal.id)
         }) {
             if vm.isFavorited {
-                Text("Added to collections")
+                Text("Remove recipe")
                     .font(.system(size: 12))
                     .fontWeight(.bold)
             }

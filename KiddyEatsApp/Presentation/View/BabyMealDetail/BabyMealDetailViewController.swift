@@ -10,7 +10,6 @@ class BabyMealDetailViewController: UIViewController {
         return UIColor(named: named) ?? .systemBackground
     }
     private let contentView = UIView()
-    
     private let emojiLabel = EmojiUILabel()
     private let allergensView = AllergensUIView()
     private let reactionsView = ReactionsUIView()
@@ -18,12 +17,12 @@ class BabyMealDetailViewController: UIViewController {
     private let ingredientsLabel = BulletListUILabel()
     private let cookingInstructionsLabel = NumberedListUILabel()
     private var saveToCollectionsHostingController: SaveToCollectionsHostingController?
-    
     private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.square"), title: "Recipe Information", color: .label)
     private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "note.text"), title: "Ingredients", color: .label)
     private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "frying.pan"), title: "Cooking Instructions", color: .label)
     
     private var babyMeal: BabyMeal
+    private var reactions: [String]
     
     init(babyMeal: BabyMeal) {
         self.viewModel = BabyMealDetailViewModel(
@@ -32,6 +31,7 @@ class BabyMealDetailViewController: UIViewController {
             getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
         )
         self.babyMeal = babyMeal
+        self.reactions = []
         super.init(nibName: nil, bundle: nil)
         self.title = babyMeal.name
     }
