@@ -51,3 +51,7 @@ struct SaveToCollectionsButton: View {
         print("Save to collections")
     }
 }
+
+#Preview {
+    
+}
