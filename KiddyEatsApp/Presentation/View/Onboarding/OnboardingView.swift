@@ -20,6 +20,7 @@ struct OnboardingView: View {
     @State private var currentTab: Int = 0
     @State private var buttonPrompt: String = "Personalize for your baby"
     @State private var isButtonDisabled: Bool = false
+    @State private var isProminentStyle: Bool = true
     
     var onBoardingCompleted: () -> Void
     
@@ -64,18 +65,33 @@ struct OnboardingView: View {
                     .indexViewStyle(.page(backgroundDisplayMode: .always))
                     
                     // Only continue if the value is not nil
-                    if isButtonDisabled == false {
-                        Button(action: {
-                            withAnimation(.easeInOut) {
-                                goToNextPage()
-                            }
-                            
-                        }, label: {
-                            Text(buttonPrompt)
-                        })
-                        .padding(.horizontal, 30)
-                        .padding(.bottom, 30)
-                        .buttonStyle(KiddyEatsProminentButtonStyle())
+                    if isButtonDisabled == false || currentTab == 0 {
+                        if isProminentStyle {
+                            Button(action: {
+                                withAnimation(.linear) {
+                                    goToNextPage()
+                                }
+                                
+                            }, label: {
+                                Text(buttonPrompt)
+                            })
+                            .padding(.horizontal, 30)
+                            .padding(.bottom, 30)
+                            .buttonStyle(KiddyEatsProminentButtonStyle())
+                        }
+                        else {
+                            Button(action: {
+                                withAnimation(.linear) {
+                                    goToNextPage()
+                                }
+                                
+                            }, label: {
+                                Text(buttonPrompt)
+                            })
+                            .padding(.horizontal, 30)
+                            .padding(.bottom, 30)
+                            .buttonStyle(KiddyEatsBorderedButtonStyle())
+                        }
                     }
                     
                 }
@@ -123,10 +139,13 @@ struct OnboardingView: View {
         switch currentTab {
         case 0:
             self.buttonPrompt = "Personalize for your baby"
+            self.isProminentStyle = true
         case 1...2:
             self.buttonPrompt = "Continue"
+            self.isProminentStyle = false
         case 3:
             self.buttonPrompt = "Let's start cooking"
+            self.isProminentStyle = true
         default:
             self.buttonPrompt = ""
         }
