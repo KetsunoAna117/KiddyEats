@@ -49,12 +49,11 @@ struct KiddyEatsBorderlessButtonStyle: ButtonStyle {
             .fontWeight(.bold)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 15)
-            .background(Color.clear) // Set background color to accent color
+            .background(.appBackground) // Set background color to accent color
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
             .animation(.spring(), value: configuration.isPressed)
     }
 }
-
 
 struct KiddyEatsBorderedButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {

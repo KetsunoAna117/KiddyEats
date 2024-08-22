@@ -3,8 +3,22 @@ import SwiftUI
 
 
 class BabyMealDetailViewController: UIViewController {
-    private let viewModel: BabyMealDetailViewModel
+    
+    private let babyMealVmd = BabyMealDetailDelegateViewModel(
+        saveBabyMealUseCase: SaveBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
+        deleteBabyMealUseCase: DeleteBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
+        getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
+    )    
+
     private let scrollView = UIScrollView()
+    private var isReactionsVisible = true
+    
+    private func scrollToBottom() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            let bottomOffset = CGPoint(x: 0, y: self.scrollView.contentSize.height - self.scrollView.bounds.size.height)
+            self.scrollView.setContentOffset(bottomOffset, animated: true)
+        }
+    }
     
     private func color(named: String) -> UIColor {
         return UIColor(named: named) ?? .systemBackground
@@ -16,25 +30,28 @@ class BabyMealDetailViewController: UIViewController {
     private let recipeInfoLabel = BulletListUILabel()
     private let ingredientsLabel = BulletListUILabel()
     private let cookingInstructionsLabel = NumberedListUILabel()
-    private var logReactionHostingController: SaveToCollectionsHostingController?
-    private var saveToCollectionsHostingController: SaveToCollectionsHostingController?
+    
+    private var afterInit = 0
+    
+    private lazy var logReactionHostingController: SwiftUIButtonController = {
+        let logReactionButton = AnyView(LogReactionButton(babyMeal: self.babyMealVmd.babyMeal, vmd: self.babyMealVmd))
+        return SwiftUIButtonController(rootView: logReactionButton)
+    }()
+    
+    private lazy var saveToCollectionsHostingController: SwiftUIButtonController = {
+        let saveToCollectionsButton = AnyView(
+            MealDetailSaveToCollectionsButton(babyMeal: self.babyMealVmd.babyMeal, vmd: self.babyMealVmd)
+        )
+        return SwiftUIButtonController(rootView: saveToCollectionsButton)
+    }()
     private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.square"), title: "Recipe Information", color: .label)
     private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "note.text"), title: "Ingredients", color: .label)
     private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "frying.pan"), title: "Cooking Instructions", color: .label)
     
-    private var babyMeal: BabyMeal
-    private var reactions: [String]
-    
     init(babyMeal: BabyMeal) {
-        self.viewModel = BabyMealDetailViewModel(
-            saveBabyMealUseCase: SaveBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
-            deleteBabyMealUseCase: DeleteBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
-            getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
-        )
-        self.babyMeal = babyMeal
-        self.reactions = []
         super.init(nibName: nil, bundle: nil)
-        self.title = babyMeal.name
+        self.babyMealVmd.babyMeal = babyMeal
+        self.title = self.babyMealVmd.babyMeal.name
     }
     
     required init?(coder: NSCoder) {
@@ -44,7 +61,12 @@ class BabyMealDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .appBackground
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupUI()
+        updateButtonsBasedOnFavoritedStatus()
     }
     
     private func setupUI() {
@@ -59,18 +81,61 @@ class BabyMealDetailViewController: UIViewController {
         setupCookingInstructionsHeader()
         setupCookingInstructionsLabel()
         setupButtons()
+        setupBinds()
+        updateButtonsBasedOnFavoritedStatus()
+    }
+    
+    private func setupBinds() {
+        babyMealVmd.reactionsDidChange = { [weak self] updatedReaction in
+            print("New reaction in VC: \(updatedReaction)")
+            guard let self = self else {
+                return
+            }
+            self.babyMealVmd.babyMeal.reactionList = updatedReaction
+            self.reactionsView.setReactions(updatedReaction)
+        }
+        
+        babyMealVmd.isFavoritedDidChange = { [weak self] isFavorited in
+            guard let self = self else { return }
+            
+            if isFavorited {
+                showAddToLogButton()
+                if afterInit >= 2 {
+                    scrollToBottom()
+                }
+                afterInit += 1
+            } else {
+                hideAddToLogButton()
+            }
+        }
+    }
+    
+    private func updateButtonsBasedOnFavoritedStatus() {
+        print("isFavorited status: \(babyMealVmd.isFavorited)")
+        // Always show the Log Reaction button
+        showAddToLogButton()
+        
+        if babyMealVmd.isFavorited {
+            scrollToBottom()
+        }
     }
     
     private func setupReactionsView() {
         contentView.addSubview(reactionsView)
         reactionsView.translatesAutoresizingMaskIntoConstraints = false
-        reactionsView.setReactions(babyMeal.reactionList)
+        reactionsView.setReactions(self.babyMealVmd.babyMeal.reactionList)
         
         NSLayoutConstraint.activate([
-            reactionsView.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 16),
+            reactionsView.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 0),
             reactionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             reactionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
+        
+        reactionsView.isHidden = false
+    }
+    
+    private func areReactionsEmpty() -> Bool {
+        return self.babyMealVmd.babyMeal.reactionList.isEmpty
     }
 
     private func setupScrollView() {
@@ -96,7 +161,7 @@ class BabyMealDetailViewController: UIViewController {
     private func setupEmojiLabel() {
         contentView.addSubview(emojiLabel)
         emojiLabel.translatesAutoresizingMaskIntoConstraints = false
-        emojiLabel.text = babyMeal.emoji
+        emojiLabel.text = self.babyMealVmd.babyMeal.emoji
         
         NSLayoutConstraint.activate([
             emojiLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -109,7 +174,7 @@ class BabyMealDetailViewController: UIViewController {
     private func setupAllergensView() {
         contentView.addSubview(allergensView)
         allergensView.translatesAutoresizingMaskIntoConstraints = false
-        allergensView.setAllergens(babyMeal.allergens)
+        allergensView.setAllergens(self.babyMealVmd.babyMeal.allergens)
         
         setupHorizontalConstraints(for: allergensView, topAnchor: emojiLabel.bottomAnchor, topConstant: 16)
     }
@@ -125,8 +190,8 @@ class BabyMealDetailViewController: UIViewController {
         contentView.addSubview(recipeInfoLabel)
         recipeInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         let recipeInfoItems = [
-            "Serving size: \(babyMeal.servingSize)",
-            "Estimated cooking time: \(babyMeal.estimatedCookingTimeMinutes) mins"
+            "Serving size: \(self.babyMealVmd.babyMeal.servingSize)",
+            "Estimated cooking time: \(self.babyMealVmd.babyMeal.estimatedCookingTimeMinutes) mins"
         ]
         recipeInfoLabel.setItems(recipeInfoItems)
         
@@ -143,7 +208,7 @@ class BabyMealDetailViewController: UIViewController {
     private func setupIngredientsLabel() {
         contentView.addSubview(ingredientsLabel)
         ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
-        ingredientsLabel.setItems(babyMeal.ingredients)
+        ingredientsLabel.setItems(self.babyMealVmd.babyMeal.ingredients)
         
         setupHorizontalConstraints(for: ingredientsLabel, topAnchor: ingredientsHeader.bottomAnchor, topConstant: 8, leadingConstant: 24)
     }
@@ -158,56 +223,47 @@ class BabyMealDetailViewController: UIViewController {
     private func setupCookingInstructionsLabel() {
         contentView.addSubview(cookingInstructionsLabel)
         cookingInstructionsLabel.translatesAutoresizingMaskIntoConstraints = false
-        cookingInstructionsLabel.setItems(babyMeal.cookingSteps.components(separatedBy: "\n"))
+        cookingInstructionsLabel.setItems(self.babyMealVmd.babyMeal.cookingSteps.components(separatedBy: "\n"))
         
         setupHorizontalConstraints(for: cookingInstructionsLabel, topAnchor: cookingInstructionsHeader.bottomAnchor, topConstant: 8, leadingConstant: 24)
     }
     
     private func setupButtons() {
-        let logReactionButton = AnyView(LogReactionButton(babyMeal: babyMeal)
-            .buttonStyle(KiddyEatsProminentButtonStyle()))
+        let buttonsStackView = UIStackView()
+        buttonsStackView.axis = .vertical
+        buttonsStackView.spacing = 8
+        buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        let saveToCollectionsButton = AnyView(SaveToCollectionsButton(babyMeal: babyMeal)
-            .buttonStyle(KiddyEatsProminentButtonStyle()))
+        contentView.addSubview(buttonsStackView)
         
-        logReactionHostingController = SaveToCollectionsHostingController(rootView: logReactionButton)
-        saveToCollectionsHostingController = SaveToCollectionsHostingController(rootView: saveToCollectionsButton)
+        // Add Log Reaction button
+        addChild(logReactionHostingController)
+        buttonsStackView.addArrangedSubview(logReactionHostingController.view)
+        logReactionHostingController.didMove(toParent: self)
+        logReactionHostingController.view.isHidden = false  // Ensure it's visible by default
         
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        // Add Save to Collections button
+        addChild(saveToCollectionsHostingController)
+        buttonsStackView.addArrangedSubview(saveToCollectionsHostingController.view)
+        saveToCollectionsHostingController.didMove(toParent: self)
         
-        if let logReactionView = logReactionHostingController?.view,
-           let saveToCollectionsView = saveToCollectionsHostingController?.view {
-            stackView.addArrangedSubview(logReactionView)
-            stackView.addArrangedSubview(saveToCollectionsView)
-            
-            contentView.addSubview(stackView)
-            
-            NSLayoutConstraint.activate([
-                stackView.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 16),
-                stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-                stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-                stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
-            ])
-            
-            logReactionHostingController?.onHeightChange = { [weak self] height in
-                logReactionView.heightAnchor.constraint(equalToConstant: height).isActive = true
-                self?.view.layoutIfNeeded()
-            }
-            
-            saveToCollectionsHostingController?.onHeightChange = { [weak self] height in
-                saveToCollectionsView.heightAnchor.constraint(equalToConstant: height).isActive = true
-                self?.view.layoutIfNeeded()
-            }
-        }
+        NSLayoutConstraint.activate([
+            buttonsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            buttonsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            buttonsStackView.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 24),
+            buttonsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24)
+        ])
         
-        addChild(logReactionHostingController!)
-        logReactionHostingController?.didMove(toParent: self)
-        
-        addChild(saveToCollectionsHostingController!)
-        saveToCollectionsHostingController?.didMove(toParent: self)
+        // Ensure buttons are visible
+        updateButtonsBasedOnFavoritedStatus()
+    }
+    
+    private func hideAddToLogButton() {
+        logReactionHostingController.view.isHidden = true
+    }
+    
+    private func showAddToLogButton() {
+        logReactionHostingController.view.isHidden = false
     }
     
     private func setupHorizontalConstraints(for view: UIView, topAnchor: NSLayoutYAxisAnchor, topConstant: CGFloat, leadingConstant: CGFloat = 16, trailingConstant: CGFloat = -16, bottomAnchor: NSLayoutYAxisAnchor? = nil, bottomConstant: CGFloat = 0) {

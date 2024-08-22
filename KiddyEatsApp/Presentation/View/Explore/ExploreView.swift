@@ -105,7 +105,7 @@ struct ExploreView: View {
             if exploreVM.babyMeals.isEmpty && exploreVM.errorMessage == nil {
                 Task {
                     // NOTE: Uncomment this to make it refresh on appear
-//                    try? await exploreVM.refreshRecommendations()
+                    try? await exploreVM.refreshRecommendations()
                 }
             }
         }
