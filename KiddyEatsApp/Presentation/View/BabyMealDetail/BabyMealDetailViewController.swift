@@ -22,8 +22,9 @@ class BabyMealDetailViewController: UIViewController {
     private let recipeInfoLabel = BulletListUILabel()
     private let ingredientsLabel = BulletListUILabel()
     private let cookingInstructionsLabel = NumberedListUILabel()
+    
     private lazy var logReactionHostingController: SwiftUIButtonController = {
-        let logReactionButton = AnyView(LogReactionButton(babyMeal: self.viewModel.babyMeal).background(.clear.opacity(0)))
+        let logReactionButton = AnyView(LogReactionButton(babyMeal: self.viewModel.babyMeal))
         return SwiftUIButtonController(rootView: logReactionButton)
     }()
     
@@ -91,8 +92,7 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func updateButtonsBasedOnFavoritedStatus() {
-        // TODO: If is favorited, show add to log button above save to collection button
-        // Play with visibility.
+        // Dont touch this
     }
     
     private func setupReactionsView() {
@@ -208,49 +208,9 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func setupButtons() {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Remove all existing arranged subviews
-        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        
-        if viewModel.isFavorited {
-            stackView.addArrangedSubview(logReactionHostingController.view)
-        }
-        
-        stackView.addArrangedSubview(saveToCollectionsHostingController.view)
-        
-        // Setup height change handlers
-        logReactionHostingController.onHeightChange = { [weak self] height in
-            self?.logReactionHostingController.view.heightAnchor.constraint(equalToConstant: height).isActive = true
-            self?.view.layoutIfNeeded()
-        }
-        
-        saveToCollectionsHostingController.onHeightChange = { [weak self] height in
-            self?.saveToCollectionsHostingController.view.heightAnchor.constraint(equalToConstant: height).isActive = true
-            self?.view.layoutIfNeeded()
-        }
-        
-        // Add child view controllers
-        addChild(logReactionHostingController)
-        logReactionHostingController.didMove(toParent: self)
-        
-        addChild(saveToCollectionsHostingController)
-        saveToCollectionsHostingController.didMove(toParent: self)
-        
-        // Remove existing stackView if it exists
-        contentView.subviews.first(where: { $0 is UIStackView })?.removeFromSuperview()
-        
-        contentView.addSubview(stackView)
-        
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 16),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
-        ])
+        // TODO: At the bottom, add these SwiftUI buttons:
+        // Log reaction button
+        // Save to collection button (Below log to reaction)
     }
     
     private func setupHorizontalConstraints(for view: UIView, topAnchor: NSLayoutYAxisAnchor, topConstant: CGFloat, leadingConstant: CGFloat = 16, trailingConstant: CGFloat = -16, bottomAnchor: NSLayoutYAxisAnchor? = nil, bottomConstant: CGFloat = 0) {
