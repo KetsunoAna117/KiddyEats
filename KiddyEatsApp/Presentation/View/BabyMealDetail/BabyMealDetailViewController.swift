@@ -65,10 +65,13 @@ class BabyMealDetailViewController: UIViewController {
         reactionsView.translatesAutoresizingMaskIntoConstraints = false
         reactionsView.setReactions(babyMeal.reactionList)
         
-        setupHorizontalConstraints(for: reactionsView, topAnchor: allergensView.bottomAnchor, topConstant: 16)
+        NSLayoutConstraint.activate([
+            reactionsView.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 16),
+            reactionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            reactionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+        ])
     }
 
-    
     private func setupScrollView() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -114,7 +117,7 @@ class BabyMealDetailViewController: UIViewController {
         contentView.addSubview(recipeInfoHeader)
         recipeInfoHeader.translatesAutoresizingMaskIntoConstraints = false
         
-        setupHorizontalConstraints(for: recipeInfoHeader, topAnchor: allergensView.bottomAnchor, topConstant: 24)
+        setupHorizontalConstraints(for: recipeInfoHeader, topAnchor: reactionsView.bottomAnchor, topConstant: 24)
     }
     
     private func setupRecipeInfoLabel() {
@@ -169,7 +172,12 @@ class BabyMealDetailViewController: UIViewController {
             contentView.addSubview(hostingView)
             hostingView.translatesAutoresizingMaskIntoConstraints = false
             
-            setupHorizontalConstraints(for: hostingView, topAnchor: cookingInstructionsLabel.bottomAnchor, topConstant: 16, bottomAnchor: contentView.bottomAnchor, bottomConstant: -16)
+            NSLayoutConstraint.activate([
+                hostingView.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 16),
+                hostingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                hostingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                hostingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+            ])
             
             saveToCollectionsHostingController?.onHeightChange = { [weak self] height in
                 hostingView.heightAnchor.constraint(equalToConstant: height).isActive = true
