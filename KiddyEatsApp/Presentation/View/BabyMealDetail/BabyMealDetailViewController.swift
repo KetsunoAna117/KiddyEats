@@ -13,6 +13,7 @@ class BabyMealDetailViewController: UIViewController {
     
     private let emojiLabel = EmojiUILabel()
     private let allergensView = AllergensUIView()
+    private let reactionsView = ReactionsUIView()
     private let recipeInfoLabel = BulletListUILabel()
     private let ingredientsLabel = BulletListUILabel()
     private let cookingInstructionsLabel = NumberedListUILabel()
@@ -57,6 +58,12 @@ class BabyMealDetailViewController: UIViewController {
         setupCookingInstructionsLabel()
         setupSaveToCollectionsButton()
     }
+    
+    private func setupReactionsView() {
+        
+    }
+
+    
     private func setupScrollView() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
