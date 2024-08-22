@@ -11,6 +11,7 @@ class BabyMealDetailViewController: UIViewController {
     )    
 
     private let scrollView = UIScrollView()
+    private var isReactionsVisible = false
     
     private func scrollToBottom() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -120,16 +121,32 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func setupReactionsView() {
-        if !areReactionsEmpty() {
-            contentView.addSubview(reactionsView)
-            reactionsView.translatesAutoresizingMaskIntoConstraints = false
-            reactionsView.setReactions(self.babyMealVmd.babyMeal.reactionList)
-            
-            NSLayoutConstraint.activate([
-                reactionsView.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 0),
-                reactionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-                reactionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
-            ])
+        contentView.addSubview(reactionsView)
+        reactionsView.translatesAutoresizingMaskIntoConstraints = false
+        reactionsView.setReactions(self.babyMealVmd.babyMeal.reactionList)
+        
+        NSLayoutConstraint.activate([
+            reactionsView.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 0),
+            reactionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            reactionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+        ])
+        
+        reactionsView.isHidden = areReactionsEmpty() || !isReactionsVisible
+    }
+    
+    func showReactions() {
+        isReactionsVisible = true
+        UIView.animate(withDuration: 0.3) {
+            self.reactionsView.isHidden = false
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func hideReactions() {
+        isReactionsVisible = false
+        UIView.animate(withDuration: 0.3) {
+            self.reactionsView.isHidden = true
+            self.view.layoutIfNeeded()
         }
     }
     
