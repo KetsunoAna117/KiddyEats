@@ -127,5 +127,20 @@ extension BabyMeal {
         return result
     }
     
+    func toString() -> String {
+        return """
+        BabyMeal:
+        - ID: \(id)
+        - Name: \(name) \(emoji)
+        - Ingredients: \(ingredients.joined(separator: ", "))
+        - Allergens: \(allergens.joined(separator: ", "))
+        - Cooking Steps: \(cookingSteps)
+        - Serving Size: \(servingSize)
+        - Estimated Cooking Time: \(estimatedCookingTimeMinutes) minutes
+        - Is Allergic: \(isAllergic)
+        - Has Filled Reaction: \(hasFilledReaction)
+        - Reaction List: \(reactionList.joined(separator: ", "))
+        """
+    }
     
 }

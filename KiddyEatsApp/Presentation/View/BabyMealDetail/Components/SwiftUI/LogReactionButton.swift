@@ -10,6 +10,7 @@ import SwiftUI
 
 struct LogReactionButton: View {
     let babyMeal: BabyMeal
+    let vmd: BabyMealDetailDelegateViewModel
     
     @Environment(\.modelContext) var modelContext
     
@@ -21,12 +22,20 @@ struct LogReactionButton: View {
     
     var body: some View {
         NavigationLink {
-            ReactionFormView(babyMeal: babyMeal)
+            ReactionFormView(vm: vm, babyMeal: babyMeal)
         } label: {
             Text(babyMeal.reactionList.isEmpty ? "Log Reaction" : "Update Reaction")
                 .font(.system(size: 12))
                 .fontWeight(.bold)
         }
         .buttonStyle(KiddyEatsProminentButtonStyle())
+        .onChange(of: vm.reactionDetails) {
+            let reactions = vm.reactionDetails.compactMap {
+                $0.rawValue
+            }
+            print("Reaction change: \(reactions)")
+
+            vmd.reactionsDidChange?(reactions)
+        }
     }
 }

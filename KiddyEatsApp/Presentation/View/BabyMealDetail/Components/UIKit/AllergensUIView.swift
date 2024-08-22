@@ -24,7 +24,9 @@ class AllergensUIView: UIView {
     
     private func configure() {
         backgroundColor = UIColor(named: "GreenSecondary")
-        layer.cornerRadius = 8
+        
+        layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        layer.cornerRadius = 15
         
         stackView.axis = .vertical
         stackView.spacing = 4

@@ -48,6 +48,7 @@ import SwiftData
                 reactionList: reactionDetails
             )
             updateAllergenUseCase.execute(modelContext: modelContext, allergyList: selectedBabyMeal.allergens)
+            checkReaction(modelContext: modelContext, babyMealID: selectedBabyMeal.id)
         }
         else {
             print("Failed to update baby allergen, selected baby meal is nil")
@@ -56,6 +57,7 @@ import SwiftData
     
     func checkReaction(modelContext: ModelContext, babyMealID: UUID){
         guard let fetchedBabyMeal = getBabyMealUseCase.execute(modelContext: modelContext, id: babyMealID) else {
+            print("Can't check reaction")
             return
         }
         reactionDetails = fetchedBabyMeal.reactionList.compactMap { rawValue in

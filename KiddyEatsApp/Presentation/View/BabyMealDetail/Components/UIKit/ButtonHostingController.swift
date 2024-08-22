@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-class SaveToCollectionsHostingController: UIHostingController<AnyView> {
+class SwiftUIButtonController: UIHostingController<AnyView> {
     var onHeightChange: ((CGFloat) -> Void)?
     
     override func viewDidLayoutSubviews() {

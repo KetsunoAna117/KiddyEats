@@ -12,14 +12,14 @@ struct ReactionFormView: View {
     @Environment(\.dismiss) private var dismiss
     
     let totalPages: Int = 2
-    @State private var currentTab: Int = 1
-    @State private var buttonPrompt: String = "Save reactions"
-    @State private var vm = ReactionLoggerViewModel(
+    @State var vm = ReactionLoggerViewModel(
         updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared),
         getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared),
         updateAllergenUseCase: UpdateBabyAllergenData(repo: BabyProfileRepositoryImpl.shared)
     )
     
+    @State private var currentTab: Int = 1
+    @State private var buttonPrompt: String = "Save reactions"
     @State private var isProminentStyle: Bool = true
     
     var babyMeal: BabyMeal
@@ -117,9 +117,9 @@ struct ReactionFormView: View {
         if currentTab < totalPages {
             currentTab += 1
             changeButtonPrompt()
+            vm.updateBabyMealReaction(modelContext: modelContext)
         }
         else {
-            vm.updateBabyMealReaction(modelContext: modelContext)
             dismiss()
             UIScrollView.appearance().isScrollEnabled = true
         }
