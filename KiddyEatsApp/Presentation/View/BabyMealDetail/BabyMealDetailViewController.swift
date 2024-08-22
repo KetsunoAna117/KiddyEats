@@ -42,6 +42,7 @@ class BabyMealDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .appBackground
         setupUI()
+        updateButtonsBasedOnFavoritedStatus()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,15 +65,41 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func setupBinds() {
-        viewModel.babyMealDidChange = { newValue in
-            print("isFavorited changed to: \(newValue)")
+        viewModel.babyMealDidChange = { [weak self] newValue in
+            guard let self = self else { return }
+            print("babyMeal changed to: \(newValue)")
             self.reactionsView.setReactions(self.viewModel.babyMeal.reactionList)
+            self.updateButtonsBasedOnFavoritedStatus()
         }
         
-        viewModel.isFavoritedDidChange = { newValue in
+        viewModel.isFavoritedDidChange = { [weak self] newValue in
+            guard let self = self else { return }
             print("isFavorited changed to: \(newValue)")
-            // Perform any necessary updates
+            self.updateButtonsBasedOnFavoritedStatus()
         }
+    }
+    
+    private func updateButtonsBasedOnFavoritedStatus() {
+        if viewModel.isFavorited {
+            // Show Log Reaction button and change Save to Collections to Remove
+            let logReactionButton = AnyView(LogReactionButton(babyMeal: self.viewModel.babyMeal).background(.clear.opacity(0)))
+            logReactionHostingController = SwiftUIButtonController(rootView: logReactionButton)
+            
+            let removeFromCollectionsButton = AnyView(
+                MealDetailSaveToCollectionsButton(babyMeal: self.viewModel.babyMeal)
+            )
+            saveToCollectionsHostingController = SwiftUIButtonController(rootView: removeFromCollectionsButton)
+        } else {
+            // Remove Log Reaction button and change to Save to Collections
+            logReactionHostingController = nil
+            
+            let saveToCollectionsButton = AnyView(
+                MealDetailSaveToCollectionsButton(babyMeal: self.viewModel.babyMeal)
+            )
+            saveToCollectionsHostingController = SwiftUIButtonController(rootView: saveToCollectionsButton)
+        }
+        
+        setupButtons()
     }
     
     private func setupReactionsView() {
@@ -188,54 +215,49 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func setupButtons() {
-        let saveToCollectionsButton = AnyView(
-            MealDetailSaveToCollectionsButton(babyMeal: self.viewModel.babyMeal)
-        )
-
-        saveToCollectionsHostingController = SwiftUIButtonController(rootView: saveToCollectionsButton)
-        
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        if let saveToCollectionsView = saveToCollectionsHostingController?.view {
-            if viewModel.isFavorited {
-                let logReactionButton = AnyView(LogReactionButton(babyMeal: self.viewModel.babyMeal).background(.clear.opacity(0)))
-                logReactionHostingController = SwiftUIButtonController(rootView: logReactionButton)
-                
-                if let logReactionView = logReactionHostingController?.view {
-                    stackView.addArrangedSubview(logReactionView)
-                    
-                    logReactionHostingController?.onHeightChange = { [weak self] height in
-                        logReactionView.heightAnchor.constraint(equalToConstant: height).isActive = true
-                        self?.view.layoutIfNeeded()
-                    }
-                    
-                    addChild(logReactionHostingController!)
-                    logReactionHostingController?.didMove(toParent: self)
-                }
+        // Remove all existing arranged subviews
+        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        
+        if let logReactionView = logReactionHostingController?.view {
+            stackView.addArrangedSubview(logReactionView)
+            
+            logReactionHostingController?.onHeightChange = { [weak self] height in
+                logReactionView.heightAnchor.constraint(equalToConstant: height).isActive = true
+                self?.view.layoutIfNeeded()
             }
             
+            addChild(logReactionHostingController!)
+            logReactionHostingController?.didMove(toParent: self)
+        }
+        
+        if let saveToCollectionsView = saveToCollectionsHostingController?.view {
             stackView.addArrangedSubview(saveToCollectionsView)
-            
-            contentView.addSubview(stackView)
-            
-            NSLayoutConstraint.activate([
-                stackView.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 16),
-                stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-                stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-                stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
-            ])
             
             saveToCollectionsHostingController?.onHeightChange = { [weak self] height in
                 saveToCollectionsView.heightAnchor.constraint(equalToConstant: height).isActive = true
                 self?.view.layoutIfNeeded()
             }
+            
+            addChild(saveToCollectionsHostingController!)
+            saveToCollectionsHostingController?.didMove(toParent: self)
         }
         
-        addChild(saveToCollectionsHostingController!)
-        saveToCollectionsHostingController?.didMove(toParent: self)
+        // Remove existing stackView if it exists
+        contentView.subviews.first(where: { $0 is UIStackView })?.removeFromSuperview()
+        
+        contentView.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 16),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+        ])
     }
     
     private func setupHorizontalConstraints(for view: UIView, topAnchor: NSLayoutYAxisAnchor, topConstant: CGFloat, leadingConstant: CGFloat = 16, trailingConstant: CGFloat = -16, bottomAnchor: NSLayoutYAxisAnchor? = nil, bottomConstant: CGFloat = 0) {
