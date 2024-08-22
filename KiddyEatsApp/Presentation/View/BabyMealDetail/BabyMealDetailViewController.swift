@@ -66,7 +66,7 @@ class BabyMealDetailViewController: UIViewController {
     private func setupBinds() {
         viewModel.babyMealDidChange = { newValue in
             print("isFavorited changed to: \(newValue)")
-            // Perform any necessary updates
+            self.reactionsView.setReactions(self.viewModel.babyMeal.reactionList)
         }
         
         viewModel.isFavoritedDidChange = { newValue in
