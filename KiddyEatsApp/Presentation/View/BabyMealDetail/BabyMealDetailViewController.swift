@@ -50,6 +50,7 @@ class BabyMealDetailViewController: UIViewController {
         setupScrollView()
         setupEmojiLabel()
         setupAllergensView()
+        setupReactionsView()
         setupRecipeInfoHeader()
         setupRecipeInfoLabel()
         setupIngredientsHeader()
@@ -60,7 +61,11 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func setupReactionsView() {
+        contentView.addSubview(reactionsView)
+        reactionsView.translatesAutoresizingMaskIntoConstraints = false
+        reactionsView.setReactions(babyMeal.reactionList)
         
+        setupHorizontalConstraints(for: reactionsView, topAnchor: allergensView.bottomAnchor, topConstant: 16)
     }
 
     

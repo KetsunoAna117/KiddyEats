@@ -13,7 +13,7 @@ class ReactionsUIView: UIView {
     private let stackView = UIStackView()
     
     override init(frame: CGRect) {
-        self.headerView = HeaderUIView(icon: UIImage(systemName: "exclamationmark.triangle"), title: "Reaction Summary", color: .label)
+        self.headerView = HeaderUIView(icon: UIImage(systemName: "face.smiling"), title: "Reaction Summary", color: .label)
         super.init(frame: frame)
         configure()
     }
@@ -47,21 +47,21 @@ class ReactionsUIView: UIView {
         ])
     }
     
-    func setAllergens(_ allergens: [String]) {
+    func setReactions(_ reactions: [String]) {
         stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
-        if allergens.isEmpty {
-            let noAllergensLabel = UILabel()
-            noAllergensLabel.text = "No Allergens"
-            noAllergensLabel.font = UIFont.italicSystemFont(ofSize: 14)
-            noAllergensLabel.textColor = .label
-            stackView.addArrangedSubview(noAllergensLabel)
+        if reactions.isEmpty {
+            let noReactionsLabel = UILabel()
+            noReactionsLabel.text = "No reactions recorded"
+            noReactionsLabel.font = UIFont.italicSystemFont(ofSize: 14)
+            noReactionsLabel.textColor = .label
+            stackView.addArrangedSubview(noReactionsLabel)
         } else {
-            for allergen in allergens {
-                let allergenLabel = UILabel()
-                allergenLabel.text = "• \(allergen)"
-                allergenLabel.textColor = .label
-                stackView.addArrangedSubview(allergenLabel)
+            for reaction in reactions {
+                let reactionLabel = UILabel()
+                reactionLabel.text = "• \(reaction)"
+                reactionLabel.textColor = .label
+                stackView.addArrangedSubview(reactionLabel)
             }
         }
     }
