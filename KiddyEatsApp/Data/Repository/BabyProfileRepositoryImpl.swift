@@ -36,12 +36,24 @@ extension BabyProfileRepositoryImpl: BabyProfileRepositoryProtocol {
 	func updateBabyProfile(modelContext: ModelContext, toUpdateBabyProfile: BabyProfileSchema) {
 		if let existingBabyProfile = getBabyProfile(modelContext: modelContext) {
 			existingBabyProfile.name = toUpdateBabyProfile.name
-			existingBabyProfile.gender = toUpdateBabyProfile.gender
 			existingBabyProfile.allergies = toUpdateBabyProfile.allergies
 			existingBabyProfile.dateOfBirth = toUpdateBabyProfile.dateOfBirth
-			existingBabyProfile.location = toUpdateBabyProfile.location
 			try? modelContext.save()
 		}
 	}
+    
+    func updateBabyAllergies(modelContext: ModelContext, toUpdateAllergies: [String]) {
+        if let existingBabyProfile = getBabyProfile(modelContext: modelContext) {
+            
+            for allergy in toUpdateAllergies {
+                // if already has allergies, don't append
+                if existingBabyProfile.allergies?.contains(allergy) == false {
+                    existingBabyProfile.allergies?.append(allergy)
+                }
+            }
+            
+            try? modelContext.save()
+        }
+    }
 
 }

@@ -32,6 +32,6 @@ struct CollectionRecipeView: View {
 		}
 		.listRowSpacing(10)
 		.scrollContentBackground(.hidden)
-		.padding(.top, -20)
+		.padding(.top, -10)
     }
 }

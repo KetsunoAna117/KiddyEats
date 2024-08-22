@@ -16,7 +16,8 @@ struct ReactionFormView: View {
     @State private var buttonPrompt: String = "Save reactions"
     @State private var vm = ReactionLoggerViewModel(
         updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared),
-        getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
+        getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared),
+        updateAllergenUseCase: UpdateBabyAllergenData(repo: BabyProfileRepositoryImpl.shared)
     )
     
     @State private var isProminentStyle: Bool = true
