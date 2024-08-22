@@ -177,13 +177,10 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func setupButtons() {
-        let logReactionButton = AnyView(LogReactionButton(babyMeal: babyMeal))
-        
         let saveToCollectionsButton = AnyView(
             MealDetailSaveToCollectionsButton(babyMeal: babyMeal)
         )
 
-        logReactionHostingController = SwiftUIButtonController(rootView: logReactionButton)
         saveToCollectionsHostingController = SwiftUIButtonController(rootView: saveToCollectionsButton)
         
         let stackView = UIStackView()
@@ -191,9 +188,24 @@ class BabyMealDetailViewController: UIViewController {
         stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        if let logReactionView = logReactionHostingController?.view,
-           let saveToCollectionsView = saveToCollectionsHostingController?.view {
-            stackView.addArrangedSubview(logReactionView)
+        if let saveToCollectionsView = saveToCollectionsHostingController?.view {
+            if babyMeal.isAddedToCollections {
+                let logReactionButton = AnyView(LogReactionButton(babyMeal: babyMeal))
+                logReactionHostingController = SwiftUIButtonController(rootView: logReactionButton)
+                
+                if let logReactionView = logReactionHostingController?.view {
+                    stackView.addArrangedSubview(logReactionView)
+                    
+                    logReactionHostingController?.onHeightChange = { [weak self] height in
+                        logReactionView.heightAnchor.constraint(equalToConstant: height).isActive = true
+                        self?.view.layoutIfNeeded()
+                    }
+                    
+                    addChild(logReactionHostingController!)
+                    logReactionHostingController?.didMove(toParent: self)
+                }
+            }
+            
             stackView.addArrangedSubview(saveToCollectionsView)
             
             contentView.addSubview(stackView)
@@ -205,19 +217,11 @@ class BabyMealDetailViewController: UIViewController {
                 stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
             ])
             
-            logReactionHostingController?.onHeightChange = { [weak self] height in
-                logReactionView.heightAnchor.constraint(equalToConstant: height).isActive = true
-                self?.view.layoutIfNeeded()
-            }
-            
             saveToCollectionsHostingController?.onHeightChange = { [weak self] height in
                 saveToCollectionsView.heightAnchor.constraint(equalToConstant: height).isActive = true
                 self?.view.layoutIfNeeded()
             }
         }
-        
-        addChild(logReactionHostingController!)
-        logReactionHostingController?.didMove(toParent: self)
         
         addChild(saveToCollectionsHostingController!)
         saveToCollectionsHostingController?.didMove(toParent: self)
