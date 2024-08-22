@@ -13,7 +13,7 @@ class ReactionsUIView: UIView {
     private let stackView = UIStackView()
     
     override init(frame: CGRect) {
-        self.headerView = HeaderUIView(icon: UIImage(systemName: "face.smiling"), title: "Reaction Summary", color: .label)
+        self.headerView = HeaderUIView(icon: UIImage(systemName: "exclamationmark.triangle"), title: "Reaction Summary", color: .label)
         super.init(frame: frame)
         configure()
     }
