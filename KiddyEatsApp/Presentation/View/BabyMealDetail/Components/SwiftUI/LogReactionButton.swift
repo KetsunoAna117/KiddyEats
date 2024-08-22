@@ -13,7 +13,10 @@ struct LogReactionButton: View {
     
     @Environment(\.modelContext) var modelContext
     
-    @State private var vm = ReactionLoggerViewModel(updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared))
+    @State private var vm = ReactionLoggerViewModel(
+        updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared),
+        getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
+    )
     
     var body: some View {
         NavigationLink {

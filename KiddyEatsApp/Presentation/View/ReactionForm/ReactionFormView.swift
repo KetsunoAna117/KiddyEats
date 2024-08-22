@@ -15,7 +15,8 @@ struct ReactionFormView: View {
     @State private var currentTab: Int = 1
     @State private var buttonPrompt: String = "Save reactions"
     @State private var vm = ReactionLoggerViewModel(
-        updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared)
+        updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared),
+        getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
     )
     
     var babyMeal: BabyMeal

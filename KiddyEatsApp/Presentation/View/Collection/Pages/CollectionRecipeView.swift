@@ -18,7 +18,10 @@ struct CollectionRecipeView: View {
 		List {
 			ForEach(babyMeal) { meals in
                 NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meals)
-                    .navigationTitle(meals.name)) {
+                    .navigationTitle(meals.name)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .background(.appBackground)
+                ) {
 					RecipeRowView(viewModel: viewModel, mealRecipe: meals)
 				}
 			}
