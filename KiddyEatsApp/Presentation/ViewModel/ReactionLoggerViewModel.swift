@@ -16,13 +16,16 @@ import SwiftData
     
     // Use Case
     private var updateReactionUseCase: UpdateBabyMealReactionUseCaseProtocol
+    private var getBabyMealUseCase: GetBabymealUseCaseProtocol
     
     init(
-        updateReactionUseCase: UpdateBabyMealReactionUseCaseProtocol
+        updateReactionUseCase: UpdateBabyMealReactionUseCaseProtocol,
+        getBabyMealUseCase: GetBabymealUseCaseProtocol
     ) {
         self.reactionStatus = .unfilled
         self.reactionDetails = []
         self.updateReactionUseCase = updateReactionUseCase
+        self.getBabyMealUseCase = getBabyMealUseCase
     }
     
     func setupBabyMeal(selectedBabyMeal: BabyMeal) {
@@ -37,8 +40,15 @@ import SwiftData
                 reactionList: reactionDetails
             )
         }
-
     }
     
+    func checkReaction(modelContext: ModelContext, babyMealID: UUID){
+        guard let fetchedBabyMeal = getBabyMealUseCase.execute(modelContext: modelContext, id: babyMealID) else {
+            return
+        }
+        reactionDetails = fetchedBabyMeal.reactionList.compactMap { rawValue in
+            ReactionDetails(rawValue: rawValue)
+        }
+    }
     
 }

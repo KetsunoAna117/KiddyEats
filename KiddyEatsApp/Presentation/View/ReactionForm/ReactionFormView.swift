@@ -9,12 +9,14 @@ import SwiftUI
 
 struct ReactionFormView: View {
     @Environment(\.modelContext) var modelContext
+    @Environment(\.dismiss) private var dismiss
     
     let totalPages: Int = 2
     @State private var currentTab: Int = 1
     @State private var buttonPrompt: String = "Save reactions"
     @State private var vm = ReactionLoggerViewModel(
-        updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared)
+        updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared),
+        getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
     )
     
     var babyMeal: BabyMeal
@@ -35,7 +37,11 @@ struct ReactionFormView: View {
                     })
                     .animation(.linear, value: currentTab)
                     .onAppear {
+                        vm.setupBabyMeal(selectedBabyMeal: babyMeal)
                         UIScrollView.appearance().isScrollEnabled = false
+                    }
+                    .onDisappear {
+                        UIScrollView.appearance().isScrollEnabled = true
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     .indexViewStyle(.page(backgroundDisplayMode: .always))
@@ -96,7 +102,7 @@ struct ReactionFormView: View {
         }
         else {
             vm.updateBabyMealReaction(modelContext: modelContext)
-#warning("End of form logic hasn't been implemented")
+            dismiss()
         }
     }
     
@@ -107,7 +113,7 @@ struct ReactionFormView: View {
             
         }
         else {
-#warning("Go back logic from this view hasn't been implemented")
+//#warning("Go back logic from this view hasn't been implemented")
         }
     }
     

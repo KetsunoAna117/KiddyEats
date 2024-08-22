@@ -42,7 +42,7 @@ struct RecipeRowView: View {
 			
 			Spacer()
 			
-			if mealRecipe.isAllergic {
+            if mealRecipe.hasFilledReaction {
 				Image(systemName: "exclamationmark.triangle")
 					.symbolVariant(.fill)
 					.font(.largeTitle)

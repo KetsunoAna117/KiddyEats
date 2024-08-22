@@ -17,8 +17,11 @@ struct CollectionRecipeView: View {
     var body: some View {
 		List {
 			ForEach(babyMeal) { meals in
-				#warning("Wrap UIViewController with UIViewControllerRepresentable and put representable here in destination")
-				NavigationLink(destination: TestMealDetailUIViewControllerRepresentable()) {
+                NavigationLink(destination: MealDetailViewControllerRepresentable(babyMeal: meals)
+                    .navigationTitle(meals.name)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .background(.appBackground)
+                ) {
 					RecipeRowView(viewModel: viewModel, mealRecipe: meals)
 				}
 			}

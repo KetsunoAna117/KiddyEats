@@ -10,19 +10,20 @@ class BabyMealDetailViewController: UIViewController {
         return UIColor(named: named) ?? .systemBackground
     }
     private let contentView = UIView()
-    
     private let emojiLabel = EmojiUILabel()
     private let allergensView = AllergensUIView()
+    private let reactionsView = ReactionsUIView()
     private let recipeInfoLabel = BulletListUILabel()
     private let ingredientsLabel = BulletListUILabel()
     private let cookingInstructionsLabel = NumberedListUILabel()
+    private var logReactionHostingController: SaveToCollectionsHostingController?
     private var saveToCollectionsHostingController: SaveToCollectionsHostingController?
-    
     private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.square"), title: "Recipe Information", color: .label)
     private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "note.text"), title: "Ingredients", color: .label)
     private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "frying.pan"), title: "Cooking Instructions", color: .label)
     
     private var babyMeal: BabyMeal
+    private var reactions: [String]
     
     init(babyMeal: BabyMeal) {
         self.viewModel = BabyMealDetailViewModel(
@@ -31,6 +32,7 @@ class BabyMealDetailViewController: UIViewController {
             getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
         )
         self.babyMeal = babyMeal
+        self.reactions = []
         super.init(nibName: nil, bundle: nil)
         self.title = babyMeal.name
     }
@@ -41,22 +43,51 @@ class BabyMealDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = color(named: "AppBackgroundColor")
+        view.backgroundColor = .appBackground
         setupUI()
     }
     
     private func setupUI() {
+        setupNavigationBar()
         setupScrollView()
         setupEmojiLabel()
         setupAllergensView()
+        setupReactionsView()
         setupRecipeInfoHeader()
         setupRecipeInfoLabel()
         setupIngredientsHeader()
         setupIngredientsLabel()
         setupCookingInstructionsHeader()
         setupCookingInstructionsLabel()
-        setupSaveToCollectionsButton()
+        setupButtons()
     }
+    
+    private func setupNavigationBar() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .appBackground
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.label]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
+        
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        
+        navigationController?.navigationBar.tintColor = .label
+    }
+    
+    private func setupReactionsView() {
+        contentView.addSubview(reactionsView)
+        reactionsView.translatesAutoresizingMaskIntoConstraints = false
+        reactionsView.setReactions(babyMeal.reactionList)
+        
+        NSLayoutConstraint.activate([
+            reactionsView.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 16),
+            reactionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            reactionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+        ])
+    }
+
     private func setupScrollView() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -102,7 +133,7 @@ class BabyMealDetailViewController: UIViewController {
         contentView.addSubview(recipeInfoHeader)
         recipeInfoHeader.translatesAutoresizingMaskIntoConstraints = false
         
-        setupHorizontalConstraints(for: recipeInfoHeader, topAnchor: allergensView.bottomAnchor, topConstant: 24)
+        setupHorizontalConstraints(for: recipeInfoHeader, topAnchor: reactionsView.bottomAnchor, topConstant: 24)
     }
     
     private func setupRecipeInfoLabel() {
@@ -147,23 +178,48 @@ class BabyMealDetailViewController: UIViewController {
         setupHorizontalConstraints(for: cookingInstructionsLabel, topAnchor: cookingInstructionsHeader.bottomAnchor, topConstant: 8, leadingConstant: 24)
     }
     
-    private func setupSaveToCollectionsButton() {
+    private func setupButtons() {
+        let logReactionButton = AnyView(LogReactionButton(babyMeal: babyMeal)
+            .buttonStyle(KiddyEatsProminentButtonStyle()))
+        
         let saveToCollectionsButton = AnyView(SaveToCollectionsButton(babyMeal: babyMeal)
             .buttonStyle(KiddyEatsProminentButtonStyle()))
         
+        logReactionHostingController = SaveToCollectionsHostingController(rootView: logReactionButton)
         saveToCollectionsHostingController = SaveToCollectionsHostingController(rootView: saveToCollectionsButton)
         
-        if let hostingView = saveToCollectionsHostingController?.view {
-            contentView.addSubview(hostingView)
-            hostingView.translatesAutoresizingMaskIntoConstraints = false
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        if let logReactionView = logReactionHostingController?.view,
+           let saveToCollectionsView = saveToCollectionsHostingController?.view {
+            stackView.addArrangedSubview(logReactionView)
+            stackView.addArrangedSubview(saveToCollectionsView)
             
-            setupHorizontalConstraints(for: hostingView, topAnchor: cookingInstructionsLabel.bottomAnchor, topConstant: 16, bottomAnchor: contentView.bottomAnchor, bottomConstant: -16)
+            contentView.addSubview(stackView)
+            
+            NSLayoutConstraint.activate([
+                stackView.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 16),
+                stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+            ])
+            
+            logReactionHostingController?.onHeightChange = { [weak self] height in
+                logReactionView.heightAnchor.constraint(equalToConstant: height).isActive = true
+                self?.view.layoutIfNeeded()
+            }
             
             saveToCollectionsHostingController?.onHeightChange = { [weak self] height in
-                hostingView.heightAnchor.constraint(equalToConstant: height).isActive = true
+                saveToCollectionsView.heightAnchor.constraint(equalToConstant: height).isActive = true
                 self?.view.layoutIfNeeded()
             }
         }
+        
+        addChild(logReactionHostingController!)
+        logReactionHostingController?.didMove(toParent: self)
         
         addChild(saveToCollectionsHostingController!)
         saveToCollectionsHostingController?.didMove(toParent: self)
@@ -189,4 +245,5 @@ class BabyMealDetailViewController: UIViewController {
 
 #Preview {
     BabyMealDetailVCRepresentable()
+        .modelContainer(ModelContextManager.createModelContainer())
 }

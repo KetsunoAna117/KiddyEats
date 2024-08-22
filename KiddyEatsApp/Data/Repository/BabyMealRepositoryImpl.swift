@@ -26,6 +26,11 @@ extension BabyMealRepositoryImpl: BabyMealRepositoryProtocol {
             fetchedBabyMeal.hasFilledReaction = true
             try? modelContext.save()
         }
+        
+        if let babyMeal = getBabyMealByID(modelContext: modelContext, toFetchBabyMealID: babyMealID) {
+            print(babyMeal.reactionList)
+        }
+       
     }
     
     func deleteBabyMeal(modelContext: ModelContext, toDeleteBabyMealID: UUID) {
