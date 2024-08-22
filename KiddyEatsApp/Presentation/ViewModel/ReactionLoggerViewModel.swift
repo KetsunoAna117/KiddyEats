@@ -39,11 +39,13 @@ import SwiftData
                 babyMealID: selectedBabyMeal.id,
                 reactionList: reactionDetails
             )
+            checkReaction(modelContext: modelContext, babyMealID: selectedBabyMeal.id)
         }
     }
     
     func checkReaction(modelContext: ModelContext, babyMealID: UUID){
         guard let fetchedBabyMeal = getBabyMealUseCase.execute(modelContext: modelContext, id: babyMealID) else {
+            print("Can't check reaction")
             return
         }
         reactionDetails = fetchedBabyMeal.reactionList.compactMap { rawValue in

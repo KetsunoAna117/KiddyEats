@@ -33,7 +33,7 @@ class BabyMealDetailViewController: UIViewController {
     private var afterInit = 0
     
     private lazy var logReactionHostingController: SwiftUIButtonController = {
-        let logReactionButton = AnyView(LogReactionButton(babyMeal: self.babyMealVmd.babyMeal))
+        let logReactionButton = AnyView(LogReactionButton(babyMeal: self.babyMealVmd.babyMeal, vmd: self.babyMealVmd))
         return SwiftUIButtonController(rootView: logReactionButton)
     }()
     
@@ -49,6 +49,7 @@ class BabyMealDetailViewController: UIViewController {
     
     init(babyMeal: BabyMeal) {
         super.init(nibName: nil, bundle: nil)
+        self.babyMealVmd.babyMeal = babyMeal
         self.title = self.babyMealVmd.babyMeal.name
     }
     
@@ -84,10 +85,19 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func setupBinds() {
-        babyMealVmd.babyMealDidChange = { [weak self] updatedBabyMeal in
-            guard let self = self else { return }
-            self.reactionsView.setReactions(updatedBabyMeal.reactionList)
+        babyMealVmd.reactionsDidChange = { [weak self] updatedReaction in
+            print("New reaction in VC: \(updatedReaction)")
+            guard let self = self else {
+                print("No self!!")
+                return
+            }
+            self.reactionsView.setReactions(updatedReaction)
         }
+        
+//        babyMealVmd.babyMealDidChange = { [weak self] updatedBabyMeal in
+//            guard let self = self else { return }
+//            self.reactionsView.setReactions(updatedBabyMeal.reactionList)
+//        }
         
         babyMealVmd.isFavoritedDidChange = { [weak self] isFavorited in
             guard let self = self else { return }
