@@ -27,6 +27,7 @@ class BabyMealDetailViewModel {
     
     var isFavoritedDidChange: ((Bool) -> Void)?
     var babyMealDidChange: ((BabyMeal) -> Void)?
+    var calledInController: (() -> Void)?
     
     // Use Case
     private var saveBabyMealUseCase: SaveBabyMealUseCaseProtocol
@@ -80,6 +81,11 @@ class BabyMealDetailViewModel {
         }
     }
     
+    func callControllerFunction() {
+        print("callControllerFunction")
+        calledInController?()
+    }
+    
     func saveMeal(modelContext: ModelContext, babyMeal: BabyMeal) {
         saveBabyMealUseCase.execute(modelContext: modelContext, toSaveBabyMeal: babyMeal)
     }
@@ -96,6 +102,7 @@ class BabyMealDetailViewModel {
         else {
             self.isFavorited = true
         }
+        calledInController?()
         isFavoritedDidChange?(self.isFavorited)
     }
 }

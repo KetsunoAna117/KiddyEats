@@ -3,7 +3,13 @@ import SwiftUI
 
 
 class BabyMealDetailViewController: UIViewController {
-    private let viewModel: BabyMealDetailViewModel
+    
+    private let viewModel = BabyMealDetailViewModel(
+        saveBabyMealUseCase: SaveBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
+        deleteBabyMealUseCase: DeleteBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
+        getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
+    )    
+    
     private let scrollView = UIScrollView()
     
     private func color(named: String) -> UIColor {
@@ -23,11 +29,6 @@ class BabyMealDetailViewController: UIViewController {
     private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "frying.pan"), title: "Cooking Instructions", color: .label)
     
     init(babyMeal: BabyMeal) {
-        self.viewModel = BabyMealDetailViewModel(
-            saveBabyMealUseCase: SaveBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
-            deleteBabyMealUseCase: DeleteBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
-            getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
-        )
         self.viewModel.checkIfAlreadyFavoriteUikit(babyMeal: babyMeal)
         self.viewModel.babyMeal = self.viewModel.getBabyMeal(babyMeal: babyMeal)
         super.init(nibName: nil, bundle: nil)
@@ -65,19 +66,29 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func setupBinds() {
-        viewModel.babyMealDidChange = { [weak self] newValue in
-            guard let self = self else { return }
-            print("babyMeal changed to: \(newValue)")
-            self.reactionsView.setReactions(self.viewModel.babyMeal.reactionList)
-            self.updateButtonsBasedOnFavoritedStatus()
+        print("Setup Binds")
+        // ATTENTION START
+        viewModel.callControllerFunction()
+        viewModel.calledInController = {
+            print("calledInController")
+        }
+        viewModel.callControllerFunction()
+        // ATTENTION END
+        viewModel.babyMealDidChange = { newValue in
+            print("Baby meal changed!!")
+
+//            guard let self = self else { return }
+//            print("babyMeal changed to: \(newValue)")
+//            self.reactionsView.setReactions(self.viewModel.babyMeal.reactionList)
+//            self.updateButtonsBasedOnFavoritedStatus()
         }
         
-        viewModel.isFavoritedDidChange = { [weak self] newValue in
-            print("isFavorited changed to: \(newValue)")
-            
-            guard let self = self else { return }
-            print("isFavorited changed to: \(newValue)")
-            self.updateButtonsBasedOnFavoritedStatus()
+        viewModel.isFavoritedDidChange = { newValue in
+            print("isFavorited changed!!")
+//
+//            guard let self = self else { return }
+//            print("isFavorited changed to: \(newValue)")
+//            self.updateButtonsBasedOnFavoritedStatus()
         }
     }
     
