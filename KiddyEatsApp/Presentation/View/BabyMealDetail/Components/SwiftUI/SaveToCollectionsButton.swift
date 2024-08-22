@@ -52,6 +52,3 @@ struct SaveToCollectionsButton: View {
     }
 }
 
-#Preview {
-    
-}

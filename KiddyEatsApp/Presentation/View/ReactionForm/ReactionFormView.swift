@@ -108,6 +108,7 @@ struct ReactionFormView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden()
     }
     
     // MARK: Below are UI Functions to modify the view
@@ -119,6 +120,7 @@ struct ReactionFormView: View {
         else {
             vm.updateBabyMealReaction(modelContext: modelContext)
             dismiss()
+            UIScrollView.appearance().isScrollEnabled = true
         }
     }
     
@@ -129,7 +131,8 @@ struct ReactionFormView: View {
             
         }
         else {
-//#warning("Go back logic from this view hasn't been implemented")
+            dismiss()
+            UIScrollView.appearance().isScrollEnabled = true
         }
     }
     

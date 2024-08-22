@@ -48,7 +48,6 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func setupUI() {
-        setupNavigationBar()
         setupScrollView()
         setupEmojiLabel()
         setupAllergensView()
@@ -60,20 +59,6 @@ class BabyMealDetailViewController: UIViewController {
         setupCookingInstructionsHeader()
         setupCookingInstructionsLabel()
         setupButtons()
-    }
-    
-    private func setupNavigationBar() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .appBackground
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.label]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
-        
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.compactAppearance = appearance
-        
-        navigationController?.navigationBar.tintColor = .label
     }
     
     private func setupReactionsView() {
