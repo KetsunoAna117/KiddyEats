@@ -15,6 +15,30 @@ struct BabyMealRepositoryImpl {
 }
 
 extension BabyMealRepositoryImpl: BabyMealRepositoryProtocol {
+    func saveBabyMeal(modelContext: ModelContext, toSaveBabyMealSchema: BabyMealSchema) {
+        modelContext.insert(toSaveBabyMealSchema)
+        try? modelContext.save()
+    }
+    
+    func updateBabyMealReaction(modelContext: ModelContext, babyMealID: UUID, toUpdateReaction: [String]) {
+        if let fetchedBabyMeal = getBabyMealByID(modelContext: modelContext, toFetchBabyMealID: babyMealID) {
+            fetchedBabyMeal.reactionList = toUpdateReaction
+            fetchedBabyMeal.hasFilledReaction = true
+            try? modelContext.save()
+        }
+    }
+    
+    func deleteBabyMeal(modelContext: ModelContext, toDeleteBabyMealID: UUID) {
+        do {
+            try modelContext.delete(model: BabyMealSchema.self, where: #Predicate{
+                $0.id == toDeleteBabyMealID
+            })
+        } catch {
+            print("Meal already deleted")
+        }
+        
+    }
+    
     func getBabyMealByID(modelContext: ModelContext, toFetchBabyMealID: UUID) -> BabyMealSchema? {
         let descriptor = FetchDescriptor<BabyMealSchema>(
             predicate: #Predicate { $0.id == toFetchBabyMealID }
@@ -27,11 +51,6 @@ extension BabyMealRepositoryImpl: BabyMealRepositoryProtocol {
         return fetchedBabyMealSchema.first
     }
     
-    func saveBabyMeal(modelContext: ModelContext, toSaveBabyMealSchema: BabyMealSchema) {
-        modelContext.insert(toSaveBabyMealSchema)
-        try? modelContext.save()
-    }
-    
     func getBabyMealList(modelContext: ModelContext) -> [BabyMealSchema] {
         let descriptor = FetchDescriptor<BabyMealSchema>()
         
@@ -41,16 +60,5 @@ extension BabyMealRepositoryImpl: BabyMealRepositoryProtocol {
         }
         
         return fetchedBabyMeal
-    }
-    
-    func deleteBabyMeal(modelContext: ModelContext, toDeleteBabyMealID: UUID) {
-        do {
-            try modelContext.delete(model: BabyMealSchema.self, where: #Predicate{
-                $0.id == toDeleteBabyMealID
-            })
-        } catch {
-            print("Meal already deleted")
-        }
-        
     }
 }

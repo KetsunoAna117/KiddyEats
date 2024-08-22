@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct ReactionFormView: View {
+    @Environment(\.modelContext) var modelContext
+    
     let totalPages: Int = 2
     @State private var currentTab: Int = 1
     @State private var buttonPrompt: String = "Save reactions"
-    @State private var vm = ReactionLoggerViewModel()
+    @State private var vm = ReactionLoggerViewModel(
+        updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared)
+    )
+    
+    var babyMeal: BabyMeal
     
     var body: some View {
         ZStack {
@@ -67,6 +73,19 @@ struct ReactionFormView: View {
                 .padding(.horizontal, 30)
             }
         }
+        .onAppear(){
+            if babyMeal.hasFilledReaction {
+                if babyMeal.reactionList.isEmpty {
+                    vm.reactionStatus = .noReaction
+                }
+                else {
+                    vm.reactionStatus = .hadReaction
+                    vm.reactionDetails = babyMeal.reactionList.compactMap { rawString in
+                        ReactionDetails(rawValue: rawString)
+                    }
+                }
+            }
+        }
     }
     
     // MARK: Below are UI Functions to modify the view
@@ -76,7 +95,8 @@ struct ReactionFormView: View {
             changeButtonPrompt()
         }
         else {
-            #warning("End of form logic hasn't been implemented")
+            vm.updateBabyMealReaction(modelContext: modelContext)
+#warning("End of form logic hasn't been implemented")
         }
     }
     
@@ -87,7 +107,7 @@ struct ReactionFormView: View {
             
         }
         else {
-            #warning("Go back logic from this view hasn't been implemented")
+#warning("Go back logic from this view hasn't been implemented")
         }
     }
     
@@ -113,8 +133,4 @@ private struct PromptTab<Content: View>: View {
                 .transition(.slide)
         }
     }
-}
-
-#Preview {
-    ReactionFormView()
 }

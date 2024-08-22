@@ -64,6 +64,3 @@ struct ReactionPromptView: View {
     }
 }
 
-#Preview {
-    ReactionPromptView(vm: ReactionLoggerViewModel())
-}

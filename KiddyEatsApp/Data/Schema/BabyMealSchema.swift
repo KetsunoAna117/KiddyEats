@@ -19,8 +19,10 @@ final class BabyMealSchema {
     var servingSize: Int?
     var estimatedCookingTimeMinutes: Int?
 	var isAllergic: Bool?
+    var hasFilledReaction: Bool?
+    var reactionList: [String]
     
-	init(id: UUID, name: String, emoji: String, ingredients: [String], allergens: [String], cookingSteps: String, servingSize: Int, estimatedCookingTimeMinutes: Int, isAllergic: Bool) {
+    init(id: UUID, name: String, emoji: String, ingredients: [String], allergens: [String], cookingSteps: String, servingSize: Int, estimatedCookingTimeMinutes: Int, isAllergic: Bool, hasFilledReaction: Bool, reactionList: [String]) {
         self.id = id
         self.name = name
         self.emoji = emoji
@@ -30,6 +32,8 @@ final class BabyMealSchema {
         self.servingSize = servingSize
         self.estimatedCookingTimeMinutes = estimatedCookingTimeMinutes
 		self.isAllergic = isAllergic
+        self.hasFilledReaction = hasFilledReaction
+        self.reactionList = reactionList
     }
     
     func mapToBabyMeal() -> BabyMeal {
@@ -42,7 +46,9 @@ final class BabyMealSchema {
             cookingSteps: self.cookingSteps ?? "",
             servingSize: self.servingSize ?? -1,
 			estimatedCookingTimeMinutes: self.estimatedCookingTimeMinutes ?? -1,
-			isAllergic: false
+			isAllergic: false,
+            hasFilledReaction: self.hasFilledReaction ?? false,
+            reactionList: self.reactionList
         )
     }
 }

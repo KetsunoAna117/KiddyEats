@@ -33,6 +33,7 @@
 		3A5450E52C75DB900090EE0F /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450E42C75DB900090EE0F /* EditProfileView.swift */; };
 		3A5450E72C75DFD90090EE0F /* KiddyEatsDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450E62C75DFD90090EE0F /* KiddyEatsDatePicker.swift */; };
 		3A5450E92C75EA0C0090EE0F /* KiddyEatsAllergenList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450E82C75EA0C0090EE0F /* KiddyEatsAllergenList.swift */; };
+		3A5450ED2C75FBF00090EE0F /* UpdateBabyMealReactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5450EC2C75FBF00090EE0F /* UpdateBabyMealReactionUseCase.swift */; };
 		3AB03C402C6DE845001F5473 /* KiddyEatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB03C3F2C6DE845001F5473 /* KiddyEatsApp.swift */; };
 		3AB03C442C6DE848001F5473 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB03C432C6DE848001F5473 /* Assets.xcassets */; };
 		3AB03C472C6DE848001F5473 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB03C462C6DE848001F5473 /* Preview Assets.xcassets */; };
@@ -137,6 +138,7 @@
 		3A5450E42C75DB900090EE0F /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		3A5450E62C75DFD90090EE0F /* KiddyEatsDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KiddyEatsDatePicker.swift; sourceTree = "<group>"; };
 		3A5450E82C75EA0C0090EE0F /* KiddyEatsAllergenList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KiddyEatsAllergenList.swift; sourceTree = "<group>"; };
+		3A5450EC2C75FBF00090EE0F /* UpdateBabyMealReactionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBabyMealReactionUseCase.swift; sourceTree = "<group>"; };
 		3AB03C3C2C6DE845001F5473 /* KiddyEatsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KiddyEatsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB03C3F2C6DE845001F5473 /* KiddyEatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KiddyEatsApp.swift; sourceTree = "<group>"; };
 		3AB03C432C6DE848001F5473 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -500,6 +502,7 @@
 				E40EEFD22C74530300BCD991 /* DeleteBabyMealUseCase.swift */,
 				3A5450D92C74D7390090EE0F /* SaveBabyMealUseCase.swift */,
 				3A5450DB2C74E0E20090EE0F /* GetBabymealUseCase.swift */,
+				3A5450EC2C75FBF00090EE0F /* UpdateBabyMealReactionUseCase.swift */,
 			);
 			path = BabyMeal;
 			sourceTree = "<group>";
@@ -817,6 +820,7 @@
 				3A5450CA2C730A4D0090EE0F /* GetBabyProfileData.swift in Sources */,
 				E67BD9202C75EF24006393F4 /* HeaderUIView.swift in Sources */,
 				E40EEFC42C7433B800BCD991 /* FilterBabyMealUseCase.swift in Sources */,
+				3A5450ED2C75FBF00090EE0F /* UpdateBabyMealReactionUseCase.swift in Sources */,
 				3AB03C672C6F9722001F5473 /* Gender.swift in Sources */,
 				E40EEFB92C732CDE00BCD991 /* RecipeRowView.swift in Sources */,
 				3AB03C702C6F9A9F001F5473 /* +View.swift in Sources */,

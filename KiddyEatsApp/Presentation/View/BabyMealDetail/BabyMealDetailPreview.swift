@@ -25,7 +25,9 @@ struct BabyMealDetailVCRepresentable: UIViewControllerRepresentable {
             cookingSteps: "1. Wash and peel the sweet potato.\n2. Cut into small cubes.\n3. Steam until soft, about 15 minutes.\n4. Mash or puree the sweet potato.\n5. Add breast milk or formula to achieve desired consistency.",
             servingSize: 2,
             estimatedCookingTimeMinutes: 20,
-			isAllergic: false
+			isAllergic: false,
+            hasFilledReaction: false,
+            reactionList: []
         )
         return BabyMealDetailViewController(babyMeal: sampleMeal)
     }

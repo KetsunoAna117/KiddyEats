@@ -19,7 +19,6 @@ class EditBabyProfileViewModel {
 		
 	// Use Case
 	var getBabyProfileUseCase: GetBabyProfileDataProtocol
-	// TODO: add variable to update baby profile
 	var updateBabyProfileUseCase: UpdateBabyProfileDataProtocol
 	
 	init(

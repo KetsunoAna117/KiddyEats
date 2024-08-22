@@ -13,4 +13,5 @@ protocol BabyMealRepositoryProtocol {
 	func getBabyMealList(modelContext: ModelContext) -> [BabyMealSchema]
 	func deleteBabyMeal(modelContext: ModelContext, toDeleteBabyMealID: UUID)
     func saveBabyMeal(modelContext: ModelContext, toSaveBabyMealSchema: BabyMealSchema)
+    func updateBabyMealReaction(modelContext: ModelContext, babyMealID: UUID, toUpdateReaction: [String])
 }

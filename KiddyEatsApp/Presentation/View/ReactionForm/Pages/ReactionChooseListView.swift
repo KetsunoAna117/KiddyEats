@@ -70,7 +70,3 @@ struct ReactionChooseListView: View {
         
     }
 }
-
-#Preview {
-    ReactionChooseListView(vm: ReactionLoggerViewModel(), previousState: .constant(.unfilled))
-}
