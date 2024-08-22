@@ -15,22 +15,14 @@ struct LogReactionButton: View {
     
     @State private var vm = ReactionLoggerViewModel(updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared))
     
-    @State private var shouldNavigate: Bool = false
-    
     var body: some View {
-        VStack{
-            NavigationLink(destination: ReactionFormView(babyMeal: babyMeal), isActive: $shouldNavigate) {
-                EmptyView()
-            }
-            Button(action: {
-                // Go to reaction page using NavigationLink
-                shouldNavigate = true
-            }) {
-                Text(babyMeal.reactionList.isEmpty ? "Log Reaction" : "Update Reaction")
-                    .font(.system(size: 12))
-                    .fontWeight(.bold)
-            }
-            .buttonStyle(KiddyEatsProminentButtonStyle())
+        NavigationLink {
+            ReactionFormView(babyMeal: babyMeal)
+        } label: {
+            Text(babyMeal.reactionList.isEmpty ? "Log Reaction" : "Update Reaction")
+                .font(.system(size: 12))
+                .fontWeight(.bold)
         }
+        .buttonStyle(KiddyEatsProminentButtonStyle())
     }
 }
