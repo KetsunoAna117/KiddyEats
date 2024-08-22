@@ -62,6 +62,12 @@ class BabyMealDetailViewController: UIViewController {
         view.backgroundColor = .appBackground
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupUI()
+        updateButtonsBasedOnFavoritedStatus()
+    }
+    
     private func setupUI() {
         setupScrollView()
         setupEmojiLabel()
