@@ -14,7 +14,6 @@ class BabyMealDetailViewModel {
     var isFavorited: Bool = false 
     {
         didSet {
-            print("IS Fav Change")
             isFavoritedDidChange?(isFavorited)
         }
     }
@@ -102,6 +101,7 @@ class BabyMealDetailViewModel {
         else {
             self.isFavorited = true
         }
+        print("checkIfAlreadyFavorite")
         calledInController?()
         isFavoritedDidChange?(self.isFavorited)
     }
