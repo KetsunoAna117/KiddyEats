@@ -36,6 +36,9 @@ struct ReactionFormView: View {
                     })
                     .animation(.linear, value: currentTab)
                     .onAppear {
+                        UIScrollView.appearance().isScrollEnabled = true
+                    }                    
+                    .onDisappear {
                         UIScrollView.appearance().isScrollEnabled = false
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
@@ -108,7 +111,7 @@ struct ReactionFormView: View {
             
         }
         else {
-#warning("Go back logic from this view hasn't been implemented")
+//#warning("Go back logic from this view hasn't been implemented")
         }
     }
     

@@ -17,3 +17,13 @@ class SaveToCollectionsHostingController: UIHostingController<AnyView> {
         onHeightChange?(view.intrinsicContentSize.height)
     }
 }
+
+class LogReactionHostingController: UIHostingController<LogReactionButton> {
+    var onHeightChange: ((CGFloat) -> Void)?
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.view.invalidateIntrinsicContentSize()
+        onHeightChange?(view.intrinsicContentSize.height)
+    }
+}
