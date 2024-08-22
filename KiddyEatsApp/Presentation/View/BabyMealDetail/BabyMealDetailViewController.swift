@@ -16,6 +16,7 @@ class BabyMealDetailViewController: UIViewController {
     private let recipeInfoLabel = BulletListUILabel()
     private let ingredientsLabel = BulletListUILabel()
     private let cookingInstructionsLabel = NumberedListUILabel()
+    private var logReactionHostingController: SaveToCollectionsHostingController?
     private var saveToCollectionsHostingController: SaveToCollectionsHostingController?
     private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.square"), title: "Recipe Information", color: .label)
     private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "note.text"), title: "Ingredients", color: .label)
@@ -57,7 +58,7 @@ class BabyMealDetailViewController: UIViewController {
         setupIngredientsLabel()
         setupCookingInstructionsHeader()
         setupCookingInstructionsLabel()
-        setupSaveToCollectionsButton()
+        setupButtons()
     }
     
     private func setupReactionsView() {
@@ -162,28 +163,48 @@ class BabyMealDetailViewController: UIViewController {
         setupHorizontalConstraints(for: cookingInstructionsLabel, topAnchor: cookingInstructionsHeader.bottomAnchor, topConstant: 8, leadingConstant: 24)
     }
     
-    private func setupSaveToCollectionsButton() {
+    private func setupButtons() {
+        let logReactionButton = AnyView(LogReactionButton(babyMeal: babyMeal)
+            .buttonStyle(KiddyEatsProminentButtonStyle()))
+        
         let saveToCollectionsButton = AnyView(SaveToCollectionsButton(babyMeal: babyMeal)
             .buttonStyle(KiddyEatsProminentButtonStyle()))
         
+        logReactionHostingController = SaveToCollectionsHostingController(rootView: logReactionButton)
         saveToCollectionsHostingController = SaveToCollectionsHostingController(rootView: saveToCollectionsButton)
         
-        if let hostingView = saveToCollectionsHostingController?.view {
-            contentView.addSubview(hostingView)
-            hostingView.translatesAutoresizingMaskIntoConstraints = false
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        if let logReactionView = logReactionHostingController?.view,
+           let saveToCollectionsView = saveToCollectionsHostingController?.view {
+            stackView.addArrangedSubview(logReactionView)
+            stackView.addArrangedSubview(saveToCollectionsView)
+            
+            contentView.addSubview(stackView)
             
             NSLayoutConstraint.activate([
-                hostingView.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 16),
-                hostingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-                hostingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-                hostingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+                stackView.topAnchor.constraint(equalTo: cookingInstructionsLabel.bottomAnchor, constant: 16),
+                stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
             ])
             
+            logReactionHostingController?.onHeightChange = { [weak self] height in
+                logReactionView.heightAnchor.constraint(equalToConstant: height).isActive = true
+                self?.view.layoutIfNeeded()
+            }
+            
             saveToCollectionsHostingController?.onHeightChange = { [weak self] height in
-                hostingView.heightAnchor.constraint(equalToConstant: height).isActive = true
+                saveToCollectionsView.heightAnchor.constraint(equalToConstant: height).isActive = true
                 self?.view.layoutIfNeeded()
             }
         }
+        
+        addChild(logReactionHostingController!)
+        logReactionHostingController?.didMove(toParent: self)
         
         addChild(saveToCollectionsHostingController!)
         saveToCollectionsHostingController?.didMove(toParent: self)
