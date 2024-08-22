@@ -12,6 +12,13 @@ class BabyMealDetailViewController: UIViewController {
     
     private let scrollView = UIScrollView()
     
+    private func scrollToBottom() {
+        DispatchQueue.main.async {
+            let bottomOffset = CGPoint(x: 0, y: self.scrollView.contentSize.height - self.scrollView.bounds.size.height)
+            self.scrollView.setContentOffset(bottomOffset, animated: true)
+        }
+    }
+    
     private func color(named: String) -> UIColor {
         return UIColor(named: named) ?? .systemBackground
     }
@@ -100,6 +107,10 @@ class BabyMealDetailViewController: UIViewController {
         print("isFavorited status: \(viewModel.isFavorited)")
         // Always show the Log Reaction button
         showAddToLogButton()
+        
+        if viewModel.isFavorited {
+            scrollToBottom()
+        }
     }
     
     private func setupReactionsView() {
