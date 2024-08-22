@@ -91,26 +91,8 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func updateButtonsBasedOnFavoritedStatus() {
-        if viewModel.isFavorited {
-            // Update Log Reaction button
-            let logReactionButton = AnyView(LogReactionButton(babyMeal: self.viewModel.babyMeal).background(.clear.opacity(0)))
-            logReactionHostingController.rootView = logReactionButton
-            
-            // Update Save to Collections button to Remove
-            let removeFromCollectionsButton = AnyView(
-                MealDetailSaveToCollectionsButton(babyMeal: self.viewModel.babyMeal, vmd: self.viewModel)
-            )
-            saveToCollectionsHostingController.rootView = removeFromCollectionsButton
-        } else {
-            // Update Save to Collections button
-            let saveToCollectionsButton = AnyView(
-                MealDetailSaveToCollectionsButton(babyMeal: self.viewModel.babyMeal, vmd: self.viewModel)
-            )
-            saveToCollectionsHostingController.rootView = saveToCollectionsButton
-        }
-        
-        // Trigger layout update
-        view.setNeedsLayout()
+        // TODO: If is favorited, show add to log button above save to collection button
+        // Play with visibility.
     }
     
     private func setupReactionsView() {
