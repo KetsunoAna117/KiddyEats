@@ -189,4 +189,5 @@ class BabyMealDetailViewController: UIViewController {
 
 #Preview {
     BabyMealDetailVCRepresentable()
+        .modelContainer(ModelContextManager.createModelContainer())
 }
