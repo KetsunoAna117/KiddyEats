@@ -87,7 +87,12 @@ class BabyMealDetailViewController: UIViewController {
         viewModel.isFavoritedDidChange = { [weak self] newValue in
             print("isFavorited changed!!")
             guard let self = self else { return }
-            self.updateButtonsBasedOnFavoritedStatus()
+            
+            if newValue {
+                showAddToLogButton()
+            } else {
+                hideAddToLogButton()
+            }
         }
     }
     
