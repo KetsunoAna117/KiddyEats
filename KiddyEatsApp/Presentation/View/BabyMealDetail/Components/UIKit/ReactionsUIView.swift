@@ -23,8 +23,12 @@ class ReactionsUIView: UIView {
     }
     
     private func configure() {
-        backgroundColor = UIColor(named: "GreenSecondary")
-        layer.cornerRadius = 8
+        backgroundColor = .clear // Clear background
+        
+        layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        layer.cornerRadius = 15
+        layer.borderWidth = 1
+        layer.borderColor = UIColor(named: "GreenSecondary")?.cgColor
         
         stackView.axis = .vertical
         stackView.spacing = 4

@@ -23,7 +23,9 @@ struct BabyMealDetailVCRepresentable: UIViewControllerRepresentable {
             estimatedCookingTimeMinutes: 20,
 			isAllergic: false,
             hasFilledReaction: false,
-            reactionList: []
+            reactionList: [
+                "Sneezing"
+            ]
         )
         return BabyMealDetailViewController(babyMeal: sampleMeal)
     }

@@ -9,8 +9,6 @@ import Foundation
 import SwiftData
 
 class ModelContextManager {
-    static var modelContainer: ModelContainer?
-    
     // MARK: Initialization of model context
     static func createModelContainer() -> ModelContainer {
         let schema = setModelContainerSchema()
@@ -18,7 +16,6 @@ class ModelContextManager {
         
         do {
             let container = try ModelContainer(for: schema, configurations: modelConfiguration)
-            ModelContextManager.modelContainer = container
             return container
         } catch {
             fatalError("Couldn't create the model container: \(error)")

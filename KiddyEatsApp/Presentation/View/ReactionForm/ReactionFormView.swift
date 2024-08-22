@@ -116,9 +116,9 @@ struct ReactionFormView: View {
         if currentTab < totalPages {
             currentTab += 1
             changeButtonPrompt()
+            vm.updateBabyMealReaction(modelContext: modelContext)
         }
         else {
-            vm.updateBabyMealReaction(modelContext: modelContext)
             dismiss()
             UIScrollView.appearance().isScrollEnabled = true
         }

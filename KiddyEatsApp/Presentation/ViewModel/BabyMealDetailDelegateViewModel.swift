@@ -20,7 +20,7 @@ class BabyMealDetailDelegateViewModel
     
     var isFavoritedDidChange: ((Bool) -> Void)?
     var babyMealDidChange: ((BabyMeal) -> Void)?
-    var calledInController: (() -> Void)?
+    var reactionsDidChange: (([String]) -> Void)?
     
     // Use Case
     private var saveBabyMealUseCase: SaveBabyMealUseCaseProtocol
@@ -37,41 +37,5 @@ class BabyMealDetailDelegateViewModel
         self.getBabyMealUseCase = getBabyMealUseCase
     }
     
-    @MainActor
-    func setBabyMeal(babyMeal: BabyMeal) {
-        self.babyMeal = getBabyMeal(babyMeal: babyMeal)
-    }
-    
-    @MainActor
-    func getBabyMeal(babyMeal: BabyMeal) -> BabyMeal {
-        guard let modelContext = ModelContextManager.modelContainer?.mainContext else {
-            print("Failed to get model context")
-            return babyMeal
-        }
-        
-        guard let newMeal = getBabyMealUseCase.execute(modelContext: modelContext, id: babyMeal.id) else {
-            print("Failed to fetch updated meal with id: \(babyMeal.id)")
-            return babyMeal
-        }
-        
-        return newMeal
-    }
-    
-    @MainActor
-    func checkIfAlreadyFavoriteUikit(babyMeal: BabyMeal){
-        guard let modelContext = ModelContextManager.modelContainer?.mainContext else {
-            print("Failed to get model context")
-            return
-        }
-        
-        let fetchedBabyMeal = getBabyMealUseCase.execute(modelContext: modelContext, id: babyMeal.id)
-        
-        if fetchedBabyMeal == nil {
-            self.isFavorited = false
-        }
-        else {
-            self.isFavorited = true
-        }
-    }
     
 }

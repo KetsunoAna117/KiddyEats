@@ -18,6 +18,11 @@ struct RecipeCardSaveToCollectionsButton: View {
         getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
     )
     
+    @State private var reactionVm = ReactionLoggerViewModel(
+        updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared),
+        getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
+    )
+    
     var body: some View {
         Button(action: {
             // Save to swiftData if isn't favorited
@@ -116,6 +121,7 @@ struct MealDetailSaveToCollectionsButton: View {
             .onAppear() {
                 vm.setVmd(vmd: vmd)
                 vm.checkIfAlreadyFavorite(modelContext: modelContext, babyMealID: babyMeal.id)
+                vm.updateBabyMeal(modelContext: modelContext, babyMeal: babyMeal)
             }
         }
         

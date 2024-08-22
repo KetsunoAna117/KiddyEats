@@ -4,16 +4,16 @@ import SwiftUI
 
 class BabyMealDetailViewController: UIViewController {
     
-    private let viewModel = BabyMealDetailDelegateViewModel(
+    private let babyMealVmd = BabyMealDetailDelegateViewModel(
         saveBabyMealUseCase: SaveBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
         deleteBabyMealUseCase: DeleteBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
         getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
     )    
-    
+
     private let scrollView = UIScrollView()
     
     private func scrollToBottom() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             let bottomOffset = CGPoint(x: 0, y: self.scrollView.contentSize.height - self.scrollView.bounds.size.height)
             self.scrollView.setContentOffset(bottomOffset, animated: true)
         }
@@ -30,14 +30,16 @@ class BabyMealDetailViewController: UIViewController {
     private let ingredientsLabel = BulletListUILabel()
     private let cookingInstructionsLabel = NumberedListUILabel()
     
+    private var afterInit = 0
+    
     private lazy var logReactionHostingController: SwiftUIButtonController = {
-        let logReactionButton = AnyView(LogReactionButton(babyMeal: self.viewModel.babyMeal))
+        let logReactionButton = AnyView(LogReactionButton(babyMeal: self.babyMealVmd.babyMeal))
         return SwiftUIButtonController(rootView: logReactionButton)
     }()
     
     private lazy var saveToCollectionsHostingController: SwiftUIButtonController = {
         let saveToCollectionsButton = AnyView(
-            MealDetailSaveToCollectionsButton(babyMeal: self.viewModel.babyMeal, vmd: self.viewModel)
+            MealDetailSaveToCollectionsButton(babyMeal: self.babyMealVmd.babyMeal, vmd: self.babyMealVmd)
         )
         return SwiftUIButtonController(rootView: saveToCollectionsButton)
     }()
@@ -46,9 +48,8 @@ class BabyMealDetailViewController: UIViewController {
     private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "frying.pan"), title: "Cooking Instructions", color: .label)
     
     init(babyMeal: BabyMeal) {
-        self.viewModel.setBabyMeal(babyMeal: babyMeal)
         super.init(nibName: nil, bundle: nil)
-        self.title = self.viewModel.babyMeal.name
+        self.title = self.babyMealVmd.babyMeal.name
     }
     
     required init?(coder: NSCoder) {
@@ -83,20 +84,20 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func setupBinds() {
-        print("Setup Binds")
-        viewModel.babyMealDidChange = { [weak self] newValue in
-            print("Baby meal changed!!")
-//            print("babyMeal changed to: \(newValue)")
-//            self.reactionsView.setReactions(self.viewModel.babyMeal.reactionList)
-//            self.updateButtonsBasedOnFavoritedStatus()
+        babyMealVmd.babyMealDidChange = { [weak self] updatedBabyMeal in
+            guard let self = self else { return }
+            self.reactionsView.setReactions(updatedBabyMeal.reactionList)
         }
         
-        viewModel.isFavoritedDidChange = { [weak self] newValue in
-            print("isFavorited changed!!")
+        babyMealVmd.isFavoritedDidChange = { [weak self] isFavorited in
             guard let self = self else { return }
             
-            if newValue {
+            if isFavorited {
                 showAddToLogButton()
+                if afterInit >= 2 {
+                    scrollToBottom()
+                }
+                afterInit += 1
             } else {
                 hideAddToLogButton()
             }
@@ -104,11 +105,11 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func updateButtonsBasedOnFavoritedStatus() {
-        print("isFavorited status: \(viewModel.isFavorited)")
+        print("isFavorited status: \(babyMealVmd.isFavorited)")
         // Always show the Log Reaction button
         showAddToLogButton()
         
-        if viewModel.isFavorited {
+        if babyMealVmd.isFavorited {
             scrollToBottom()
         }
     }
@@ -117,10 +118,10 @@ class BabyMealDetailViewController: UIViewController {
         if !areReactionsEmpty() {
             contentView.addSubview(reactionsView)
             reactionsView.translatesAutoresizingMaskIntoConstraints = false
-            reactionsView.setReactions(self.viewModel.babyMeal.reactionList)
+            reactionsView.setReactions(self.babyMealVmd.babyMeal.reactionList)
             
             NSLayoutConstraint.activate([
-                reactionsView.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 16),
+                reactionsView.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 0),
                 reactionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
                 reactionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
             ])
@@ -128,7 +129,7 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func areReactionsEmpty() -> Bool {
-        return self.viewModel.babyMeal.reactionList.isEmpty
+        return self.babyMealVmd.babyMeal.reactionList.isEmpty
     }
 
     private func setupScrollView() {
@@ -154,7 +155,7 @@ class BabyMealDetailViewController: UIViewController {
     private func setupEmojiLabel() {
         contentView.addSubview(emojiLabel)
         emojiLabel.translatesAutoresizingMaskIntoConstraints = false
-        emojiLabel.text = self.viewModel.babyMeal.emoji
+        emojiLabel.text = self.babyMealVmd.babyMeal.emoji
         
         NSLayoutConstraint.activate([
             emojiLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -167,7 +168,7 @@ class BabyMealDetailViewController: UIViewController {
     private func setupAllergensView() {
         contentView.addSubview(allergensView)
         allergensView.translatesAutoresizingMaskIntoConstraints = false
-        allergensView.setAllergens(self.viewModel.babyMeal.allergens)
+        allergensView.setAllergens(self.babyMealVmd.babyMeal.allergens)
         
         setupHorizontalConstraints(for: allergensView, topAnchor: emojiLabel.bottomAnchor, topConstant: 16)
     }
@@ -187,8 +188,8 @@ class BabyMealDetailViewController: UIViewController {
         contentView.addSubview(recipeInfoLabel)
         recipeInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         let recipeInfoItems = [
-            "Serving size: \(self.viewModel.babyMeal.servingSize)",
-            "Estimated cooking time: \(self.viewModel.babyMeal.estimatedCookingTimeMinutes) mins"
+            "Serving size: \(self.babyMealVmd.babyMeal.servingSize)",
+            "Estimated cooking time: \(self.babyMealVmd.babyMeal.estimatedCookingTimeMinutes) mins"
         ]
         recipeInfoLabel.setItems(recipeInfoItems)
         
@@ -205,7 +206,7 @@ class BabyMealDetailViewController: UIViewController {
     private func setupIngredientsLabel() {
         contentView.addSubview(ingredientsLabel)
         ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
-        ingredientsLabel.setItems(self.viewModel.babyMeal.ingredients)
+        ingredientsLabel.setItems(self.babyMealVmd.babyMeal.ingredients)
         
         setupHorizontalConstraints(for: ingredientsLabel, topAnchor: ingredientsHeader.bottomAnchor, topConstant: 8, leadingConstant: 24)
     }
@@ -220,7 +221,7 @@ class BabyMealDetailViewController: UIViewController {
     private func setupCookingInstructionsLabel() {
         contentView.addSubview(cookingInstructionsLabel)
         cookingInstructionsLabel.translatesAutoresizingMaskIntoConstraints = false
-        cookingInstructionsLabel.setItems(self.viewModel.babyMeal.cookingSteps.components(separatedBy: "\n"))
+        cookingInstructionsLabel.setItems(self.babyMealVmd.babyMeal.cookingSteps.components(separatedBy: "\n"))
         
         setupHorizontalConstraints(for: cookingInstructionsLabel, topAnchor: cookingInstructionsHeader.bottomAnchor, topConstant: 8, leadingConstant: 24)
     }
