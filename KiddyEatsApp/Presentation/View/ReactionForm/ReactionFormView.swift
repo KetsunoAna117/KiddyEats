@@ -36,10 +36,11 @@ struct ReactionFormView: View {
                     })
                     .animation(.linear, value: currentTab)
                     .onAppear {
-                        UIScrollView.appearance().isScrollEnabled = true
-                    }                    
-                    .onDisappear {
+                        vm.setupBabyMeal(selectedBabyMeal: babyMeal)
                         UIScrollView.appearance().isScrollEnabled = false
+                    }
+                    .onDisappear {
+                        UIScrollView.appearance().isScrollEnabled = true
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     .indexViewStyle(.page(backgroundDisplayMode: .always))
