@@ -11,7 +11,7 @@ class BabyMealDetailViewController: UIViewController {
     )    
 
     private let scrollView = UIScrollView()
-    private var isReactionsVisible = false
+    private var isReactionsVisible = true
     
     private func scrollToBottom() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -89,9 +89,9 @@ class BabyMealDetailViewController: UIViewController {
         babyMealVmd.reactionsDidChange = { [weak self] updatedReaction in
             print("New reaction in VC: \(updatedReaction)")
             guard let self = self else {
-                print("No self!!")
                 return
             }
+            self.babyMealVmd.babyMeal.reactionList = updatedReaction
             self.reactionsView.setReactions(updatedReaction)
         }
         
@@ -131,23 +131,7 @@ class BabyMealDetailViewController: UIViewController {
             reactionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
         
-        reactionsView.isHidden = areReactionsEmpty() || !isReactionsVisible
-    }
-    
-    func showReactions() {
-        isReactionsVisible = true
-        UIView.animate(withDuration: 0.3) {
-            self.reactionsView.isHidden = false
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    func hideReactions() {
-        isReactionsVisible = false
-        UIView.animate(withDuration: 0.3) {
-            self.reactionsView.isHidden = true
-            self.view.layoutIfNeeded()
-        }
+        reactionsView.isHidden = false
     }
     
     private func areReactionsEmpty() -> Bool {
@@ -199,11 +183,7 @@ class BabyMealDetailViewController: UIViewController {
         contentView.addSubview(recipeInfoHeader)
         recipeInfoHeader.translatesAutoresizingMaskIntoConstraints = false
         
-        if areReactionsEmpty() {
-            setupHorizontalConstraints(for: recipeInfoHeader, topAnchor: allergensView.bottomAnchor, topConstant: 24)
-        } else {
-            setupHorizontalConstraints(for: recipeInfoHeader, topAnchor: reactionsView.bottomAnchor, topConstant: 24)
-        }
+        setupHorizontalConstraints(for: recipeInfoHeader, topAnchor: reactionsView.bottomAnchor, topConstant: 24)
     }
     
     private func setupRecipeInfoLabel() {
