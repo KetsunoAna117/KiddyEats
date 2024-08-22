@@ -19,6 +19,8 @@ struct ReactionFormView: View {
         getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
     )
     
+    @State private var isProminentStyle: Bool = true
+    
     var babyMeal: BabyMeal
     
     var body: some View {
@@ -32,7 +34,7 @@ struct ReactionFormView: View {
                             content:  {
                         PromptTab(content: ReactionPromptView(vm: vm))
                             .tag(1)
-                        PromptTab(content: ReactionEndingView())
+                        PromptTab(content: ReactionEndingView(hasFilledReaction: babyMeal.hasFilledReaction))
                             .tag(2)
                     })
                     .animation(.linear, value: currentTab)
@@ -48,16 +50,30 @@ struct ReactionFormView: View {
                     
                     
                     if vm.reactionStatus != .unfilled {
-                        Button(action: {
-                            withAnimation(.linear) {
-                                goToNextPage()
-                            }
-                        }, label: {
-                            Text(buttonPrompt)
-                        })
-                        .buttonStyle(KiddyEatsProminentButtonStyle())
-                        .padding(.horizontal, 30)
-                        .padding(.bottom, 30)
+                        if isProminentStyle {
+                            Button(action: {
+                                withAnimation(.linear) {
+                                    goToNextPage()
+                                }
+                            }, label: {
+                                Text(buttonPrompt)
+                            })
+                            .buttonStyle(KiddyEatsProminentButtonStyle())
+                            .padding(.horizontal, 30)
+                            .padding(.bottom, 30)
+                        }
+                        else {
+                            Button(action: {
+                                withAnimation(.linear) {
+                                    goToNextPage()
+                                }
+                            }, label: {
+                                Text(buttonPrompt)
+                            })
+                            .buttonStyle(KiddyEatsBorderedButtonStyle())
+                            .padding(.horizontal, 30)
+                            .padding(.bottom, 30)
+                        }
                     }
                     
                 }
@@ -92,6 +108,7 @@ struct ReactionFormView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden()
     }
     
     // MARK: Below are UI Functions to modify the view
@@ -103,6 +120,7 @@ struct ReactionFormView: View {
         else {
             vm.updateBabyMealReaction(modelContext: modelContext)
             dismiss()
+            UIScrollView.appearance().isScrollEnabled = true
         }
     }
     
@@ -113,7 +131,8 @@ struct ReactionFormView: View {
             
         }
         else {
-//#warning("Go back logic from this view hasn't been implemented")
+            dismiss()
+            UIScrollView.appearance().isScrollEnabled = true
         }
     }
     

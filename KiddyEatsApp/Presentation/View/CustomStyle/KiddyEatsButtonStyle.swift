@@ -56,3 +56,24 @@ struct KiddyEatsBorderlessButtonStyle: ButtonStyle {
 }
 
 
+struct KiddyEatsBorderedButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(Font.system(size: 15))
+            .foregroundStyle(Color.accentColor)
+            .fontWeight(.bold)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 15)
+            .background(){
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.clear)
+            }
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.accentColor)
+                    
+            )
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+            .animation(.spring(), value: configuration.isPressed)
+    }
+}
