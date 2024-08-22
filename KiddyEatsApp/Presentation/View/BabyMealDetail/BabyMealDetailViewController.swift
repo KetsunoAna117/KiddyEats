@@ -22,8 +22,17 @@ class BabyMealDetailViewController: UIViewController {
     private let recipeInfoLabel = BulletListUILabel()
     private let ingredientsLabel = BulletListUILabel()
     private let cookingInstructionsLabel = NumberedListUILabel()
-    private var logReactionHostingController: SwiftUIButtonController?
-    private var saveToCollectionsHostingController: SwiftUIButtonController?
+    private lazy var logReactionHostingController: SwiftUIButtonController = {
+        let logReactionButton = AnyView(LogReactionButton(babyMeal: self.viewModel.babyMeal).background(.clear.opacity(0)))
+        return SwiftUIButtonController(rootView: logReactionButton)
+    }()
+    
+    private lazy var saveToCollectionsHostingController: SwiftUIButtonController = {
+        let saveToCollectionsButton = AnyView(
+            MealDetailSaveToCollectionsButton(babyMeal: self.viewModel.babyMeal, vmd: self.viewModel)
+        )
+        return SwiftUIButtonController(rootView: saveToCollectionsButton)
+    }()
     private let recipeInfoHeader = HeaderUIView(icon: UIImage(systemName: "info.square"), title: "Recipe Information", color: .label)
     private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "note.text"), title: "Ingredients", color: .label)
     private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "frying.pan"), title: "Cooking Instructions", color: .label)
@@ -83,25 +92,25 @@ class BabyMealDetailViewController: UIViewController {
     
     private func updateButtonsBasedOnFavoritedStatus() {
         if viewModel.isFavorited {
-            // Show Log Reaction button and change Save to Collections to Remove
+            // Update Log Reaction button
             let logReactionButton = AnyView(LogReactionButton(babyMeal: self.viewModel.babyMeal).background(.clear.opacity(0)))
-            logReactionHostingController = SwiftUIButtonController(rootView: logReactionButton)
+            logReactionHostingController.rootView = logReactionButton
             
+            // Update Save to Collections button to Remove
             let removeFromCollectionsButton = AnyView(
                 MealDetailSaveToCollectionsButton(babyMeal: self.viewModel.babyMeal, vmd: self.viewModel)
             )
-            saveToCollectionsHostingController = SwiftUIButtonController(rootView: removeFromCollectionsButton)
+            saveToCollectionsHostingController.rootView = removeFromCollectionsButton
         } else {
-            // Remove Log Reaction button and change to Save to Collections
-            logReactionHostingController = nil
-            
+            // Update Save to Collections button
             let saveToCollectionsButton = AnyView(
                 MealDetailSaveToCollectionsButton(babyMeal: self.viewModel.babyMeal, vmd: self.viewModel)
             )
-            saveToCollectionsHostingController = SwiftUIButtonController(rootView: saveToCollectionsButton)
+            saveToCollectionsHostingController.rootView = saveToCollectionsButton
         }
         
-        setupButtons()
+        // Trigger layout update
+        view.setNeedsLayout()
     }
     
     private func setupReactionsView() {
@@ -225,29 +234,29 @@ class BabyMealDetailViewController: UIViewController {
         // Remove all existing arranged subviews
         stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
-        if let logReactionView = logReactionHostingController?.view {
-            stackView.addArrangedSubview(logReactionView)
-            
-            logReactionHostingController?.onHeightChange = { [weak self] height in
-                logReactionView.heightAnchor.constraint(equalToConstant: height).isActive = true
-                self?.view.layoutIfNeeded()
-            }
-            
-            addChild(logReactionHostingController!)
-            logReactionHostingController?.didMove(toParent: self)
+        if viewModel.isFavorited {
+            stackView.addArrangedSubview(logReactionHostingController.view)
         }
         
-        if let saveToCollectionsView = saveToCollectionsHostingController?.view {
-            stackView.addArrangedSubview(saveToCollectionsView)
-            
-            saveToCollectionsHostingController?.onHeightChange = { [weak self] height in
-                saveToCollectionsView.heightAnchor.constraint(equalToConstant: height).isActive = true
-                self?.view.layoutIfNeeded()
-            }
-            
-            addChild(saveToCollectionsHostingController!)
-            saveToCollectionsHostingController?.didMove(toParent: self)
+        stackView.addArrangedSubview(saveToCollectionsHostingController.view)
+        
+        // Setup height change handlers
+        logReactionHostingController.onHeightChange = { [weak self] height in
+            self?.logReactionHostingController.view.heightAnchor.constraint(equalToConstant: height).isActive = true
+            self?.view.layoutIfNeeded()
         }
+        
+        saveToCollectionsHostingController.onHeightChange = { [weak self] height in
+            self?.saveToCollectionsHostingController.view.heightAnchor.constraint(equalToConstant: height).isActive = true
+            self?.view.layoutIfNeeded()
+        }
+        
+        // Add child view controllers
+        addChild(logReactionHostingController)
+        logReactionHostingController.didMove(toParent: self)
+        
+        addChild(saveToCollectionsHostingController)
+        saveToCollectionsHostingController.didMove(toParent: self)
         
         // Remove existing stackView if it exists
         contentView.subviews.first(where: { $0 is UIStackView })?.removeFromSuperview()
