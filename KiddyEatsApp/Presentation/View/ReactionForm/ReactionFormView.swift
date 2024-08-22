@@ -17,6 +17,8 @@ struct ReactionFormView: View {
         updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared)
     )
     
+    @State private var isProminentStyle: Bool = true
+    
     var babyMeal: BabyMeal
     
     var body: some View {
@@ -30,7 +32,7 @@ struct ReactionFormView: View {
                             content:  {
                         PromptTab(content: ReactionPromptView(vm: vm))
                             .tag(1)
-                        PromptTab(content: ReactionEndingView())
+                        PromptTab(content: ReactionEndingView(hasFilledReaction: babyMeal.hasFilledReaction))
                             .tag(2)
                     })
                     .animation(.linear, value: currentTab)
@@ -42,16 +44,30 @@ struct ReactionFormView: View {
                     
                     
                     if vm.reactionStatus != .unfilled {
-                        Button(action: {
-                            withAnimation(.linear) {
-                                goToNextPage()
-                            }
-                        }, label: {
-                            Text(buttonPrompt)
-                        })
-                        .buttonStyle(KiddyEatsProminentButtonStyle())
-                        .padding(.horizontal, 30)
-                        .padding(.bottom, 30)
+                        if isProminentStyle {
+                            Button(action: {
+                                withAnimation(.linear) {
+                                    goToNextPage()
+                                }
+                            }, label: {
+                                Text(buttonPrompt)
+                            })
+                            .buttonStyle(KiddyEatsProminentButtonStyle())
+                            .padding(.horizontal, 30)
+                            .padding(.bottom, 30)
+                        }
+                        else {
+                            Button(action: {
+                                withAnimation(.linear) {
+                                    goToNextPage()
+                                }
+                            }, label: {
+                                Text(buttonPrompt)
+                            })
+                            .buttonStyle(KiddyEatsBorderedButtonStyle())
+                            .padding(.horizontal, 30)
+                            .padding(.bottom, 30)
+                        }
                     }
                     
                 }
