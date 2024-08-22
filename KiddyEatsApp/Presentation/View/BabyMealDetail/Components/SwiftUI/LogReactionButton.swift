@@ -13,20 +13,24 @@ struct LogReactionButton: View {
     
     @Environment(\.modelContext) var modelContext
     
-    @State private var vm = BabyMealDetailViewModel(
-        saveBabyMealUseCase: SaveBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
-        deleteBabyMealUseCase: DeleteBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
-        getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
-    )
+    @State private var vm = ReactionLoggerViewModel(updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared))
+    
+    @State private var shouldNavigate: Bool = false
     
     var body: some View {
-        Button(action: {
-            // Go to reaction page using NavigationLink
-        }) {
-            Text("Log Reaction")
-                .font(.system(size: 12))
-                .fontWeight(.bold)
+        VStack{
+            NavigationLink(destination: ReactionFormView(babyMeal: babyMeal), isActive: $shouldNavigate) {
+                EmptyView()
+            }
+            Button(action: {
+                // Go to reaction page using NavigationLink
+                shouldNavigate = true
+            }) {
+                Text(babyMeal.reactionList.isEmpty ? "Log Reaction" : "Update Reaction")
+                    .font(.system(size: 12))
+                    .fontWeight(.bold)
+            }
+            .buttonStyle(KiddyEatsProminentButtonStyle())
         }
-        .buttonStyle(KiddyEatsProminentButtonStyle())
     }
 }
