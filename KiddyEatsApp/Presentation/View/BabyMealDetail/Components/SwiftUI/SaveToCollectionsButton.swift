@@ -51,6 +51,7 @@ struct RecipeCardSaveToCollectionsButton: View {
 
 struct MealDetailSaveToCollectionsButton: View {
     let babyMeal: BabyMeal
+    let vmd: BabyMealDetailDelegateViewModel
     
     @Environment(\.modelContext) var modelContext
     
@@ -113,6 +114,7 @@ struct MealDetailSaveToCollectionsButton: View {
             }
             .buttonStyle(KiddyEatsProminentButtonStyle())
             .onAppear() {
+                vm.setVmd(vmd: vmd)
                 vm.checkIfAlreadyFavorite(modelContext: modelContext, babyMealID: babyMeal.id)
             }
         }

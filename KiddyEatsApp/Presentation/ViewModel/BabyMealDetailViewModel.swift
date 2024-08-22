@@ -11,27 +11,14 @@ import SwiftData
 @Observable
 class BabyMealDetailViewModel {
     
-    var isFavorited: Bool = false 
-    {
-        didSet {
-            isFavoritedDidChange?(isFavorited)
-        }
-    }
-    
-    var babyMeal: BabyMeal = BabyMeal(id: UUID(), name: "", emoji: "", ingredients: [], allergens: [], cookingSteps: "", servingSize: 0, estimatedCookingTimeMinutes: 0, isAllergic: false, hasFilledReaction: false, reactionList: []) {
-        didSet {
-            babyMealDidChange?(babyMeal)
-        }
-    }
-    
-    var isFavoritedDidChange: ((Bool) -> Void)?
-    var babyMealDidChange: ((BabyMeal) -> Void)?
-    var calledInController: (() -> Void)?
+    var isFavorited: Bool = false
     
     // Use Case
     private var saveBabyMealUseCase: SaveBabyMealUseCaseProtocol
     private var deleteBabyMealUseCase: DeleteBabyMealProtocol
     private var getBabyMealUseCase: GetBabymealUseCaseProtocol
+    
+    private var vmd: BabyMealDetailDelegateViewModel?
     
     init(
         saveBabyMealUseCase: SaveBabyMealUseCaseProtocol,
@@ -43,47 +30,10 @@ class BabyMealDetailViewModel {
         self.getBabyMealUseCase = getBabyMealUseCase
     }
     
-    @MainActor
-    func setBabyMeal(babyMeal: BabyMeal) {
-        self.babyMeal = getBabyMeal(babyMeal: babyMeal)
+    func setVmd(vmd: BabyMealDetailDelegateViewModel) {
+        self.vmd = vmd
     }
     
-    @MainActor
-    func getBabyMeal(babyMeal: BabyMeal) -> BabyMeal {
-        guard let modelContext = ModelContextManager.modelContainer?.mainContext else {
-            print("Failed to get model context")
-            return babyMeal
-        }
-        
-        guard let newMeal = getBabyMealUseCase.execute(modelContext: modelContext, id: babyMeal.id) else {
-            print("Failed to fetch updated meal with id: \(babyMeal.id)")
-            return babyMeal
-        }
-        
-        return newMeal
-    }
-    
-    @MainActor
-    func checkIfAlreadyFavoriteUikit(babyMeal: BabyMeal){
-        guard let modelContext = ModelContextManager.modelContainer?.mainContext else {
-            print("Failed to get model context")
-            return
-        }
-        
-        let fetchedBabyMeal = getBabyMealUseCase.execute(modelContext: modelContext, id: babyMeal.id)
-        
-        if fetchedBabyMeal == nil {
-            self.isFavorited = false
-        }
-        else {
-            self.isFavorited = true
-        }
-    }
-    
-    func callControllerFunction() {
-        print("callControllerFunction")
-        calledInController?()
-    }
     
     func saveMeal(modelContext: ModelContext, babyMeal: BabyMeal) {
         saveBabyMealUseCase.execute(modelContext: modelContext, toSaveBabyMeal: babyMeal)
@@ -101,8 +51,6 @@ class BabyMealDetailViewModel {
         else {
             self.isFavorited = true
         }
-        print("checkIfAlreadyFavorite")
-        calledInController?()
-        isFavoritedDidChange?(self.isFavorited)
+        self.vmd?.isFavoritedDidChange?(self.isFavorited)
     }
 }
