@@ -22,17 +22,16 @@ class BabyMealDetailViewController: UIViewController {
     private let ingredientsHeader = HeaderUIView(icon: UIImage(systemName: "note.text"), title: "Ingredients", color: .label)
     private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "frying.pan"), title: "Cooking Instructions", color: .label)
     
-    private var babyMeal: BabyMeal
-    
     init(babyMeal: BabyMeal) {
         self.viewModel = BabyMealDetailViewModel(
             saveBabyMealUseCase: SaveBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
             deleteBabyMealUseCase: DeleteBabyMealUseCase(repo: BabyMealRepositoryImpl.shared),
             getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
         )
-        self.babyMeal = babyMeal
+        self.viewModel.checkIfAlreadyFavoriteUikit(babyMeal: babyMeal)
+        self.viewModel.babyMeal = self.viewModel.getBabyMeal(babyMeal: babyMeal)
         super.init(nibName: nil, bundle: nil)
-        self.title = babyMeal.name
+        self.title = self.viewModel.babyMeal.name
     }
     
     required init?(coder: NSCoder) {
@@ -42,7 +41,6 @@ class BabyMealDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .appBackground
-        self.babyMeal = viewModel.getBabyMeal(babyMeal: babyMeal)
         setupUI()
     }
     
@@ -62,13 +60,26 @@ class BabyMealDetailViewController: UIViewController {
         setupCookingInstructionsHeader()
         setupCookingInstructionsLabel()
         setupButtons()
+        setupBinds()
+    }
+    
+    private func setupBinds() {
+        viewModel.babyMealDidChange = { newValue in
+            print("isFavorited changed to: \(newValue)")
+            // Perform any necessary updates
+        }
+        
+        viewModel.isFavoritedDidChange = { newValue in
+            print("isFavorited changed to: \(newValue)")
+            // Perform any necessary updates
+        }
     }
     
     private func setupReactionsView() {
         if !areReactionsEmpty() {
             contentView.addSubview(reactionsView)
             reactionsView.translatesAutoresizingMaskIntoConstraints = false
-            reactionsView.setReactions(babyMeal.reactionList)
+            reactionsView.setReactions(self.viewModel.babyMeal.reactionList)
             
             NSLayoutConstraint.activate([
                 reactionsView.topAnchor.constraint(equalTo: allergensView.bottomAnchor, constant: 16),
@@ -79,7 +90,7 @@ class BabyMealDetailViewController: UIViewController {
     }
     
     private func areReactionsEmpty() -> Bool {
-        return babyMeal.reactionList.isEmpty
+        return self.viewModel.babyMeal.reactionList.isEmpty
     }
 
     private func setupScrollView() {
@@ -105,7 +116,7 @@ class BabyMealDetailViewController: UIViewController {
     private func setupEmojiLabel() {
         contentView.addSubview(emojiLabel)
         emojiLabel.translatesAutoresizingMaskIntoConstraints = false
-        emojiLabel.text = babyMeal.emoji
+        emojiLabel.text = self.viewModel.babyMeal.emoji
         
         NSLayoutConstraint.activate([
             emojiLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -118,7 +129,7 @@ class BabyMealDetailViewController: UIViewController {
     private func setupAllergensView() {
         contentView.addSubview(allergensView)
         allergensView.translatesAutoresizingMaskIntoConstraints = false
-        allergensView.setAllergens(babyMeal.allergens)
+        allergensView.setAllergens(self.viewModel.babyMeal.allergens)
         
         setupHorizontalConstraints(for: allergensView, topAnchor: emojiLabel.bottomAnchor, topConstant: 16)
     }
@@ -138,8 +149,8 @@ class BabyMealDetailViewController: UIViewController {
         contentView.addSubview(recipeInfoLabel)
         recipeInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         let recipeInfoItems = [
-            "Serving size: \(babyMeal.servingSize)",
-            "Estimated cooking time: \(babyMeal.estimatedCookingTimeMinutes) mins"
+            "Serving size: \(self.viewModel.babyMeal.servingSize)",
+            "Estimated cooking time: \(self.viewModel.babyMeal.estimatedCookingTimeMinutes) mins"
         ]
         recipeInfoLabel.setItems(recipeInfoItems)
         
@@ -156,7 +167,7 @@ class BabyMealDetailViewController: UIViewController {
     private func setupIngredientsLabel() {
         contentView.addSubview(ingredientsLabel)
         ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
-        ingredientsLabel.setItems(babyMeal.ingredients)
+        ingredientsLabel.setItems(self.viewModel.babyMeal.ingredients)
         
         setupHorizontalConstraints(for: ingredientsLabel, topAnchor: ingredientsHeader.bottomAnchor, topConstant: 8, leadingConstant: 24)
     }
@@ -171,14 +182,14 @@ class BabyMealDetailViewController: UIViewController {
     private func setupCookingInstructionsLabel() {
         contentView.addSubview(cookingInstructionsLabel)
         cookingInstructionsLabel.translatesAutoresizingMaskIntoConstraints = false
-        cookingInstructionsLabel.setItems(babyMeal.cookingSteps.components(separatedBy: "\n"))
+        cookingInstructionsLabel.setItems(self.viewModel.babyMeal.cookingSteps.components(separatedBy: "\n"))
         
         setupHorizontalConstraints(for: cookingInstructionsLabel, topAnchor: cookingInstructionsHeader.bottomAnchor, topConstant: 8, leadingConstant: 24)
     }
     
     private func setupButtons() {
         let saveToCollectionsButton = AnyView(
-            MealDetailSaveToCollectionsButton(babyMeal: babyMeal)
+            MealDetailSaveToCollectionsButton(babyMeal: self.viewModel.babyMeal)
         )
 
         saveToCollectionsHostingController = SwiftUIButtonController(rootView: saveToCollectionsButton)
@@ -189,8 +200,8 @@ class BabyMealDetailViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         if let saveToCollectionsView = saveToCollectionsHostingController?.view {
-            if babyMeal.isAddedToCollections {
-                let logReactionButton = AnyView(LogReactionButton(babyMeal: babyMeal))
+            if viewModel.isFavorited {
+                let logReactionButton = AnyView(LogReactionButton(babyMeal: self.viewModel.babyMeal).background(.clear.opacity(0)))
                 logReactionHostingController = SwiftUIButtonController(rootView: logReactionButton)
                 
                 if let logReactionView = logReactionHostingController?.view {
