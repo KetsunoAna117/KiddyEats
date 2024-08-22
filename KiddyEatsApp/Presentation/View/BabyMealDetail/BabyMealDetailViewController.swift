@@ -62,12 +62,6 @@ class BabyMealDetailViewController: UIViewController {
         view.backgroundColor = .appBackground
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupUI()
-        updateButtonsBasedOnFavoritedStatus()
-    }
-    
     private func setupUI() {
         setupScrollView()
         setupEmojiLabel()
@@ -93,11 +87,6 @@ class BabyMealDetailViewController: UIViewController {
             }
             self.reactionsView.setReactions(updatedReaction)
         }
-        
-//        babyMealVmd.babyMealDidChange = { [weak self] updatedBabyMeal in
-//            guard let self = self else { return }
-//            self.reactionsView.setReactions(updatedBabyMeal.reactionList)
-//        }
         
         babyMealVmd.isFavoritedDidChange = { [weak self] isFavorited in
             guard let self = self else { return }
