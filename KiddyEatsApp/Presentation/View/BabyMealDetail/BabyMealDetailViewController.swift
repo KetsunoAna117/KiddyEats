@@ -23,7 +23,6 @@ class BabyMealDetailViewController: UIViewController {
     private let cookingInstructionsHeader = HeaderUIView(icon: UIImage(systemName: "frying.pan"), title: "Cooking Instructions", color: .label)
     
     private var babyMeal: BabyMeal
-    private var reactions: [String]
     
     init(babyMeal: BabyMeal) {
         self.viewModel = BabyMealDetailViewModel(
@@ -32,7 +31,6 @@ class BabyMealDetailViewController: UIViewController {
             getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
         )
         self.babyMeal = babyMeal
-        self.reactions = []
         super.init(nibName: nil, bundle: nil)
         self.title = babyMeal.name
     }
@@ -44,7 +42,12 @@ class BabyMealDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .appBackground
+        self.babyMeal = viewModel.getBabyMeal(babyMeal: babyMeal)
         setupUI()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     private func setupUI() {

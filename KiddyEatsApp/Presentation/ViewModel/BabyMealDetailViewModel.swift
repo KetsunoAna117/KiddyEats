@@ -8,7 +8,8 @@
 import Foundation
 import SwiftData
 
-@Observable class BabyMealDetailViewModel {
+@Observable
+class BabyMealDetailViewModel {
     var isFavorited: Bool = false
     
     // Use Case
@@ -24,6 +25,21 @@ import SwiftData
         self.saveBabyMealUseCase = saveBabyMealUseCase
         self.deleteBabyMealUseCase = deleteBabyMealUseCase
         self.getBabyMealUseCase = getBabyMealUseCase
+    }
+    
+    @MainActor
+    func getBabyMeal(babyMeal: BabyMeal) -> BabyMeal {
+        guard let modelContext = ModelContextManager.modelContainer?.mainContext else {
+            print("Failed to get model context")
+            return babyMeal
+        }
+        
+        guard let newMeal = getBabyMealUseCase.execute(modelContext: modelContext, id: babyMeal.id) else {
+            print("Failed to fetch updated meal with id: \(babyMeal.id)")
+            return babyMeal
+        }
+        
+        return newMeal
     }
     
     func saveMeal(modelContext: ModelContext, babyMeal: BabyMeal) {
