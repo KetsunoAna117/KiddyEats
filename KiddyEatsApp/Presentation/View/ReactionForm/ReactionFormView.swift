@@ -14,7 +14,8 @@ struct ReactionFormView: View {
     let totalPages: Int = 2
     @State var vm = ReactionLoggerViewModel(
         updateReactionUseCase: UpdateBabyMealReactionUseCase(repo: BabyMealRepositoryImpl.shared),
-        getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared)
+        getBabyMealUseCase: GetBabymealUseCase(repo: BabyMealRepositoryImpl.shared),
+        updateAllergenUseCase: UpdateBabyAllergenData(repo: BabyProfileRepositoryImpl.shared)
     )
     
     @State private var currentTab: Int = 1
@@ -131,6 +132,7 @@ struct ReactionFormView: View {
             
         }
         else {
+            vm.checkReaction(modelContext: modelContext, babyMealID: babyMeal.id)
             dismiss()
             UIScrollView.appearance().isScrollEnabled = true
         }

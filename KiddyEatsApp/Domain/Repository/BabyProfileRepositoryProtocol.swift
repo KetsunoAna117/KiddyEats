@@ -13,4 +13,5 @@ protocol BabyProfileRepositoryProtocol {
     func createBabyProfile(modelContext: ModelContext, babyProfile: BabyProfileSchema)
 	// TODO: Add update baby profile method swiftdata
 	func updateBabyProfile(modelContext: ModelContext, toUpdateBabyProfile: BabyProfileSchema)
+    func updateBabyAllergies(modelContext: ModelContext, toUpdateAllergies: [String])
 }
