@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ReactionFormView: View {
     @Environment(\.modelContext) var modelContext
+    @Environment(\.dismiss) private var dismiss
     
     let totalPages: Int = 2
     @State private var currentTab: Int = 1
@@ -96,7 +97,7 @@ struct ReactionFormView: View {
         }
         else {
             vm.updateBabyMealReaction(modelContext: modelContext)
-#warning("End of form logic hasn't been implemented")
+            dismiss()
         }
     }
     
