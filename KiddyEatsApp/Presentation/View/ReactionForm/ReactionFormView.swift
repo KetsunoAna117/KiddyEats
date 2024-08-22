@@ -132,6 +132,7 @@ struct ReactionFormView: View {
             
         }
         else {
+            vm.checkReaction(modelContext: modelContext, babyMealID: babyMeal.id)
             dismiss()
             UIScrollView.appearance().isScrollEnabled = true
         }
