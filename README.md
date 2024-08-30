@@ -48,9 +48,9 @@ To install and run this app on your iphone, follow these steps:
 
 ## Authors
 
-- [@ KetsunoAna117](https://www.github.com/KetsunoAna117) as Tech Lead (Map the Clean architecture, Create Onboarding page, Reaction Logger page, and Edit Baby Profile page)
-- [@ aryadytm ](https://github.com/aryadytm) as Tech (Implementing Gemini API to the project to get weaning food recommendation, Create Explore page and Creating the Weaing Food Details page)
-- [@ Xigtus](https://github.com/Xigtus) as Tech (Create the Collections page and filter recipe system)
+- [@KetsunoAna117](https://www.github.com/KetsunoAna117) as Tech Lead (Map the Clean architecture, Create Onboarding page, Reaction Logger page, and Edit Baby Profile page)
+- [@aryadytm ](https://github.com/aryadytm) as Tech (Implementing Gemini API to the project to get weaning food recommendation, Create Explore page and Creating the Weaing Food Details page)
+- [@Xigtus](https://github.com/Xigtus) as Tech (Create the Collections page and filter recipe system)
 - [Medeline Agustine](https://www.linkedin.com/in/delineagustine/) as the Product Manager of KiddyEats
 - Aghnia as KiddyEats UI/UX Designer
 
